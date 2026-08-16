@@ -430,6 +430,7 @@ result = {
     },
     "quality": {
         "schema_valid": schema_valid,
+        "awaiting_approval": True,          # HITL: инструктаж/наблюдения (ADR-006)
         "sources_read": [
             "outputs/07.007/block-C/C-01.7-maturity-assessment.yaml",
             "outputs/07.007/block-C/C-03.7-implementation-plan.yaml",
@@ -445,6 +446,40 @@ write_ok = write_yaml(output_path, result)
 if not write_ok:
     print("  [ERROR] failed to write system audit report")
     os._exit(1)
+
+# ── HITL: approval-request (ADR-006) — ТД «Инструктаж участников» / ─
+# «Проведение наблюдений»: план инструктажа/наблюдений на утверждение
+# User_Operator. Классы решений — без выдуманных имён/дат.
+approval_path = output_path.replace(".yaml", "-approval-request.yaml")
+approval_request = {
+    "approval_request": {
+        "request_id": "APR-01",
+        "tf_code": "С/04.7",
+        "source_td": "Проведение инструктажа участников аудита и проведение наблюдений в ходе аудита системы процессного управления",
+        "question": "Утверждение плана инструктажа участников аудита и проведения наблюдений (User_Operator)",
+        "options": [
+            {
+                "option_id": "OPT-A",
+                "label": "Провести инструктаж и наблюдения в полном объёме",
+                "description": "Все участники аудита по audit_scope из C-04.7-system-audit.yaml проходят инструктаж; наблюдения — по всем контрольным точкам",
+            },
+            {
+                "option_id": "OPT-B",
+                "label": "Ограниченный объём",
+                "description": "Инструктаж только ключевых участников; наблюдения — по критичным критериям audit_criteria",
+            },
+            {
+                "option_id": "OPT-C",
+                "label": "Отложить наблюдения",
+                "description": "Инструктаж провести; проведение наблюдений — отдельной фазой после устранения выявленных отклонений",
+            },
+        ],
+        "context_ref": "outputs/07.007/block-C/C-04.7-system-audit.yaml (audit_scope, audit_criteria)",
+        "deadline": None,
+    }
+}
+write_yaml(approval_path, approval_request)
+print(f"  HITL: approval-request written: {approval_path}")
 
 # ── Шаг 5: Отчёт ───────────────────────────────────────────────────
 

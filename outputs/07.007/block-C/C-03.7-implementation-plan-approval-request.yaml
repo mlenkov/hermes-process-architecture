@@ -1,0 +1,22 @@
+approval_request:
+  request_id: APR-01
+  tf_code: С/03.7
+  source_td: Выбор программного обеспечения для управления процессами или административными
+    регламентами
+  question: Выбор класса программного обеспечения для управления процессами (BPMS
+    / workflow engine)
+  options:
+  - option_id: OPT-A
+    label: Расширить текущий стек (graphify + kanban)
+    description: Граф знаний graphify — существующий инструмент, расширение под блок
+      C (RES-02)
+  - option_id: OPT-B
+    label: Класс BPMS / workflow engine
+    description: Инструмент управления процессами для исполняемых кросс-функциональных
+      процессов (RES-01)
+  - option_id: OPT-C
+    label: 'Гибрид: BPMS + граф знаний'
+    description: 'Комбинация RES-01 (BPMS) и RES-02 (graphify): исполняемые процессы
+      + семантический граф'
+  context_ref: outputs/07.007/block-C/C-02.7-architecture-roadmap.yaml (resource_requirements)
+  deadline: null

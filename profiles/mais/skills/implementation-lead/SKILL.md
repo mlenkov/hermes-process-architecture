@@ -385,6 +385,7 @@ result = {
     },
     "quality": {
         "schema_valid": schema_valid,
+        "awaiting_approval": True,          # HITL: выбор ПО (ADR-006)
         "sources_read": [
             "outputs/07.007/block-C/C-02.7-architecture-roadmap.yaml",
             "outputs/07.007/block-D/labor-function-to-skill-mapping.yaml",
@@ -398,6 +399,42 @@ write_ok = write_yaml(output_path, result)
 if not write_ok:
     print("  [ERROR] failed to write implementation plan")
     os._exit(1)
+
+# ── HITL: approval-request (ADR-006) — ТД «Выбор ПО» ────────────────
+# Классы решений — из resource_requirements roadmap (RES-01/RES-02/RES-03),
+# БЕЗ названий вендоров.
+approval_path = output_path.replace(".yaml", "-approval-request.yaml")
+
+res_map = {r.get("resource_id"): r.get("requirement", "") for r in roadmap_resources}
+approval_request = {
+    "approval_request": {
+        "request_id": "APR-01",
+        "tf_code": "С/03.7",
+        "source_td": "Выбор программного обеспечения для управления процессами или административными регламентами",
+        "question": "Выбор класса программного обеспечения для управления процессами (BPMS / workflow engine)",
+        "options": [
+            {
+                "option_id": "OPT-A",
+                "label": "Расширить текущий стек (graphify + kanban)",
+                "description": res_map.get("RES-02", "Граф знаний graphify — существующий инструмент, расширение под блок C") + " (RES-02)",
+            },
+            {
+                "option_id": "OPT-B",
+                "label": "Класс BPMS / workflow engine",
+                "description": res_map.get("RES-01", "Инструмент управления процессами для исполняемых кросс-функциональных процессов") + " (RES-01)",
+            },
+            {
+                "option_id": "OPT-C",
+                "label": "Гибрид: BPMS + граф знаний",
+                "description": "Комбинация RES-01 (BPMS) и RES-02 (graphify): исполняемые процессы + семантический граф",
+            },
+        ],
+        "context_ref": "outputs/07.007/block-C/C-02.7-architecture-roadmap.yaml (resource_requirements)",
+        "deadline": None,
+    }
+}
+write_yaml(approval_path, approval_request)
+print(f"  HITL: approval-request written: {approval_path}")
 
 # ── Шаг 5: Отчёт ───────────────────────────────────────────────────
 

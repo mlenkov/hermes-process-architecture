@@ -3,7 +3,7 @@ meta:
   tf: С/04.7
   la: la-001
   generated_by: system-auditor
-  timestamp: '2026-08-16T19:06:37Z'
+  timestamp: '2026-08-16T20:08:56Z'
   schema_ref: system-audit-schema.yaml v1.0.0
 body:
   audit_scope:
@@ -92,10 +92,9 @@ body:
     (User_Operator) — нет автоматизированного механизма
   - Runtime-логи исполнения (фактическое выполнение ТД, latency) не аудируются — нет
     runtime-мониторинга в архитектуре
-  - Экономическая и функциональная эффективность системы управления не измеряется
-    (из C-01.7)
 quality:
   schema_valid: true
+  awaiting_approval: true
   sources_read:
   - outputs/07.007/block-C/C-01.7-maturity-assessment.yaml
   - outputs/07.007/block-C/C-03.7-implementation-plan.yaml

@@ -3,7 +3,7 @@ meta:
   tf: С/03.7
   la: la-008
   generated_by: implementation-lead
-  timestamp: '2026-08-16T19:08:48Z'
+  timestamp: '2026-08-16T20:09:42Z'
   schema_ref: implementation-plan-schema.yaml v1.0.0
 body:
   project_charter:
@@ -158,6 +158,7 @@ body:
   - Названия конкретного ПО и вендоров не указаны — выбор требует участия User_Operator
 quality:
   schema_valid: false
+  awaiting_approval: true
   sources_read:
   - outputs/07.007/block-C/C-02.7-architecture-roadmap.yaml
   - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml

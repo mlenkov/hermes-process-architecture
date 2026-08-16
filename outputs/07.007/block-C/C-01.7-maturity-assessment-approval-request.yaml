@@ -1,0 +1,23 @@
+approval_request:
+  request_id: APR-01
+  tf_code: С/01.7
+  source_td: Согласование целей оценки системы процессного управления и определение
+    целевых показателей
+  question: Согласование целевых показателей зрелости системы процессного управления
+    (User_Operator)
+  options:
+  - option_id: OPT-A
+    label: 'managed: coverage >= 80% по всем ТФ'
+    description: 'Целевой уровень зрелости managed: доля covered/partially_covered
+      ТФ в labor-coverage-registry.yaml >= 80% (R-10)'
+  - option_id: OPT-B
+    label: 'optimizing: D-блок >= 50%'
+    description: 'Целевой уровень optimizing: покрытие ТФ блока D (архитектура) >=
+      50% (R-10)'
+  - option_id: OPT-C
+    label: Оба показателя (managed >= 80% + optimizing >= 50% D)
+    description: 'Комбинированная цель: общий managed >= 80% и архитектурный D-блок
+      >= 50%'
+  context_ref: 'outputs/07.007/block-C/C-01.7-maturity-assessment.yaml (recommendations:
+    R-10)'
+  deadline: null

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Execute TF→TD pipeline: claim, generate output, complete."""
-import json, os, re, subprocess, sys, yaml
+import json, os, re, subprocess, sys, yaml, urllib.request
 from pathlib import Path
 
 ARCH_ROOT = Path(__file__).resolve().parent.parent
@@ -217,6 +217,13 @@ def update_registry(body, skill_path, artifact_files):
         # Уже синхронизирован — ничего не трогаем (Шаг 0 уже пропустил)
         return False
 
+    # ADR-007: ТФ в documented_gaps не получает фиктивную запись от
+    # generic-исполнения (0/0 ТД). Запись появится только после реального
+    # исполнения навыком с кодом (## Process).
+    if key in (registry.get("documented_gaps") or {}):
+        print(f"  [WARN] {key}: documented gap — фиктивная запись не создаётся (ADR-007)")
+        return False
+
     if entry is None:
         entry = registry[key] = {}
 
@@ -245,6 +252,80 @@ def generic_output(body):
         oid = os.path.basename(fpath).replace(".yaml", "")
         with open(fpath, "w", encoding="utf-8") as f:
             yaml.dump({"id": oid, "status": "generated", "source": "generic"}, f, allow_unicode=True)
+
+
+# ── Webhooks (ADR-009) ────────────────────────────────────────────────
+
+def load_webhook_url() -> str:
+    """Прочитать webhook_url из config.yaml (корень проекта).
+
+    Отсутствие/пустое значение → "" (отправка пропускается; система
+    остаётся работоспособной в polling-режиме).
+    """
+    cfg_path = ARCH_ROOT / "config.yaml"
+    if not cfg_path.exists():
+        return ""
+    try:
+        data = yaml.safe_load(open(cfg_path, encoding="utf-8")) or {}
+        url = data.get("webhook_url", "")
+        return str(url).strip() if url else ""
+    except Exception as e:
+        print(f"  [WARN] config.yaml webhook_url read error: {e}")
+        return ""
+
+
+def _webhook_payload(event: str, body: dict, artifact: str,
+                     schema_valid: bool, awaiting_approval: bool) -> dict:
+    import datetime
+    tf = (body.get("parent_tf") or "").replace("LF-07.007-", "")
+    return {
+        "event": event,
+        "timestamp": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "tf_code": tf,
+        "skill": body.get("skill", ""),
+        "artifact": artifact,
+        "schema_valid": schema_valid,
+        "awaiting_approval": awaiting_approval,
+    }
+
+
+def send_webhook(event: str, body: dict, artifact: str = "",
+                 schema_valid: bool = False, awaiting_approval: bool = False):
+    """Отправить webhook (ADR-009).
+
+    Транспорт: HTTP POST JSON через urllib, timeout 5 c.
+    webhook_url отсутствует → пропуск (не ошибка).
+    Недоступность endpoint → [WARN] в лог, НЕ прерывает исполнение.
+    """
+    url = load_webhook_url()
+    if not url:
+        return False
+
+    payload = _webhook_payload(event, body, artifact, schema_valid, awaiting_approval)
+    data = json.dumps(payload).encode("utf-8")
+    req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"}, method="POST")
+    try:
+        with urllib.request.urlopen(req, timeout=5) as resp:
+            if 200 <= resp.status < 300:
+                print(f"  [WEBHOOK] {event} → {url} (HTTP {resp.status})")
+                return True
+            print(f"  [WARN] webhook {event}: HTTP {resp.status}")
+            return False
+    except Exception as e:
+        print(f"  [WARN] webhook {event} failed: {e} — pipeline продолжается")
+        return False
+
+
+def read_artifact_quality(artifact_path: str) -> tuple:
+    """(schema_valid, awaiting_approval) из quality артефакта (безопасно)."""
+    if not artifact_path or not os.path.exists(artifact_path):
+        return False, False
+    try:
+        data = yaml.safe_load(open(artifact_path, encoding="utf-8")) or {}
+        q = data.get("quality", {}) if isinstance(data, dict) else {}
+        return bool(q.get("schema_valid")), bool(q.get("awaiting_approval"))
+    except Exception:
+        return False, False
 
 
 def execute():
@@ -320,15 +401,30 @@ def execute():
                     print(f"  Registry updated: {body.get('parent_tf')} → covered")
                 else:
                     print("  Registry already up to date (skip path)")
+
+                # ── Webhooks (ADR-009) ──────────────────────────────
+                # Skip-путь Шага 0 (Skipping generation) → событий нет.
+                is_skip = "Skipping generation" in (proc.stdout or "")
+                if not is_skip and produced:
+                    artifact_path = produced[0]
+                    sv, aa = read_artifact_quality(artifact_path)
+                    send_webhook("artifact.generated", body, artifact_path, sv, aa)
+                    if aa:
+                        send_webhook("approval.requested", body, artifact_path, sv, aa)
                 completed_ok = True
             else:
                 print(f"  [ERROR] skill failed, reclaiming {tid}")
                 run_hermes(["reclaim", tid])
+                send_webhook("pipeline.blocked", body,
+                             output_files[0] if output_files else "", False, False)
                 completed_ok = False
         else:
             print(f"  [WARN] no skill found for TF {body.get('parent_tf')}, using generic generator")
             generic_output(body)
             update_registry(body, None, output_files)
+            produced = [f for f in output_files if os.path.exists(f)]
+            if produced:
+                send_webhook("artifact.generated", body, produced[0], False, False)
             completed_ok = True
 
         # ── Complete (если не отклонено) ─────────────────────────────

@@ -270,12 +270,55 @@ meta:
 ```yaml
 quality:
   schema_valid: true
+  awaiting_approval: false        # опционально (ADR-006): true = HITL-точка
   data_sources:
     - docs/standards/07.007/otf-section-4.yaml
     - ../AGENTS.md
 ```
 
 Содержание артефакта — в корневых ключах между `meta` и `quality` (например `body`, `stakeholders`, `plan`, `methodology`).
+
+### 3.3a Human-in-the-Loop (HITL, ADR-006)
+
+Если ТД профстандарта требует решения человека (User_Operator), навык:
+
+1. **НЕ выдумывает решение** — никаких вымышленных имён, дат, вендоров, бюджетов.
+2. Пишет файл-запрос `approval-request` **рядом с основным артефактом**.
+3. Ставит `quality.awaiting_approval: true` в основном артефакте.
+4. Завершается успешно (pipeline не блокируется) — решение приходит позже.
+
+Если HITL не требуется — поле `awaiting_approval` отсутствует или `false`.
+
+**Именование approval-request** — производное от `output_files[0]`:
+
+```
+X-XX.X-<artifact>.yaml  →  X-XX.X-<artifact>-approval-request.yaml
+```
+
+Пример: `C-03.7-implementation-plan.yaml` →
+`C-03.7-implementation-plan-approval-request.yaml`.
+
+**Шаблон approval-request** (из ADR-006):
+
+```yaml
+# approval-request-schema.yaml v1.0.0
+approval_request:
+  request_id: str          # APR-01
+  tf_code: str             # ТФ, в которой требуется решение
+  source_td: str           # ТД профстандарта, требующее HITL
+  question: str            # что именно решает человек
+  options:
+    - option_id: str       # OPT-A
+      label: str
+      description: str
+  context_ref: str         # артефакт/файл с контекстом
+  deadline: null           # при наличии ТД — строка ISO; иначе null
+```
+
+**Правило формирования options:** варианты — это **классы решений**, извлечённые из
+реальных артефактов (например, `resource_requirements` roadmap: RES-01/RES-02),
+**БЕЗ названий вендоров** (никаких «внедрить MS Dynamics» — только класс решения,
+например «расширить текущий стек graphify+kanban»).
 
 ### 3.4 Директории
 

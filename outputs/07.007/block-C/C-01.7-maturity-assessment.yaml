@@ -3,7 +3,7 @@ meta:
   tf: С/01.7
   la: la-001
   generated_by: maturity-assessor
-  timestamp: '2026-08-16T19:06:30Z'
+  timestamp: '2026-08-16T20:10:39Z'
   schema_ref: maturity-assessment-schema.yaml v1.0.0
 body:
   maturity_model:
@@ -173,6 +173,7 @@ body:
     — данных нет в registry
 quality:
   schema_valid: true
+  awaiting_approval: true
   sources_read:
   - outputs/07.007/labor-coverage-registry.yaml
   - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml
