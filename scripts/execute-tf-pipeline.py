@@ -328,6 +328,34 @@ def read_artifact_quality(artifact_path: str) -> tuple:
         return False, False
 
 
+def dependencies_ready(body: dict) -> tuple:
+    """Проверить depends_on_artifacts: все ли существуют и schema_valid == true.
+
+    Возвращает (ready: bool, missing: list[str]).
+    Пустой depends_on_artifacts → (True, []).
+
+    Справочники (labor-coverage-registry.yaml, labor-function-to-skill-mapping.yaml)
+    не имеют quality-блока — для них требуется ТОЛЬКО существование.
+    schema_valid требуется для генерируемых артефактов (outputs/07.007/block-*).
+    """
+    REFERENCE_FILES = {"labor-coverage-registry.yaml",
+                       "labor-function-to-skill-mapping.yaml"}
+    deps = body.get("depends_on_artifacts") or []
+    missing = []
+    for rel in deps:
+        p = ARCH_ROOT / rel if not os.path.isabs(rel) else Path(rel)
+        base = os.path.basename(rel)
+        if not p.exists():
+            missing.append(f"{rel} (нет файла)")
+            continue
+        if base in REFERENCE_FILES:
+            continue  # справочник существует — достаточно
+        sv, _ = read_artifact_quality(str(p))
+        if not sv:
+            missing.append(f"{rel} (schema_valid != true)")
+    return (len(missing) == 0), missing
+
+
 def execute():
     # Get all ready tasks
     r = run_hermes(["list", "--status", "ready", "--json"])
@@ -336,6 +364,7 @@ def execute():
         return
 
     tasks = json.loads(r.stdout.strip()) if r.stdout.strip() else []
+    waiting = 0
 
     if not tasks:
         print("No ready tasks.")
@@ -345,6 +374,19 @@ def execute():
         tid = t["id"]
         title = t.get("title", "?")
 
+        # ── Dependency gate (до claim): задача не становится ready, пока все
+        # depends_on_artifacts не существуют и schema_valid == true (ADR: dependency-aware).
+        body = get_task_body(tid)
+        if not body:
+            print(f"  [WARN] {tid}: no body (пропуск, не claim)")
+            continue
+
+        deps_ok, missing = dependencies_ready(body)
+        if not deps_ok:
+            waiting += 1
+            print(f"  [WAIT] {tid}: {title[:50]} — ждёт артефакты: {missing}")
+            continue
+
         # Claim
         claim = run_hermes(["claim", tid])
         if claim.returncode != 0:
@@ -352,13 +394,6 @@ def execute():
             continue
 
         print(f"\n▶ {tid}: {title[:60]}")
-
-        # Get body
-        body = get_task_body(tid)
-        if not body:
-            print(f"  [ERROR] no body found, reclaiming")
-            run_hermes(["reclaim", tid])
-            continue
 
         la_id = body.get("la_id", "?")
         inputs = body.get("inputs", [])
@@ -435,7 +470,10 @@ def execute():
         else:
             print(f"  [ERROR] complete failed: {complete.stderr.strip()}")
 
-    print(f"\nDone. Check kanban for next batch.")
+    if waiting:
+        print(f"\n  Waiting for artifacts: {waiting} task(s) — dependencies not satisfied, will retry on next run.")
+    else:
+        print(f"\nDone. Check kanban for next batch.")
 
 if __name__ == "__main__":
     execute()

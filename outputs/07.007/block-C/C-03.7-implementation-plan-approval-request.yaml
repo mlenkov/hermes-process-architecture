@@ -8,12 +8,12 @@ approval_request:
   options:
   - option_id: OPT-A
     label: Расширить текущий стек (graphify + kanban)
-    description: Граф знаний graphify — существующий инструмент, расширение под блок
-      C (RES-02)
+    description: Граф знаний для моделей процессов (graphify) — существующий инструмент,
+      расширение под блок C (RES-02)
   - option_id: OPT-B
     label: Класс BPMS / workflow engine
-    description: Инструмент управления процессами для исполняемых кросс-функциональных
-      процессов (RES-01)
+    description: Инструмент управления процессами для построения исполняемых кросс-функциональных
+      процессов (BPMS / workflow engine) (RES-01)
   - option_id: OPT-C
     label: 'Гибрид: BPMS + граф знаний'
     description: 'Комбинация RES-01 (BPMS) и RES-02 (graphify): исполняемые процессы

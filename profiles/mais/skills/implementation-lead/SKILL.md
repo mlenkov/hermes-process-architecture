@@ -165,6 +165,17 @@ if not td_s037:
 ph01 = next((p for p in roadmap_phases if p.get("phase_id") == "PH-01"), {})
 ph01_objectives = ph01.get("objectives", [])
 
+# ADR: каскад PH-01 — если PH-01 отсутствует или objectives пусты (missing=0),
+# charter.objectives берутся из success_criteria roadmap; честный
+# data_gap фиксируется ниже.
+if not ph01_objectives:
+    fallback_objs = []
+    sc = ph01.get("success_criteria", "") or next(
+        (p.get("success_criteria", "") for p in roadmap_phases if p.get("success_criteria")), "")
+    if sc:
+        fallback_objs.append(sc)
+    ph01_objectives = fallback_objs or ["Внедрение системы процессного управления (PH-01 roadmap)"]
+
 project_charter = {
     "charter_id": "PC-01",
     "project_name": "Внедрение системы процессного управления",
@@ -341,6 +352,8 @@ if not td_s037:
     data_gaps.append("ТД С/03.7 не найдено в otf-section-3.yaml")
 if not ph01:
     data_gaps.append("Фаза PH-01 не найдена в roadmap — цели устава не определены")
+elif not ph01.get("objectives"):
+    data_gaps.append("PH-01 завершена: missing-навыков нет (0) — цели взяты из success_criteria roadmap")
 data_gaps.append("Конкретные бюджеты и сроки (дни/часы) внедрения не определены")
 data_gaps.append("Названия конкретного ПО и вендоров не указаны — выбор требует участия User_Operator")
 

@@ -3,7 +3,7 @@ meta:
   tf: С/04.7
   la: la-001
   generated_by: system-auditor
-  timestamp: '2026-08-16T20:08:56Z'
+  timestamp: '2026-08-16T20:31:50Z'
   schema_ref: system-audit-schema.yaml v1.0.0
 body:
   audit_scope:
@@ -53,10 +53,12 @@ body:
     evidence: C-01.7-maturity-assessment.yaml (current_state) + labor-coverage-registry.yaml
   - finding_id: FD-02
     check: implementation_plan
-    status: non_compliant
-    finding: 'C-03.7-implementation-plan.yaml не соответствует ожиданиям: schema_valid=false'
+    status: ok
+    finding: 'C-03.7-implementation-plan.yaml корректен: 8 фаз PH-01..08, 8 записей
+      resource_allocation, schema_valid=true. Фазы инструктажа (PH-06/07) отмечены
+      human-in-the-loop, оценка (PH-08) — mais/pdca-reporter.'
     evidence: C-03.7-implementation-plan.yaml (implementation_phases, resource_allocation,
-      quality)
+      quality.schema_valid)
   - finding_id: FD-03
     check: mapping
     status: ok
@@ -71,11 +73,6 @@ body:
       навыков.'
     evidence: labor-coverage-registry.yaml (LF-07.007-С/03.7)
   recommendations:
-  - recommendation_id: R-04
-    basis: FD-02
-    recommendation: Привести C-03.7-implementation-plan.yaml к 8 фазам и 8 resource_allocation
-    source_td: Анализ документов и данных, полученных в ходе аудита системы процессного
-      управления организации
   - recommendation_id: R-05
     basis: ТД С/04.7
     recommendation: Инструктаж участников аудита и проведение наблюдений — через задачи
@@ -92,6 +89,8 @@ body:
     (User_Operator) — нет автоматизированного механизма
   - Runtime-логи исполнения (фактическое выполнение ТД, latency) не аудируются — нет
     runtime-мониторинга в архитектуре
+  - Экономическая и функциональная эффективность системы управления не измеряется
+    (из C-01.7)
 quality:
   schema_valid: true
   awaiting_approval: true

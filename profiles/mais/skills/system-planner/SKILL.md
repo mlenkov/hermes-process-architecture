@@ -170,7 +170,13 @@ phase_plan = [
         "phase_id": "PH-01",
         "phase_name": "Закрытие missing-навыков",
         "timeframe": "1 месяц",
-        "objectives": [f"Создать навык для {g['tf_code']} ({g['tf_name']})" for g in missing_gaps],
+        # ADR: каскад PH-01 — при missing_skill=0 фаза НЕ выбрасывается:
+        # остаётся со status: completed и честными objectives (0 закрыто).
+        "status": "completed" if not missing_gaps else "planned",
+        "objectives": (
+            [f"Создать навык для {g['tf_code']} ({g['tf_name']})" for g in missing_gaps]
+            if missing_gaps else ["missing-навыки закрыты (0)"]
+        ),
         "success_criteria": f"Все missing_skill ({len(missing_gaps)}) закрыты навыками",
     },
     {
@@ -191,7 +197,8 @@ phase_plan = [
 
 roadmap_phases = []
 for p in phase_plan:
-    if p["objectives"]:
+    # PH-01 включается всегда (даже при пустых objectives — каскад); PH-02/03 — только при наличии целей
+    if p["phase_id"] == "PH-01" or p["objectives"]:
         roadmap_phases.append(p)
 
 print(f"  Roadmap phases: {len(roadmap_phases)}")

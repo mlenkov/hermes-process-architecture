@@ -3,7 +3,7 @@ meta:
   tf: С/01.7
   la: la-001
   generated_by: maturity-assessor
-  timestamp: '2026-08-16T20:10:39Z'
+  timestamp: '2026-08-16T20:31:43Z'
   schema_ref: maturity-assessment-schema.yaml v1.0.0
 body:
   maturity_model:

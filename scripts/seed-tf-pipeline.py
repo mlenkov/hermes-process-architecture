@@ -16,6 +16,7 @@ Usage:
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -100,6 +101,45 @@ def resolve_artifact(tf_code: str, registry_data: dict) -> str:
     entry = registry_data.get(f"LF-07.007-{tf_code}", {})
     artifacts = entry.get("artifacts_generated", [])
     return artifacts[0] if artifacts else ""
+
+
+def extract_icom_artifacts(skill_full_path: str) -> list:
+    """Извлечь зависимости ТФ из секции ## ICOM Inputs SKILL.md (ADR: dependency-aware).
+
+    Возвращает пути артефактов ПОД outputs/07.007/ (то, что должно существовать
+    и быть валидным ДО исполнения ТФ). Относительные пути вида
+    'block-C/C-01.7-maturity-assessment.yaml' нормализуются к outputs/07.007/<path>.
+    Пути вне outputs (docs/, profiles/, ../, otf-*) игнорируются.
+    """
+    if not skill_full_path or not os.path.exists(skill_full_path):
+        return []
+    try:
+        text = Path(skill_full_path).read_text(encoding="utf-8")
+    except OSError:
+        return []
+    m = re.search(r"## ICOM(.*?)(## Rules|## Thinking|## Process)", text, re.S)
+    if not m:
+        return []
+    icom = m.group(1)
+    im = re.search(r"\*\*Inputs:\*\*(.*?)(\*\*Outputs:\*\*|$)", icom, re.S)
+    if not im:
+        return []
+    out = []
+    for line in im.group(1).splitlines():
+        s = line.strip()
+        mm = re.match(r"^-? ?`([^`]+)`", s)
+        if not mm:
+            continue
+        p = mm.group(1).strip()
+        norm = None
+        if p.startswith("outputs/07.007/"):
+            norm = p
+        elif p.startswith(("block-A/", "block-B/", "block-C/", "block-D/",
+                           "labor-coverage-registry.yaml", "monitor/", "pdca-reports/")):
+            norm = f"outputs/07.007/{p}"
+        if norm and norm not in out:
+            out.append(norm)
+    return out
 
 
 def load_yaml_safe(path: Path):
@@ -280,6 +320,14 @@ def build_pipeline(tf: dict, dry_run: bool = False) -> dict:
     skill_name, skill_full_path = resolve_skill(tf_code, registry_data, mapping)
     artifact_path = resolve_artifact(tf_code, registry_data)
 
+    # ── Dependency-aware readiness (ADR: ICOM Inputs → depends_on_artifacts) ──
+    # Артефакты под outputs/07.007/, которые ДОЛЖНЫ существовать и быть валидными
+    # до исполнения ТФ. Кладётся в body каждой TD-задачи — executor не сделает
+    # задачу ready, пока все зависимости не выполнены.
+    depends_on_artifacts = extract_icom_artifacts(skill_full_path)
+    if depends_on_artifacts:
+        print(f"  Depends on artifacts: {len(depends_on_artifacts)}")
+
     exec_actions = execution.get("actions", [])
     if exec_actions:
         action_skills = [
@@ -350,6 +398,7 @@ def build_pipeline(tf: dict, dry_run: bool = False) -> dict:
             "outputs": td_out_ids,
             "skill_path": skill_full_path,
             "skill": skill_name,
+            "depends_on_artifacts": depends_on_artifacts,
         }
 
         # Labor action entry for TF-level body
@@ -381,6 +430,7 @@ def build_pipeline(tf: dict, dry_run: bool = False) -> dict:
         "output_base": str(output_base),
         "skill_path": skill_full_path,
         "skill": skill_name,
+        "depends_on_artifacts": depends_on_artifacts,
         "labor_actions": labor_actions,
     }
     if tf_inputs:

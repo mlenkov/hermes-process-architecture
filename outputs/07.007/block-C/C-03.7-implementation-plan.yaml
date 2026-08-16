@@ -1,9 +1,9 @@
 meta:
   artifact: C-03.7-implementation-plan
   tf: С/03.7
-  la: la-008
+  la: la-001
   generated_by: implementation-lead
-  timestamp: '2026-08-16T20:09:42Z'
+  timestamp: '2026-08-16T20:31:48Z'
   schema_ref: implementation-plan-schema.yaml v1.0.0
 body:
   project_charter:
@@ -11,8 +11,9 @@ body:
     project_name: Внедрение системы процессного управления
     scope: 'Реализация фазы PH-01 roadmap: закрытие missing-навыков профстандарта
       07.007 (С/03.7) через создание и задействование навыка implementation-lead'
-    objectives: []
-    success_criteria: ''
+    objectives:
+    - missing-навыки закрыты (0)
+    success_criteria: Все missing_skill (0) закрыты навыками
     source_artifact: outputs/07.007/block-C/C-02.7-architecture-roadmap.yaml
   implementation_phases:
   - phase_id: PH-01
@@ -153,11 +154,10 @@ body:
     target: 'schema_valid: true'
     source: артефакт данного навыка
   data_gaps:
-  - Фаза PH-01 не найдена в roadmap — цели устава не определены
   - Конкретные бюджеты и сроки (дни/часы) внедрения не определены
   - Названия конкретного ПО и вендоров не указаны — выбор требует участия User_Operator
 quality:
-  schema_valid: false
+  schema_valid: true
   awaiting_approval: true
   sources_read:
   - outputs/07.007/block-C/C-02.7-architecture-roadmap.yaml
