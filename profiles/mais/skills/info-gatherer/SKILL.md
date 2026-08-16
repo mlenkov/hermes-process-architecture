@@ -185,7 +185,7 @@ if not profiles:
         {"profile_id": "mais", "name": "Айра Корбот", "role": "COO, процессное управление", "standard": "07.007"},
         {"profile_id": "ppc-specialist", "name": "Ян", "role": "PPC Яндекс.Директ", "standard": "06.043"},
         {"profile_id": "copywriter", "name": "Анна Словцова", "role": "Копирайтер", "standard": "06.013"},
-        {"profile_id": "analyst", "name": "Лана", "role": "Аналитик данных", "standard": "06.043+06.046"},
+        {"profile_id": "data-analyst", "name": "Лана", "role": "Аналитик данных", "standard": "06.043+06.046"},
         {"profile_id": "coder", "name": "Вадим Нейман", "role": "Программист, MCP", "standard": "06.001+06.035+06.026"},
         {"profile_id": "marketing", "name": "Маркетолог", "role": "Маркетолог", "standard": "08.035"},
         {"profile_id": "keyword-collector", "name": "Кирилл", "role": "Сбор семантики", "standard": "06.043"},

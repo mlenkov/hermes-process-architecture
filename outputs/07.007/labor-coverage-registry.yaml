@@ -152,9 +152,8 @@ LF-07.007-D/04.7:
   - outputs/07.007/block-D/D-04.7-teams-supported.yaml
   - outputs/07.007/block-D/D-04.7-compliance-report.yaml
   - outputs/07.007/block-D/D-04.7-methodology-updates.yaml
-LF-07.007-С/05.7:
-  executed_by: mais
-  last_executed: '2026-08-16T19:16:30Z'
-  status: covered
-  tds_completed: 0/0
-  skill_path: profiles/mais/skills/architect-selfheal/SKILL.md
+documented_gaps:
+  LF-07.007-С/05.7:
+    skill_path: profiles/mais/skills/architect-selfheal/SKILL.md
+    note: operational gap — навык существует, запись появится после первого реального
+      исполнения

@@ -3,7 +3,7 @@ meta:
   tf: В/04.6
   la: la-004
   generated_by: crossfunction-deployer
-  timestamp: '2026-08-16T19:17:54Z'
+  timestamp: '2026-08-16T19:07:27Z'
   schema_ref: crossfunction-deployment-schema.yaml v1.0.0
 body:
   deployment_phases:

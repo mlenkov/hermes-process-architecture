@@ -107,7 +107,7 @@ if not profiles:
         {"profile_id": "mais", "name": "Айра Корбот", "role": "COO, процессное управление", "standard": "07.007"},
         {"profile_id": "ppc-specialist", "name": "Ян", "role": "PPC Яндекс.Директ", "standard": "06.043"},
         {"profile_id": "copywriter", "name": "Анна Словцова", "role": "Копирайтер", "standard": "06.013"},
-        {"profile_id": "analyst", "name": "Лана", "role": "Аналитик данных", "standard": "06.043+06.046"},
+        {"profile_id": "data-analyst", "name": "Лана", "role": "Аналитик данных", "standard": "06.043+06.046"},
         {"profile_id": "coder", "name": "Вадим Нейман", "role": "Программист, MCP", "standard": "06.001+06.035+06.026"},
         {"profile_id": "marketing", "name": "Маркетолог", "role": "Маркетолог", "standard": "08.035"},
         {"profile_id": "keyword-collector", "name": "Кирилл", "role": "Сбор семантики", "standard": "06.043"},
@@ -142,23 +142,23 @@ if os.path.isdir(ps_dir):
                 "description": m.group(1).strip() if m else ""
             })
 
-# mais-скиллы (ADR-008: единственный исполнитель 07.007)
-mais_skills = []
-mais_skills_dir = os.path.join(HERMES_DIR, "skills", "mais")
-if os.path.isdir(mais_skills_dir):
-    for d in sorted(os.listdir(mais_skills_dir)):
-        skill_md = os.path.join(mais_skills_dir, d, "SKILL.md")
+# Архитектор-скиллы (экспертиза архитектуры — профиль mais, ADR-008)
+architect_skills = []
+arch_skills_dir = os.path.join(HERMES_DIR, "profiles", "mais", "skills")
+if os.path.isdir(arch_skills_dir):
+    for d in sorted(os.listdir(arch_skills_dir)):
+        skill_md = os.path.join(arch_skills_dir, d, "SKILL.md")
         if os.path.isfile(skill_md):
             content = read_file(skill_md)
             m = re.search(r'^description:\s*(.+)$', content, re.MULTILINE)
-            mais_skills.append({
+            architect_skills.append({
                 "skill_id": f"mais/{d}",
                 "description": m.group(1).strip() if m else ""
             })
 
 # td-gen скиллы (собственные навыки генерации)
 tdgen_skills = []
-tdgen_dir = os.path.join(HERMES_DIR, "skills", "mais", "td-gen")
+tdgen_dir = os.path.join(HERMES_DIR, "profiles", "mais", "skills", "td-gen")
 if os.path.isdir(tdgen_dir):
     for d in sorted(os.listdir(tdgen_dir)):
         skill_md = os.path.join(tdgen_dir, d, "SKILL.md")
@@ -170,7 +170,7 @@ if os.path.isdir(tdgen_dir):
                 "description": m.group(1).strip() if m else ""
             })
 
-all_skills = hermes_skills + profstandart_skills + mais_skills + tdgen_skills
+all_skills = hermes_skills + profstandart_skills + architect_skills + tdgen_skills
 
 # ── 4. Извлечь ТФ и ТД из YAML профстандарта ─────────────────────────
 
@@ -226,9 +226,9 @@ coordinators = [p for p in profiles if "coo" in safe_lower(p.get("role"))
                 or "управл" in safe_lower(p.get("role"))
                 or "владел" in safe_lower(p.get("role"))
                 or p.get("profile_id","") in ("mais",)]
-# ADR-008: единственный исполнитель 07.007 — mais (его нет в AGENTS.md-списке профилей)
+# Добавить mais как координатора архитектуры (он есть в системе)
 if not any(p.get("profile_id") == "mais" for p in coordinators):
-    coordinators.append({"profile_id": "mais", "name": "Айра Корбот", "role": "Coordinator"})
+    coordinators.append({"profile_id": "mais", "name": "Хранитель архитектуры", "role": "Coordinator"})
 if not coordinators:
     coordinators = [{"profile_id": "mais", "name": "Айра", "role": "COO"}]
 
@@ -239,7 +239,7 @@ for c in coordinators:
         "name": c.get("name", ""),
         "orchestrates_labor_functions": [lf["code"] for lf in all_labor_functions],
         "pipeline_type": "sequential",
-        "skills": [s["skill_id"] for s in mais_skills]
+        "skills": [s["skill_id"] for s in architect_skills]
     })
 stakeholders.append({
     "type": "Agent_Coordinator",
@@ -261,7 +261,7 @@ for p in performers:
     })
 # Если в AGENTS.md нет перформеров — создать из списка известных
 if not performer_instances:
-    known = ["ppc-specialist", "copywriter", "analyst", "coder", "marketing", "keyword-collector"]
+    known = ["ppc-specialist", "copywriter", "data-analyst", "coder", "marketing", "keyword-collector"]
     for pid in known:
         performer_instances.append({
             "profile_id": pid,

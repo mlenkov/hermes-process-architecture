@@ -235,7 +235,7 @@ for p in profiles:
     elif p.get("profile_id") == "mais":
         roles_responsibilities.append({
             "profile_id": "mais",
-            "name": "Айра Корбот (COO)",
+            "name": "Хранитель архитектуры",
             "role": "Исполнитель регламента",
             "responsibilities": [
                 "Генерация артефактов регламента",

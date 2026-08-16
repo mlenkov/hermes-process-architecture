@@ -439,7 +439,7 @@ body:
   profile_responsibilities:
     - tf_code: str
       tf_name: str
-      profile: str             # mais (ADR-008: единственный исполнитель)
+      profile: str             # профиль из mapping (mais)
       skill: str
       skill_path: str
       responsibilities: list[str]   # ТД из otf-section

@@ -3,7 +3,7 @@ meta:
   tf: В/03.6
   la: la-001
   generated_by: crossfunction-designer
-  timestamp: '2026-08-16T19:16:07Z'
+  timestamp: '2026-08-16T19:06:23Z'
   schema_ref: crossfunction-spec-schema.yaml v1.0.0
 body:
   process_definition:

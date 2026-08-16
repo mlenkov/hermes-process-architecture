@@ -3,7 +3,7 @@ meta:
   tf: С/04.7
   la: la-001
   generated_by: system-auditor
-  timestamp: '2026-08-16T19:16:27Z'
+  timestamp: '2026-08-16T19:06:37Z'
   schema_ref: system-audit-schema.yaml v1.0.0
 body:
   audit_scope:

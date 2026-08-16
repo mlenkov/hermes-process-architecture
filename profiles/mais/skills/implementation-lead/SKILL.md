@@ -207,8 +207,9 @@ print(f"  Implementation phases: {len(implementation_phases)}")
 # ── resource_allocation: профили/навыки из mapping ─────────────────
 
 # Карта ТФ → (профиль, навык) из registry-информации в mapping-записях
-# Для каждой фазы определяем исполнителя: профиль mais (ADR-008),
-# навык — по skill_path соответствующей ТФ в mapping
+# Для каждой фазы определяем исполнителя: профиль mais (ADR-008 —
+# единственный исполнитель 07.007), навык — по skill_path соответствующей
+# ТФ в mapping
 skill_by_tf = {m.get("tf_code"): m for m in mappings}
 
 def resolve_profile(tf_code):

@@ -271,7 +271,7 @@ for i, phase in enumerate(deployment_phases, 1):
         if p.get("profile_id") == "mais":
             phase_profiles.append({
                 "profile_id": "mais",
-                "name": "Айра Корбот (COO)",
+                "name": "Хранитель архитектуры",
                 "role": "Исполнитель фазы",
                 "responsibilities": [
                     f"Генерация артефактов фазы {i}",

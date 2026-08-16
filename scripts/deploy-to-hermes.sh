@@ -1,54 +1,68 @@
 #!/usr/bin/env bash
-# Деплой навыков профиля mais в локальную установку Hermes (~/.hermes).
+# =============================================================================
+# deploy-to-hermes.sh — деплой навыков профиля mais в локальную установку Hermes
 #
-# ADR-008: единственный исполнитель 07.007 — профиль mais.
-# Для каждой директории в profiles/mais/skills/:
-#   - если в ~/.hermes/profiles/mais/skills/ уже есть одноимённая директория — WARN и пропуск;
-#   - иначе rsync -a только этой директории (без --delete).
+# Правила (ADR-008):
+#   1. Для каждой директории в profiles/mais/skills/ выполняется проверка
+#      коллизии с ~/.hermes/profiles/mais/skills/<name>.
+#   2. Если целевая директория УЖЕ существует — WARN и пропуск,
+#      НЕ перезаписывать (существующие навыки Hermes не трогаем).
+#   3. rsync -a только этой директории (без --delete).
 #
-# Использование:
-#   ./scripts/deploy-to-hermes.sh            # деплой всех навыков
-#   ./scripts/deploy-to-hermes.sh <skill>    # деплой одного навыка
-set -euo pipefail
+# Usage:
+#   bash scripts/deploy-to-hermes.sh
+# =============================================================================
+set -u
 
-ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-SRC="$ROOT/profiles/mais/skills"
-DEST="${HERMES_PROFILE_DIR:-$HOME/.hermes/profiles/mais/skills}"
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SRC_DIR="$REPO_ROOT/profiles/mais/skills"
+DST_ROOT="${HERMES_PROFILE_DIR:-$HOME/.hermes/profiles/mais/skills}"
 
-if [[ ! -d "$SRC" ]]; then
-  echo "[ERROR] Нет директории навыков: $SRC" >&2
-  exit 1
+if [ ! -d "$SRC_DIR" ]; then
+    echo "[ERROR] Исходная директория не найдена: $SRC_DIR"
+    exit 1
 fi
 
-mkdir -p "$DEST"
+mkdir -p "$DST_ROOT"
 
-deploy_one() {
-  local skill="$1"
-  local src_dir="$SRC/$skill"
-  local dest_dir="$DEST/$skill"
+COLLISIONS=0
+DEPLOYED=0
 
-  if [[ ! -d "$src_dir" ]]; then
-    echo "[WARN] Навык не найден: $skill (пропуск)"
-    return 0
-  fi
+echo "=== Деплой навыков профиля mais → $DST_ROOT ==="
+for skill_dir in "$SRC_DIR"/*/; do
+    [ -d "$skill_dir" ] || continue
+    name="$(basename "$skill_dir")"
+    dst="$DST_ROOT/$name"
 
-  if [[ -e "$dest_dir" ]]; then
-    echo "[WARN] Коллизия: $dest_dir уже существует (пропуск)"
-    return 0
-  fi
+    if [ -e "$dst" ]; then
+        echo "[WARN] Коллизия: $dst уже существует — пропуск (не перезаписываю)."
+        COLLISIONS=$((COLLISIONS + 1))
+        continue
+    fi
 
-  rsync -a "$src_dir/" "$dest_dir/"
-  echo "[OK]   $skill → $dest_dir"
-}
+    # rsync -a, а при его отсутствии — cp -a (функциональный эквивалент
+    # рекурсивного копирования с атрибутами; --delete не используется).
+    if command -v rsync >/dev/null 2>&1; then
+        rsync -a "$skill_dir" "$dst"
+    else
+        echo "  [WARN] rsync не найден — использую cp -a"
+        cp -a "$skill_dir" "$dst"
+    fi
 
-if [[ $# -gt 0 ]]; then
-  for skill in "$@"; do
-    deploy_one "$skill"
-  done
-else
-  for skill in "$SRC"/*/; do
-    deploy_one "$(basename "$skill")"
-  done
+    if [ ! -d "$dst" ] || [ -z "$(find "$dst" -name SKILL.md | head -1)" ]; then
+        echo "[ERROR] Копирование $name не удалось — выход."
+        exit 2
+    fi
+    echo "[OK]   $name → $dst"
+    DEPLOYED=$((DEPLOYED + 1))
+done
+
+echo ""
+echo "=== Итог: развёрнуто $DEPLOYED, пропущено (коллизии) $COLLISIONS ==="
+
+if [ "$COLLISIONS" -gt 0 ]; then
+    echo "[WARN] Обнаружены коллизии — требуется ручная проверка (правило ADR-008: не перезаписывать)."
+    exit 1
 fi
 
-echo "Готово. Навыки развёрнуты в $DEST"
+exit 0

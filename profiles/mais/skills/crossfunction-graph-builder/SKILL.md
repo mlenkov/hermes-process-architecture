@@ -157,14 +157,14 @@ def extract_profile_from_skill_path(skill_path, registry_entry=None):
     """Возвращает (profile, skill).
 
     ADR-008: единственный исполнитель 07.007 — профиль mais.
-    mapping содержит относительные пути — профиль нельзя вывести из префикса,
-    поэтому всегда возвращаем CURRENT_PROFILE.
+    Профиль из префикса пути больше не выводится; skill_path — относительный.
     """
-    parts = skill_path.replace("\\", "/").split("/")
-    for part in reversed(parts):
-        if part and part != "SKILL.md":
-            return CURRENT_PROFILE, part.replace(".md", "")
-    return CURRENT_PROFILE, ""
+    parts = skill_path.split("/")
+    if len(parts) >= 2 and parts[-1] == "SKILL.md":
+        skill_name = parts[-2]
+    else:
+        skill_name = parts[0].replace("/SKILL.md", "")
+    return CURRENT_PROFILE, skill_name
 
 # ── Шаг 0: Pre-flight Check (идемпотентность, ADR-007) ────────────
 
@@ -227,8 +227,10 @@ for m in mappings:
     if skill_path:
         profile, skill_name = extract_profile_from_skill_path(skill_path, reg_entry)
         mechanisms.append({"profile": profile, "skill": skill_name, "skill_path": skill_path})
+        if profile == "unknown":
+            no_profile_skills.append(m_tf)
         # Извлекаем входы из ICOM секции SKILL.md
-        full_skill_path = os.path.join(ARCH_DIR, "profiles", CURRENT_PROFILE, "skills", skill_name, "SKILL.md")
+        full_skill_path = os.path.join(ARCH_DIR, "profiles", profile, "skills", skill_name, "SKILL.md")
         if os.path.exists(full_skill_path):
             skill_text = read_text(full_skill_path)
             inputs = parse_icom_inputs(skill_text)
@@ -491,3 +493,4 @@ report_path = output_files[0] if output_files else os.path.join(
 )
 write_yaml(report_path, report)
 print(f"  Written: {report_path}")
+```

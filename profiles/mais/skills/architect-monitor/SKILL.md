@@ -59,4 +59,4 @@ actions:
 
 ## Триггеры
 - cron `*/15 * * * *` (на сервере)
-- `hermes profile exec mais architect-monitor` (вручную)
+- `hermes profile exec architect architect-monitor` (вручную)

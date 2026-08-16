@@ -10,7 +10,7 @@ status: stub
 
 # registry-updater (stub)
 
-**Назначение:** Централизованное обновление реестра покрытия, чтобы бизнес-профили (regulator, architect, analyst) не писали в registry напрямую.
+**Назначение:** Централизованное обновление реестра покрытия, чтобы бизнес-профили не писали в registry напрямую (07.007 — профиль mais, ADR-008).
 
 **Статус:** stub — подготовлен к реализации на следующем этапе (ADR-003, Фаза 4).
 
@@ -22,7 +22,7 @@ inputs:
   tf_code: "А/01.6"
   status: "covered"
   tds_completed: "10/10"
-  skill_path: "profiles/regulator/skills/info-gatherer/SKILL.md"
+  skill_path: "profiles/mais/skills/info-gatherer/SKILL.md"
   artifacts_generated:
     - "outputs/07.007/block-A/A-01.6-info-context.yaml"
 

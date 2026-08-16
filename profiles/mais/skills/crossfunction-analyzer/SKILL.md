@@ -170,9 +170,7 @@ registry_path = os.path.join(ARCH_DIR, "outputs/07.007/labor-coverage-registry.y
 registry_data = read_file(registry_path)
 
 # Определяем профили с данными: кто реально исполнял ТФ
-# ADR-008: единственный исполнитель 07.007 — mais (skill_path больше
-# не кодирует профиль в префиксе, profile_id берётся из executed_by)
-CURRENT_PROFILE = "mais"
+# (ADR-008: единственный исполнитель 07.007 — профиль mais)
 coverage_by_profile = {}
 profiles_with_data = set()
 for tf_key, tf_val in registry_data.items():
@@ -183,8 +181,14 @@ for tf_key, tf_val in registry_data.items():
             "status": tf_val.get("status"),
             "tds_completed": tf_val.get("tds_completed")
         })
-        if tf_val.get("skill_path"):
-            profiles_with_data.add(CURRENT_PROFILE)
+    # Определяем profile_id из skill_path
+    sp = tf_val.get("skill_path", "")
+    if sp:
+        parts = sp.split("/")
+        if len(parts) >= 3:
+            pdir = parts[1]  # profiles/<profile>/skills/...
+            if pdir == "mais":
+                profiles_with_data.add(pdir)
 
 print(f"  Registry entries: {len(registry_data)}")
 print(f"  Profiles with coverage data: {sorted(profiles_with_data)}")

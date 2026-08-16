@@ -9,15 +9,15 @@ environments: [kanban]
 
 Оркестратор: для каждой ready-задачи определяет тип ТД, загружает специализированный td-gen skill и выполняет.
 
-## Процедура
+## Process
 
 ```python
 import subprocess, json, yaml, os, sys
 
-# ADR-008: навыки 07.007 живут в профиле mais
-SKILLS_BASE = "/Users/mac/.hermes/skills/mais"
-PROFILES = "/Users/mac/.hermes/profiles/mais"
-PROJECT = "/Volumes/Storage/work/mais/_TOOLS/VM-SRV001-SETUP/ARCHITECTURE"
+# Навыки mais — единый профиль (ADR-008)
+SKILLS_BASE = os.path.expanduser("~/.hermes/profiles/mais/skills")
+PROFILES = os.path.expanduser("~/.hermes/profiles/mais")
+PROJECT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def run_hermes(args):
     return subprocess.run(["hermes", "kanban"] + args, capture_output=True, text=True, timeout=30)
@@ -47,14 +47,15 @@ def find_skill_path(tf_code, la_id):
                 if entry.get("tf_code") == tf_code:
                     skill_rel = entry.get("skill_path", "")
                     if skill_rel:
-                        # Попробовать в ~/.hermes/skills/mais/
+                        # Попробовать в ~/.hermes/skills/<profile>/
                         candidate = f"{SKILLS_BASE}/{skill_rel}"
                         if os.path.exists(candidate):
                             return candidate
-                        # Попробовать в profiles/mais/skills/
-                        candidate2 = f"{PROJECT}/profiles/mais/skills/{skill_rel}"
-                        if os.path.exists(candidate2):
-                            return candidate2
+                        # Попробовать в любом profiles/<profile>/skills/
+                        for profile_dir in os.listdir(f"{PROJECT}/profiles"):
+                            candidate2 = f"{PROJECT}/profiles/{profile_dir}/skills/{skill_rel}"
+                            if os.path.exists(candidate2):
+                                return candidate2
         except Exception as e:
             print(f"  [WARN] mapping read error: {e}")
 

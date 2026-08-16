@@ -2199,7 +2199,7 @@
       "coverage_status": "covered",
       "mechanisms": [
         {
-          "profile": "regulator",
+          "profile": "mais",
           "skill": "info-gatherer",
           "skill_path": "info-gatherer/SKILL.md"
         }
@@ -2225,7 +2225,7 @@
       "coverage_status": "covered",
       "mechanisms": [
         {
-          "profile": "regulator",
+          "profile": "mais",
           "skill": "regulation-writer",
           "skill_path": "regulation-writer/SKILL.md"
         }
@@ -2250,7 +2250,7 @@
       "coverage_status": "covered",
       "mechanisms": [
         {
-          "profile": "regulator",
+          "profile": "mais",
           "skill": "deployment-planner",
           "skill_path": "deployment-planner/SKILL.md"
         }
@@ -2276,7 +2276,7 @@
       "coverage_status": "covered",
       "mechanisms": [
         {
-          "profile": "architect",
+          "profile": "mais",
           "skill": "pdca-reporter",
           "skill_path": "pdca-reporter/SKILL.md"
         }
@@ -2298,7 +2298,7 @@
       "coverage_status": "partially_covered",
       "mechanisms": [
         {
-          "profile": "analyst",
+          "profile": "mais",
           "skill": "crossfunction-analyzer",
           "skill_path": "crossfunction-analyzer/SKILL.md"
         }
@@ -2325,7 +2325,7 @@
       "coverage_status": "partially_covered",
       "mechanisms": [
         {
-          "profile": "analyst",
+          "profile": "mais",
           "skill": "crossfunction-graph-builder",
           "skill_path": "crossfunction-graph-builder/SKILL.md"
         }
@@ -2351,7 +2351,7 @@
       "coverage_status": "partially_covered",
       "mechanisms": [
         {
-          "profile": "analyst",
+          "profile": "mais",
           "skill": "crossfunction-designer",
           "skill_path": "crossfunction-designer/SKILL.md"
         }
@@ -2378,7 +2378,7 @@
       "coverage_status": "partially_covered",
       "mechanisms": [
         {
-          "profile": "analyst",
+          "profile": "mais",
           "skill": "crossfunction-deployer",
           "skill_path": "crossfunction-deployer/SKILL.md"
         }
@@ -2404,7 +2404,7 @@
       "coverage_status": "partially_covered",
       "mechanisms": [
         {
-          "profile": "analyst",
+          "profile": "mais",
           "skill": "crossfunction-auditor",
           "skill_path": "crossfunction-auditor/SKILL.md"
         }
@@ -2430,7 +2430,7 @@
       "coverage_status": "partially_covered",
       "mechanisms": [
         {
-          "profile": "analyst",
+          "profile": "mais",
           "skill": "maturity-assessor",
           "skill_path": "maturity-assessor/SKILL.md"
         }
@@ -2456,7 +2456,7 @@
       "coverage_status": "partially_covered",
       "mechanisms": [
         {
-          "profile": "analyst",
+          "profile": "mais",
           "skill": "system-planner",
           "skill_path": "system-planner/SKILL.md"
         }
@@ -2482,7 +2482,7 @@
       "coverage_status": "partially_covered",
       "mechanisms": [
         {
-          "profile": "analyst",
+          "profile": "mais",
           "skill": "implementation-lead",
           "skill_path": "implementation-lead/SKILL.md"
         }
@@ -2508,7 +2508,7 @@
       "coverage_status": "partially_covered",
       "mechanisms": [
         {
-          "profile": "analyst",
+          "profile": "mais",
           "skill": "system-auditor",
           "skill_path": "system-auditor/SKILL.md"
         }
@@ -2536,7 +2536,7 @@
       "coverage_status": "covered",
       "mechanisms": [
         {
-          "profile": "architect",
+          "profile": "mais",
           "skill": "architect-selfheal",
           "skill_path": "architect-selfheal/SKILL.md"
         }
@@ -2556,7 +2556,7 @@
       "coverage_status": "covered",
       "mechanisms": [
         {
-          "profile": "architect",
+          "profile": "mais",
           "skill": "architect-monitor",
           "skill_path": "architect-monitor/SKILL.md"
         }
@@ -2585,7 +2585,7 @@
       "coverage_status": "covered",
       "mechanisms": [
         {
-          "profile": "architect",
+          "profile": "mais",
           "skill": "architect-executor",
           "skill_path": "architect-executor/SKILL.md"
         }
@@ -2612,7 +2612,7 @@
       "coverage_status": "covered",
       "mechanisms": [
         {
-          "profile": "architect",
+          "profile": "mais",
           "skill": "architect-seeder",
           "skill_path": "architect-seeder/SKILL.md"
         }
@@ -2636,7 +2636,7 @@
       "coverage_status": "covered",
       "mechanisms": [
         {
-          "profile": "architect",
+          "profile": "mais",
           "skill": "architect-coverage",
           "skill_path": "architect-coverage/SKILL.md"
         }

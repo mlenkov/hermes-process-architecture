@@ -44,7 +44,7 @@ python3 scripts/parse-profstandart.py --url https://classinform.ru/profstandarty
 
 1. **Профстандарт** → парсинг в YAML: `convert-md-to-yaml.py` (5 файлов: meta + 4 OTF-секции)
 2. **Task-centric граф**: `build-graph-from-yaml.py` строит граф, где каждое Трудовое Действие (ТД) — центральный узел с атрибутами `action_verb`/`action_object`, профилем-исполнителем (`executed_by`), связями с умениями/знаниями и последовательными `next`-рёбрами
-3. **Топология**: 315 узлов, 2263 ребра: 120 ТД → 18 ТФ → 4 ОТФ → 1 стандарт, + 4 профиля, 98 skills, 70 knowledge, 5 hyperedge-групп
+3. **Топология**: 315 узлов, 2263 ребра: 120 ТД → 18 ТФ → 4 ОТФ → 1 стандарт, + 1 профиль (mais, ADR-008), 98 skills, 70 knowledge, 5 hyperedge-групп
 4. **Hermes** тестирует исполняемость: развёртывание skills, проверка coverage
 
 ## Локальная конфигурация OpenCode
@@ -62,15 +62,6 @@ python3 scripts/parse-profstandart.py --url https://classinform.ru/profstandarty
 - **structure.md** — Сводка: ОТФ → ТФ → ТД, умения/знания
 
 Ключевое правило: **умения и знания описываются на уровне ТФ, а не отдельных ТД.**
-
-## Консолидация на единый профиль (ADR-008)
-
-С 2026-08-16 **единственный исполнитель 07.007 — профиль `mais`** (ADR-008,
-суперседирует ADR-003). Все навыки блоков A–D живут в `profiles/mais/skills/`
-(включая `td-gen/`). Префиксы `architect-*`, `regulator-*`, `analyst-*` в именах
-навыков — функциональное пространство, а не профили. Резолвинг навыка:
-`profiles/mais/skills/<name>/SKILL.md`; профиль не выводится из префикса.
-`.default/skills/registry-updater` — сквозная утилита, не участвует.
 
 ## Pipeline Architecture (ТФ → ТД через Kanban)
 

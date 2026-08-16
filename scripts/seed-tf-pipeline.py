@@ -85,7 +85,7 @@ def resolve_skill(tf_code: str, registry_data: dict, mapping: dict) -> tuple:
 
     Приоритет: mapping (относительный skill_path) → registry (полный путь).
     skill_name — имя каталога навыка (используется как --skill в kanban).
-    skill_path — полный путь profiles/mais/skills/<skill>/SKILL.md (кладётся в body, ADR-008).
+    skill_path — полный путь profiles/<profile>/skills/<skill>/SKILL.md (кладётся в body).
     """
     rel = mapping.get(tf_code, {}).get("skill_path", "")
     if not rel:
