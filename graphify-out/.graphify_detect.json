@@ -1,0 +1,18 @@
+{
+  "total_files": 5,
+  "total_words": 0,
+  "files": {
+    "document": [
+      "/Volumes/Storage/work/mais/_TOOLS/VM-SRV001-SETUP/ARCHITECTURE/standards/07.007/meta.yaml",
+      "/Volumes/Storage/work/mais/_TOOLS/VM-SRV001-SETUP/ARCHITECTURE/standards/07.007/otf-section-1.yaml",
+      "/Volumes/Storage/work/mais/_TOOLS/VM-SRV001-SETUP/ARCHITECTURE/standards/07.007/otf-section-2.yaml",
+      "/Volumes/Storage/work/mais/_TOOLS/VM-SRV001-SETUP/ARCHITECTURE/standards/07.007/otf-section-3.yaml",
+      "/Volumes/Storage/work/mais/_TOOLS/VM-SRV001-SETUP/ARCHITECTURE/standards/07.007/otf-section-4.yaml"
+    ],
+    "code": [],
+    "paper": [],
+    "image": [],
+    "video": []
+  },
+  "scan_root": "/Volumes/Storage/work/mais/_TOOLS/VM-SRV001-SETUP/ARCHITECTURE/standards/07.007"
+}

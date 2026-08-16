@@ -1,0 +1,10 @@
+methodologies:
+- name: Регламент управления архитектурой
+  status: approved
+  type: регламент
+  version: '1.0'
+- name: Методика описания процессов
+  status: draft
+  type: методика
+  version: '1.0'
+process: Разработка методик и регламентов

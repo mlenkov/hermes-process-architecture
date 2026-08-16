@@ -1,0 +1,19 @@
+# Output D/04.7-TD-1: methodology-deployed
+# Produced by: methodology-development-implementation skill
+# Consumed by: TD-2 (support), TD-3 (compliance audit)
+deployment_plan:
+  phases:
+    - phase: string
+      target_audience: string
+      completion_date: date
+      status: planned | completed
+training:
+  sessions:
+    - date: date
+      participants: number
+      topic: string
+adoption_rate: number
+feedback:
+  - source: string
+    comment: string
+    addressed: boolean

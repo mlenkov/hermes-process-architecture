@@ -1,0 +1,173 @@
+meta:
+  artifact: A-03.6-deployment-plan
+  tf: А/03.6
+  la: la-001
+  generated_by: deployment-planner
+  timestamp: '2026-07-30T10:05:04Z'
+  schema_ref: deployment-plan-schema.yaml v1.0.0
+body:
+  deployment_phases:
+  - phase_id: phase-01
+    name: Планирование мероприятий по вводу в действие регламента процесса подразделения
+      организации или административного регламента подразделения организации
+    description: Планирование мероприятий по вводу в действие регламента
+    td_actions:
+    - Планирование мероприятий по вводу в действие регламента процесса подразделения
+      организации или административного регламента подразделения организации
+    skills_required: &id001
+    - Осуществлять коммуникации, проводить рабочие совещания, находить консенсус
+    - Оценивать ресурсы, необходимые для ввода в действие регламентов процессов или
+      административных регламентов или предложений по повышению их эффективности
+    - Разрабатывать, согласовывать и утверждать планы мероприятий, оценивать достижение
+      результатов, разрабатывать корректирующие мероприятия для достижения планов
+    - Оказывать консультационную помощь работникам организации
+    inputs:
+    - A-02.6-regulation
+    outputs:
+    - phase-01-output
+  - phase_id: phase-02
+    name: Внедрение в действие регламента процесса подразделения организации или административного
+      регламента подразделения организации
+    description: Внедрение регламента в действие
+    td_actions:
+    - Внедрение в действие регламента процесса подразделения организации или административного
+      регламента подразделения организации
+    skills_required: *id001
+    inputs:
+    - phase-01-output
+    outputs:
+    - phase-02-output
+  - phase_id: phase-03
+    name: Внедрение предложений по повышению эффективности процесса подразделения
+      организации или административного регламента подразделения организации
+    description: Внедрение предложений по повышению эффективности
+    td_actions:
+    - Внедрение предложений по повышению эффективности процесса подразделения организации
+      или административного регламента подразделения организации
+    skills_required: *id001
+    inputs:
+    - phase-02-output
+    outputs:
+    - phase-03-output
+  - phase_id: phase-04
+    name: Оценка эффективности мероприятий по вводу в действие регламента процесса
+      подразделения организации или административного регламента подразделения организации
+    description: Оценка эффективности мероприятий по вводу в действие
+    td_actions:
+    - Оценка эффективности мероприятий по вводу в действие регламента процесса подразделения
+      организации или административного регламента подразделения организации
+    skills_required: *id001
+    inputs:
+    - phase-03-output
+    outputs:
+    - phase-04-output
+  gates:
+  - gate_id: gate-01
+    position: between phase-01 and phase-02
+    criteria:
+    - Все артефакты фазы 1 созданы
+    - Качество артефактов подтверждено (schema_valid = true)
+    - Ответственные профили назначены
+    approval_required: false
+    auto_proceed: true
+  - gate_id: gate-02
+    position: between phase-02 and phase-03
+    criteria:
+    - Все артефакты фазы 2 созданы
+    - Качество артефактов подтверждено (schema_valid = true)
+    - Ответственные профили назначены
+    approval_required: false
+    auto_proceed: true
+  - gate_id: gate-03
+    position: between phase-03 and phase-04
+    criteria:
+    - Все артефакты фазы 3 созданы
+    - Качество артефактов подтверждено (schema_valid = true)
+    - Ответственные профили назначены
+    approval_required: false
+    auto_proceed: true
+  - gate_id: gate-final
+    position: after phase-04
+    criteria:
+    - Все 4 фазы выполнены
+    - Оценка эффективности проведена
+    - Регламент введён в действие
+    approval_required: false
+    auto_proceed: true
+  milestones:
+  - milestone_id: milestone-01
+    phase: phase-01
+    name: 'Завершение фазы 1: Планирование мероприятий по вводу в действие регламента'
+    condition: phase-01-output создан и прошёл валидацию
+    trigger: auto_promote_children
+  - milestone_id: milestone-02
+    phase: phase-02
+    name: 'Завершение фазы 2: Внедрение регламента в действие'
+    condition: phase-02-output создан и прошёл валидацию
+    trigger: auto_promote_children
+  - milestone_id: milestone-03
+    phase: phase-03
+    name: 'Завершение фазы 3: Внедрение предложений по повышению эффективности'
+    condition: phase-03-output создан и прошёл валидацию
+    trigger: auto_promote_children
+  - milestone_id: milestone-04
+    phase: phase-04
+    name: 'Завершение фазы 4: Оценка эффективности мероприятий по вводу в действие'
+    condition: phase-04-output создан и прошёл валидацию
+    trigger: auto_promote_children
+  responsible_profiles:
+  - phase_id: phase-01
+    profiles:
+    - profile_id: mais
+      name: Айра Корбот
+      role: Ответственный за процессное управление
+      responsibilities:
+      - Контроль выполнения фазы 1
+      - Утверждение результатов
+      - Мониторинг показателей
+  - phase_id: phase-02
+    profiles:
+    - profile_id: mais
+      name: Айра Корбот
+      role: Ответственный за процессное управление
+      responsibilities:
+      - Контроль выполнения фазы 2
+      - Утверждение результатов
+      - Мониторинг показателей
+  - phase_id: phase-03
+    profiles:
+    - profile_id: mais
+      name: Айра Корбот
+      role: Ответственный за процессное управление
+      responsibilities:
+      - Контроль выполнения фазы 3
+      - Утверждение результатов
+      - Мониторинг показателей
+  - phase_id: phase-04
+    profiles:
+    - profile_id: mais
+      name: Айра Корбот
+      role: Ответственный за процессное управление
+      responsibilities:
+      - Контроль выполнения фазы 4
+      - Утверждение результатов
+      - Мониторинг показателей
+  success_criteria:
+  - criterion: Предложения по повышению эффективности внедрены
+    measure: Изменения отражены в регламенте
+    source_action: Внедрение предложений по повышению эффективности процесса подразделения
+      организации или административного регламента подразделения организации
+  - criterion: Проведена оценка эффективности мероприятий
+    measure: Все milestones достигнуты
+    source_action: Оценка эффективности мероприятий по вводу в действие регламента
+      процесса подразделения организации или административного регламента подразделения
+      организации
+quality:
+  schema_valid: true
+  sources_read:
+  - outputs/07.007/block-A/A-01.6-info-context.yaml
+  - outputs/07.007/block-A/A-02.6-regulation.yaml
+  - docs/standards/07.007/otf-section-1.yaml
+  - ../AGENTS.md
+  context_available: true
+  regulation_available: true

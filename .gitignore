@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Hermes / IDE
+.hermes/
+.idea/
+.vscode/
+.DS_Store
+*.swp
+
+# Node (если есть MCP-серверы)
+node_modules/
+
+# Logs
+*.log
+
+# Временные файлы executor'а
+outputs/07.007/.executor_tmp/
+
+# ─────────────────────────────────────────────────────────────
+# ОСТАВИТЬ (не игнорировать):
+#   outputs/07.007/  — примеры артефактов (block-A..D, registry, mapping)
+#   docs/            — документация и ADR
+#   scripts/         — утилиты валидации и pipeline
+#   profiles/        — навыки AI-профилей
+#   schemas/         — эталонные схемы
+#   config.yaml      — sandbox-конфигурация

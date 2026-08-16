@@ -1,0 +1,10 @@
+# Output D/02.7-TD-0: systematized-info
+# Produced by: process-architecture-development skill
+# Consumed by: TD-1 (reference model selection)
+domains:
+  - id: string
+    name: string
+    description: string
+    processes: [string]
+    contradictions: [string]
+    gaps: [string]

@@ -1,0 +1,26 @@
+domains:
+- gaps:
+  - Стратегия→Процессы
+  id: dom-strat
+  name: Стратегический
+  processes:
+  - Стратегическое управление
+- gaps: []
+  id: dom-core
+  name: Основной
+  processes:
+  - Управление продуктами
+  - Разработка
+- gaps:
+  - Не документированы
+  id: dom-support
+  name: Поддерживающий
+  processes:
+  - Финансовый учёт
+  - HR
+- gaps:
+  - Разрыв КИС
+  id: dom-integ
+  name: Интеграционный
+  processes: []
+process: Систематизация информации об архитектуре

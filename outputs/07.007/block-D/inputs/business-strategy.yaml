@@ -1,0 +1,20 @@
+# Business goals and strategy
+goals:
+  - id: bg-001
+    description: Увеличить рыночную долю на 15% за 2 года
+    timeframe: 2026-2028
+  - id: bg-002
+    description: Выйти на 3 новых рынка (СНГ, ЮВА, LATAM)
+    timeframe: 2027-2029
+  - id: bg-003
+    description: Сократить time-to-market новых продуктов на 30%
+    timeframe: 2026-2027
+strategy:
+  focus: product-led growth
+  key_initiatives:
+    - Внедрение единой процессной архитектуры
+    - Автоматизация ключевых бизнес-процессов
+    - Построение системы KPI по процессам
+constraints:
+  budget: умеренный
+  timeline: поэтапное внедрение в течение 18 месяцев

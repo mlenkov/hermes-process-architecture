@@ -1,0 +1,26 @@
+# Output D/02.7-TD-3: architecture-designed
+# Produced by: process-architecture-development skill
+# Consumed by: TD-4 (stakeholder agreement), TD-5 (compliance control)
+version: string
+org_structure:
+  - unit: string
+    parent: string
+    functions: [string]
+business_functions:
+  - id: string
+    name: string
+    owner: string
+processes:
+  - id: string
+    name: string
+    input: string
+    output: string
+    owner: string
+regulations:
+  - id: string
+    name: string
+    type: administrative | technical
+information_systems:
+  - id: string
+    name: string
+    supports_processes: [string]

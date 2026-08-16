@@ -1,0 +1,10 @@
+execution_log:
+- phase: Анализ
+  status: completed
+- phase: Проектирование
+  status: 60%
+overall_status: on_track
+process: Руководство программой изменений
+program:
+  name: Архитектурная трансформация
+  status: in_progress

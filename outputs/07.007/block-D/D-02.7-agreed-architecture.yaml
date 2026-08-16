@@ -1,0 +1,10 @@
+architecture_version: '1.0'
+process: Согласование архитектуры
+stakeholders_consulted:
+- agreement: full
+  id: st-001
+  role: owner
+- agreement: full
+  id: st-002
+  role: implementer
+status: approved

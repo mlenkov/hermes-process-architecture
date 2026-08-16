@@ -1,0 +1,124 @@
+meta:
+  artifact: B-05.6-crossfunction-audit
+  tf: В/05.6
+  la: la-001
+  generated_by: crossfunction-auditor
+  timestamp: '2026-07-31T18:56:32Z'
+  schema_ref: crossfunction-audit-schema.yaml v1.0.0
+body:
+  audit_scope:
+    tf_code: В/05.6
+    tf_name: Аудит деятельности в рамках кросс-функционального процесса
+    description: 'Аудит кросс-функциональных handoff-точек из плана внедрения B-04.6:
+      существование артефактов, валидность YAML, заданность timeout.'
+    audited_triggers: 4
+    source_plan: outputs/07.007/block-B/B-04.6-crossfunction-deployment.yaml
+  audit_criteria:
+  - criterion_id: AC-01
+    criterion_name: Идентификация целей
+    source_td: Идентификация целей и критериев аудита деятельности в рамках кросс-функционального
+      процесса организации или административного регламента организации
+  - criterion_id: AC-02
+    criterion_name: Планирование аудита
+    source_td: Планирование аудита деятельности в рамках кросс-функционального процесса
+      организации или административного регламента организации
+  - criterion_id: AC-03
+    criterion_name: Инструктаж участников
+    source_td: Инструктаж участников аудита деятельности в рамках кросс-функционального
+      процесса организации или административного регламента организации
+  - criterion_id: AC-04
+    criterion_name: Проведение наблюдений
+    source_td: Проведение наблюдений в ходе аудита деятельности в рамках кросс-функционального
+      процесса организации или административного регламента организации
+  - criterion_id: AC-05
+    criterion_name: Анализ документов
+    source_td: Анализ документов и данных, полученных в ходе аудита кросс-функционального
+      процесса организации или административного регламента организации
+  - criterion_id: AC-06
+    criterion_name: Разработка рекомендаций
+    source_td: Разработка рекомендаций по повышению эффективности кросс-функционального
+      процесса организации или административного регламента организации
+  - criterion_id: AC-07
+    criterion_name: Разработка предписаний
+    source_td: Разработка предписаний по устранению несоответствий деятельности требованиям
+      кросс-функционального процесса организации или административного регламента
+      организации
+  - criterion_id: AC-08
+    criterion_name: Оформление результатов
+    source_td: Оформление результатов аудита деятельности в рамках кросс-функционального
+      процесса организации или административного регламента организации
+  - criterion_id: AC-09
+    criterion_name: Презентация результатов
+    source_td: Презентация результатов и рекомендаций аудита деятельности в рамках
+      кросс-функционального процесса организации или административного регламента
+      организации
+  handoff_audit:
+  - trigger_id: HT-01
+    source_tf: А/01.6
+    target_tf: А/02.6
+    artifact: outputs/07.007/block-A/A-01.6-info-context.yaml
+    artifact_exists: true
+    artifact_valid: true
+    timeout_defined: false
+    finding: Артефакт существует и валиден, но timeout не задан
+  - trigger_id: HT-02
+    source_tf: А/01.6
+    target_tf: А/03.6
+    artifact: outputs/07.007/block-A/A-01.6-info-context.yaml
+    artifact_exists: true
+    artifact_valid: true
+    timeout_defined: false
+    finding: Артефакт существует и валиден, но timeout не задан
+  - trigger_id: HT-03
+    source_tf: А/01.6
+    target_tf: В/01.6
+    artifact: outputs/07.007/block-A/A-01.6-info-context.yaml
+    artifact_exists: true
+    artifact_valid: true
+    timeout_defined: false
+    finding: Артефакт существует и валиден, но timeout не задан
+  - trigger_id: HT-04
+    source_tf: А/02.6
+    target_tf: А/03.6
+    artifact: outputs/07.007/block-A/A-02.6-regulation.yaml
+    artifact_exists: true
+    artifact_valid: true
+    timeout_defined: false
+    finding: Артефакт существует и валиден, но timeout не задан
+  recommendations:
+  - recommendation_id: R-01
+    trigger_id: HT-01
+    recommendation: Задать timeout для HT-01 (А/01.6 → А/02.6) в спецификации B-03.6
+      и плане B-04.6
+    basis: timeout_defined=false
+    source_td: Разработка рекомендаций по повышению эффективности кросс-функционального
+      процесса организации или административного регламента организации
+  - recommendation_id: R-02
+    trigger_id: HT-02
+    recommendation: Задать timeout для HT-02 (А/01.6 → А/03.6) в спецификации B-03.6
+      и плане B-04.6
+    basis: timeout_defined=false
+    source_td: Разработка рекомендаций по повышению эффективности кросс-функционального
+      процесса организации или административного регламента организации
+  - recommendation_id: R-03
+    trigger_id: HT-03
+    recommendation: Задать timeout для HT-03 (А/01.6 → В/01.6) в спецификации B-03.6
+      и плане B-04.6
+    basis: timeout_defined=false
+    source_td: Разработка рекомендаций по повышению эффективности кросс-функционального
+      процесса организации или административного регламента организации
+  - recommendation_id: R-04
+    trigger_id: HT-04
+    recommendation: Задать timeout для HT-04 (А/02.6 → А/03.6) в спецификации B-03.6
+      и плане B-04.6
+    basis: timeout_defined=false
+    source_td: Разработка рекомендаций по повышению эффективности кросс-функционального
+      процесса организации или административного регламента организации
+  data_gaps: []
+quality:
+  schema_valid: true
+  sources_read:
+  - outputs/07.007/block-B/B-04.6-crossfunction-deployment.yaml
+  - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml
+  - docs/standards/07.007/otf-section-2.yaml
+  warnings: []

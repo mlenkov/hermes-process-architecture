@@ -1,0 +1,39 @@
+business_functions:
+- id: f-001
+  name: Стратегическое планирование
+  owner: CEO
+- id: f-002
+  name: Управление релизами
+  owner: PM
+information_systems:
+- id: is-001
+  name: 1C:ERP
+  supports:
+  - Финансовый учёт
+- id: is-002
+  name: Jira
+  supports:
+  - Управление релизами
+org_structure:
+- functions:
+  - Стратегия
+  parent: null
+  unit: Совет директоров
+- functions:
+  - Разработка
+  - QA
+  parent: Совет директоров
+  unit: ИТ-департамент
+process: Разработка процессной архитектуры
+processes:
+- id: pr-001
+  input: Анализ рынка
+  name: Стратегический обзор
+  output: Стратегия
+  owner: CEO
+- id: pr-002
+  input: Backlog
+  name: Релизный цикл
+  output: Продукт
+  owner: PM
+version: '1.0'

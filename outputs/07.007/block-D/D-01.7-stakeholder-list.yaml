@@ -1,0 +1,23 @@
+process: Определение заинтересованных сторон
+stakeholders:
+- id: st-001
+  influence: high
+  interest: Стратегия и результаты
+  name: Генеральный директор
+  requirements:
+  - Целостность архитектуры
+  role: owner
+- id: st-002
+  influence: high
+  interest: Архитектура КИС и интеграция
+  name: ИТ-директор
+  requirements:
+  - Совместимость систем
+  role: implementer
+- id: st-003
+  influence: medium
+  interest: Процессы разработки
+  name: Руководитель продуктов
+  requirements:
+  - Прозрачность этапов
+  role: user

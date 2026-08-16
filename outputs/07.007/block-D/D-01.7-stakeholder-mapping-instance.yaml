@@ -1,0 +1,165 @@
+meta:
+  artifact: stakeholder-mapping-instance
+  generated_by: td-gen-D-01.7-la-001
+  timestamp: '2026-07-29T10:08:29Z'
+  schema_ref: stakeholder-mapping-schema.yaml v1.0.0
+  data_sources:
+  - ../AGENTS.md
+  - docs/standards/07.007/otf-section-*.yaml
+  - ~/.hermes/skills/
+stakeholders:
+- type: User_Operator
+  instances:
+  - profile_id: human-operator
+    authority_level: full
+    communication_channels:
+    - cli
+    approval_scope:
+    - pdca-report
+    - coverage-registry
+    - architecture-change-proposal
+- type: Agent_Coordinator
+  instances:
+  - profile_id: mais
+    name: Айра Корбот
+    orchestrates_labor_functions:
+    - А/01.6
+    - А/02.6
+    - А/03.6
+    - А/04.6
+    - В/01.6
+    - В/02.6
+    - В/03.6
+    - В/04.6
+    - В/05.6
+    - С/01.7
+    - С/02.7
+    - С/03.7
+    - С/04.7
+    - С/05.7
+    - D/01.7
+    - D/02.7
+    - D/03.7
+    - D/04.7
+    pipeline_type: sequential
+    skills:
+    - architect/architect-coverage
+    - architect/architect-executor
+    - architect/architect-monitor
+    - architect/pdca-reporter
+    - architect/architect-seeder
+    - architect/architect-selfheal
+  - profile_id: architect
+    name: Хранитель архитектуры
+    orchestrates_labor_functions:
+    - А/01.6
+    - А/02.6
+    - А/03.6
+    - А/04.6
+    - В/01.6
+    - В/02.6
+    - В/03.6
+    - В/04.6
+    - В/05.6
+    - С/01.7
+    - С/02.7
+    - С/03.7
+    - С/04.7
+    - С/05.7
+    - D/01.7
+    - D/02.7
+    - D/03.7
+    - D/04.7
+    pipeline_type: sequential
+    skills:
+    - architect/architect-coverage
+    - architect/architect-executor
+    - architect/architect-monitor
+    - architect/pdca-reporter
+    - architect/architect-seeder
+    - architect/architect-selfheal
+- type: Agent_Performer
+  instances:
+  - profile_id: ppc-specialist
+    name: Ян
+    assigned_labor_functions: []
+    skills: []
+    required_inputs: []
+    expected_outputs: []
+  - profile_id: copywriter
+    name: Анна Словцова
+    assigned_labor_functions: []
+    skills: []
+    required_inputs: []
+    expected_outputs: []
+  - profile_id: analyst
+    name: Лана
+    assigned_labor_functions: []
+    skills: []
+    required_inputs: []
+    expected_outputs: []
+  - profile_id: coder
+    name: Вадим Нейман
+    assigned_labor_functions: []
+    skills: []
+    required_inputs: []
+    expected_outputs: []
+  - profile_id: marketing
+    name: —
+    assigned_labor_functions: []
+    skills: []
+    required_inputs: []
+    expected_outputs: []
+  - profile_id: keyword-collector
+    name: Кирилл
+    assigned_labor_functions: []
+    skills: []
+    required_inputs: []
+    expected_outputs: []
+- type: External_MCP_Service
+  instances:
+  - service_id: graphify
+    protocol: http
+    data_provided:
+    - knowledge-graph
+    actions_performed:
+    - query/path/explain
+    auth_required: false
+- type: Runtime_Environment
+  instances:
+  - runtime_type: hermes_local
+    hermes_version: Hermes Agent v0.18.2 (2026.7.7.2) · upstream 77d5b2d5
+    storage:
+    - kanban.db
+    - ~/.hermes/skills/
+    - ~/.hermes/profiles/
+    - ARCHITECTURE/outputs/
+    scheduler: manual (cli)
+quality_checks:
+  no_mock_data: true
+  agent_count: 5
+  stakeholder_types_present:
+  - User_Operator
+  - Agent_Coordinator
+  - Agent_Performer
+  - External_MCP_Service
+  - Runtime_Environment
+  labor_functions_referenced:
+  - А/01.6
+  - А/02.6
+  - А/03.6
+  - А/04.6
+  - В/01.6
+  - В/02.6
+  - В/03.6
+  - В/04.6
+  - В/05.6
+  - С/01.7
+  - С/02.7
+  - С/03.7
+  - С/04.7
+  - С/05.7
+  - D/01.7
+  - D/02.7
+  - D/03.7
+  - D/04.7

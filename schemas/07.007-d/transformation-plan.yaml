@@ -1,0 +1,23 @@
+# Output D/03.7-TD-0: transformation-plan
+# Produced by: transformation-program-management skill
+# Consumed by: TD-1 (program management)
+reorg_context: string
+impact_assessment:
+  - area: process_architecture | departments | personnel | information_systems
+    impact: high | medium | low
+    description: string
+plan:
+  phases:
+    - id: string
+      name: string
+      duration: string
+      deliverables: [string]
+      resources: [string]
+  kpi:
+    - metric: string
+      baseline: number
+      target: number
+      deadline: date
+risks:
+  - risk: string
+    mitigation: string

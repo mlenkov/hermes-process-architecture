@@ -1,0 +1,128 @@
+meta:
+  artifact: C-04.7-system-audit
+  tf: С/04.7
+  la: la-001
+  generated_by: system-auditor
+  timestamp: '2026-08-01T18:25:44Z'
+  schema_ref: system-audit-schema.yaml v1.0.0
+body:
+  audit_scope:
+    tf_code: С/04.7
+    tf_name: Аудит системы процессного управления организации на соответствие требованиям и целевым показателям организации
+    description: >-
+      Аудит системы процессного управления (блок C): проверка оценки
+      зрелости (C-01.7), плана внедрения (C-03.7), mapping ТФ→навык
+      и актуальности labor-coverage-registry.
+    audited_artifacts: 4
+    sources:
+    - outputs/07.007/block-C/C-01.7-maturity-assessment.yaml
+    - outputs/07.007/block-C/C-03.7-implementation-plan.yaml
+    - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml
+    - outputs/07.007/labor-coverage-registry.yaml
+  audit_criteria:
+  - criterion_id: AC-01
+    criterion_name: Идентификация целей и критериев
+    source_td: Идентификация целей и критериев аудита системы процессного управления организации
+  - criterion_id: AC-02
+    criterion_name: Планирование аудита
+    source_td: Планирование аудита системы процессного управления организации
+  - criterion_id: AC-03
+    criterion_name: Инструктаж участников
+    source_td: Инструктаж участников аудита системы процессного управления организации
+  - criterion_id: AC-04
+    criterion_name: Проведение наблюдений
+    source_td: Проведение наблюдений в ходе аудита системы процессного управления организации
+  - criterion_id: AC-05
+    criterion_name: Анализ документов и данных
+    source_td: Анализ документов и данных, полученных в ходе аудита системы процессного управления организации
+  - criterion_id: AC-06
+    criterion_name: Оформление результатов и рекомендаций
+    source_td: Оформление результатов и рекомендаций по итогам аудита системы процессного управления организации
+  - criterion_id: AC-07
+    criterion_name: Презентация результатов и рекомендаций
+    source_td: Презентация результатов и рекомендаций по итогам аудита системы процессного управления организации
+  findings:
+  - finding_id: FD-01
+    check: maturity_assessment
+    status: outdated
+    finding: >-
+      C-01.7-maturity-assessment.yaml фиксирует missing_skill=1 (С/03.7),
+      но сгенерирован до создания implementation-lead (2026-07-31T19:47:30Z).
+      Текущий registry содержит запись LF-07.007-С/03.7 с
+      implementation-lead — оценка зрелости требует обновления:
+      missing_skill → 0, covered → 10.
+    evidence: >-
+      C-01.7-maturity-assessment.yaml (current_state.missing_skill: 1, gaps: С/03.7)
+      + labor-coverage-registry.yaml (LF-07.007-С/03.7 → implementation-lead)
+  - finding_id: FD-02
+    check: implementation_plan
+    status: ok
+    finding: >-
+      C-03.7-implementation-plan.yaml корректен: 8 фаз PH-01..08,
+      8 записей resource_allocation, 5 рисков, 4 метрики, schema_valid=true.
+      Фазы инструктажа (PH-06/07) отмечены analyst + User_Operator
+      (human-in-the-loop), оценка (PH-08) — architect/pdca-reporter.
+    evidence: >-
+      C-03.7-implementation-plan.yaml (implementation_phases, resource_allocation,
+      risk_management, quality.schema_valid)
+  - finding_id: FD-03
+    check: mapping
+    status: ok
+    finding: >-
+      labor-function-to-skill-mapping.yaml: С/04.7 → system-auditor/SKILL.md,
+      required_new_skills пуст (0 навыков). Все 18 ТФ имеют навык,
+      missing_skill = 0.
+    evidence: >-
+      labor-function-to-skill-mapping.yaml (С/04.7.skill_path,
+      summary.required_new_skills, summary.missing_skill)
+  - finding_id: FD-04
+    check: registry
+    status: ok
+    finding: >-
+      labor-coverage-registry.yaml: С/03.7 имеет запись (implementation-lead,
+      tds_completed=8/8). Записи С/04.7 и С/05.7 отсутствуют — будут
+      добавлены при исполнении соответствующих навыков.
+    evidence: >-
+      labor-coverage-registry.yaml (LF-07.007-С/03.7, LF-07.007-С/04.7,
+      LF-07.007-С/05.7)
+  recommendations:
+  - recommendation_id: R-01
+    basis: FD-01 (maturity_assessment outdated)
+    recommendation: >-
+      Обновить C-01.7-maturity-assessment.yaml: missing_skill → 0,
+      covered → 10 (С/03.7 закрыт implementation-lead)
+    source_td: Анализ документов и данных, полученных в ходе аудита системы процессного управления организации
+  - recommendation_id: R-02
+    basis: FD-04 (registry, С/04.7 отсутствует)
+    recommendation: Добавить запись LF-07.007-С/04.7 в labor-coverage-registry.yaml после исполнения system-auditor (system-auditor/SKILL.md)
+    source_td: Оформление результатов и рекомендаций по итогам аудита системы процессного управления организации
+  - recommendation_id: R-03
+    basis: FD-04 (registry, С/05.7 отсутствует)
+    recommendation: Добавить запись LF-07.007-С/05.7 в labor-coverage-registry.yaml после исполнения architect-selfheal (architect-selfheal/SKILL.md)
+    source_td: Оформление результатов и рекомендаций по итогам аудита системы процессного управления организации
+  - recommendation_id: R-04
+    basis: ТД С/04.7 + data_gaps
+    recommendation: Инструктаж участников аудита и проведение наблюдений — через задачи User_Operator (human-in-the-loop), автоматизация ограничена планированием аудита
+    source_td: Инструктаж участников аудита системы процессного управления организации
+  - recommendation_id: R-05
+    basis: ТД С/04.7
+    recommendation: Подготовить материалы для презентации результатов аудита и согласовать с заинтересованными сторонами
+    source_td: Презентация результатов и рекомендаций по итогам аудита системы процессного управления организации
+  - recommendation_id: R-06
+    basis: ТД С/04.7 + data_gaps
+    recommendation: Для проверки критериев AC-04 (проведение наблюдений) требуется runtime-мониторинг исполнения ТД — добавить механизм наблюдения
+    source_td: Проведение наблюдений в ходе аудита системы процессного управления организации
+  data_gaps:
+  - Инструктаж участников аудита и проведение наблюдений требуют human-in-the-loop (User_Operator) — нет автоматизированного механизма
+  - Runtime-логи исполнения (фактическое выполнение ТД, latency) не аудируются — нет runtime-мониторинга в архитектуре
+  - Экономическая и функциональная эффективность системы управления не измеряется (из C-01.7-maturity-assessment.yaml)
+  - Оценка зрелости C-01.7 не актуализирована после создания implementation-lead (missing_skill=1 устарел)
+quality:
+  schema_valid: true
+  sources_read:
+  - outputs/07.007/block-C/C-01.7-maturity-assessment.yaml
+  - outputs/07.007/block-C/C-03.7-implementation-plan.yaml
+  - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml
+  - outputs/07.007/labor-coverage-registry.yaml
+  - docs/standards/07.007/otf-section-3.yaml
+  warnings: []

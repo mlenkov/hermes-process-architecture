@@ -1,0 +1,32 @@
+reorg_type: structural
+scope: partial
+affected_units:
+  - unit: Отдел разработки
+    change: merge
+    timeline: 2026-Q4
+  - unit: Отдел QA
+    change: split
+    timeline: 2026-Q4
+  - unit: Продуктовый отдел
+    change: new
+    timeline: 2027-Q1
+  - unit: Отдел аналитики
+    change: merge
+    timeline: 2026-Q4
+drivers:
+  - Оптимизация кросс-функциональных взаимодействий
+  - Внедрение единой процессной архитектуры
+  - Сокращение дублирования функций
+expected_impact:
+  - area: process_architecture
+    description: Перераспределение владельцев процессов
+    severity: high
+  - area: departments
+    description: Изменение оргструктуры 3 отделов
+    severity: high
+  - area: personnel
+    description: Перераспределение 120 сотрудников
+    severity: medium
+  - area: information_systems
+    description: Миграция прав доступа в 1С:ERP и Jira
+    severity: medium

@@ -1,0 +1,9 @@
+# Output D/01.7-TD-2: architecture-requirements
+# Produced by: requirements-analysis skill
+# Consumed by: TD-4 (gap-analysis)
+requirements:
+  - id: string
+    category: structural | functional | informational | governance
+    description: string
+    source: business-strategy | stakeholder
+    priority: must | should | could

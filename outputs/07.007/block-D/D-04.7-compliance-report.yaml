@@ -1,0 +1,9 @@
+audited_units:
+- compliant: true
+  unit: ИТ-департамент
+- compliant: false
+  findings:
+  - Не используются шаблоны BPMN
+  unit: Продуктовый отдел
+overall_compliance_rate: 75
+process: Контроль соблюдения методик

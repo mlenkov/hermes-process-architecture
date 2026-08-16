@@ -1,0 +1,16 @@
+# Output D/04.7-TD-3: compliance-report
+# Produced by: methodology-development-implementation skill
+# Consumed by: TD-4 (relevance control)
+audited_units:
+  - unit: string
+    methodology: string
+    compliant: boolean
+    findings:
+      - finding: string
+        severity: critical | major | minor
+        requirement: string
+overall_compliance_rate: number
+recommendations:
+  - action: string
+    priority: high | medium | low
+    deadline: date

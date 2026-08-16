@@ -1,0 +1,11 @@
+adaptations:
+- adapted: '9'
+  element: Количество групп
+  original: '13'
+  rationale: Соответствие масштабу 500 чел.
+alignment:
+  business_structure: true
+  goals: true
+  strategy: true
+process: Адаптация референтной модели
+source_model: APQC PCF v7.3

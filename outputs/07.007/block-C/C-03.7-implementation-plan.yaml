@@ -1,0 +1,165 @@
+meta:
+  artifact: C-03.7-implementation-plan
+  tf: С/03.7
+  la: la-001
+  generated_by: implementation-lead
+  timestamp: '2026-08-01T05:56:18Z'
+  schema_ref: implementation-plan-schema.yaml v1.0.0
+body:
+  project_charter:
+    charter_id: PC-01
+    project_name: Внедрение системы процессного управления
+    scope: 'Реализация фазы PH-01 roadmap: закрытие missing-навыков профстандарта
+      07.007 (С/03.7) через создание и задействование навыка implementation-lead'
+    objectives:
+    - Создать навык для С/03.7 (Внедрение системы управления)
+    success_criteria: Все missing_skill (1) закрыты навыками
+    source_artifact: outputs/07.007/block-C/C-02.7-architecture-roadmap.yaml
+  implementation_phases:
+  - phase_id: PH-01
+    phase_name: Планирование внедрения
+    source_td: Планирование внедрения или усовершенствования системы процессного управления
+      организации
+  - phase_id: PH-02
+    phase_name: Руководство проектом внедрения
+    source_td: Руководство проектом внедрения или усовершенствования системы процессного
+      управления организации
+  - phase_id: PH-03
+    phase_name: Выбор программного обеспечения
+    source_td: Выбор программного обеспечения для управления процессами организации
+      или административными регламентами организации
+  - phase_id: PH-04
+    phase_name: Внедрение программного обеспечения
+    source_td: Внедрение программного обеспечения для управления процессами организации
+      или административными регламентами организации
+  - phase_id: PH-05
+    phase_name: Методическая помощь команде
+    source_td: Методическая помощь команде проекта внедрения или усовершенствования
+      системы процессного управления организации
+  - phase_id: PH-06
+    phase_name: Планирование инструктажа
+    source_td: Планирование инструктажа, тестирования, аттестации и сертификации специалистов
+      по процессному управлению
+  - phase_id: PH-07
+    phase_name: Проведение инструктажа
+    source_td: Проведение инструктажа, тестирования, аттестации и сертификации специалистов
+      по процессному управлению
+  - phase_id: PH-08
+    phase_name: Оценка эффективности внедрения
+    source_td: Оценка эффективности внедрения или усовершенствования системы процессного
+      управления организации
+  resource_allocation:
+  - phase_id: PH-01
+    phase_name: Планирование внедрения
+    profile: analyst
+    skill: implementation-lead
+    source_tf: С/03.7
+    source_td: Планирование внедрения или усовершенствования системы процессного управления
+      организации
+  - phase_id: PH-02
+    phase_name: Руководство проектом внедрения
+    profile: analyst
+    skill: implementation-lead
+    source_tf: С/03.7
+    source_td: Руководство проектом внедрения или усовершенствования системы процессного
+      управления организации
+  - phase_id: PH-03
+    phase_name: Выбор программного обеспечения
+    profile: analyst
+    skill: implementation-lead
+    source_tf: С/03.7
+    source_td: Выбор программного обеспечения для управления процессами организации
+      или административными регламентами организации
+  - phase_id: PH-04
+    phase_name: Внедрение программного обеспечения
+    profile: analyst
+    skill: implementation-lead
+    source_tf: С/03.7
+    source_td: Внедрение программного обеспечения для управления процессами организации
+      или административными регламентами организации
+  - phase_id: PH-05
+    phase_name: Методическая помощь команде
+    profile: analyst
+    skill: implementation-lead
+    source_tf: С/03.7
+    source_td: Методическая помощь команде проекта внедрения или усовершенствования
+      системы процессного управления организации
+  - phase_id: PH-06
+    phase_name: Планирование инструктажа
+    profile: analyst + User_Operator (human-in-the-loop)
+    skill: implementation-lead
+    source_tf: С/03.7
+    source_td: Планирование инструктажа, тестирования, аттестации и сертификации специалистов
+      по процессному управлению
+  - phase_id: PH-07
+    phase_name: Проведение инструктажа
+    profile: analyst + User_Operator (human-in-the-loop)
+    skill: implementation-lead
+    source_tf: С/03.7
+    source_td: Проведение инструктажа, тестирования, аттестации и сертификации специалистов
+      по процессному управлению
+  - phase_id: PH-08
+    phase_name: Оценка эффективности внедрения
+    profile: architect
+    skill: pdca-reporter
+    source_tf: С/04.7
+    source_td: Оценка эффективности внедрения или усовершенствования системы процессного
+      управления организации
+  risk_management:
+  - risk_id: RK-01
+    risk: Отсутствие timeout в handoff-триггерах кросс-функциональных процессов (из
+      B-04.6)
+    impact: high
+    mitigation: Явно фиксировать отсутствие timeout как data_gap в каждой фазе внедрения
+    source: data_gap в C-02.7-architecture-roadmap.yaml / B-04.6-crossfunction-deployment.yaml
+  - risk_id: RK-02
+    risk: Инструктаж, тестирование и аттестация специалистов требуют участия человека
+      (human-in-the-loop)
+    impact: high
+    mitigation: Ограничить автоматизацию планированием инструктажа; проведение — через
+      задачи User_Operator
+    source: ТД С/03.7 «Планирование инструктажа, тестирования, аттестации и сертификации»
+  - risk_id: RK-03
+    risk: Экономическая и функциональная эффективность системы управления не измеряется
+    impact: medium
+    mitigation: Оценка эффективности внедрения — только по существующим данным registry,
+      без выдуманных метрик
+    source: data_gap в C-01.7-maturity-assessment.yaml
+  - risk_id: RK-04
+    risk: Конкретные бюджеты и сроки (дни/часы) внедрения не определены
+    impact: medium
+    mitigation: Фазы заданы как 1/2/3 месяца из roadmap; бюджеты не заявляются
+    source: data_gap в C-02.7-architecture-roadmap.yaml
+  - risk_id: RK-05
+    risk: Выбор программного обеспечения вне текущей архитектуры (нет процесса закупки/интеграции)
+    impact: medium
+    mitigation: Выбор ПО фиксируется как решение с участием User_Operator, а не автоматизированный
+      выбор
+    source: ТД С/03.7 «Выбор программного обеспечения для управления процессами»
+  success_metrics:
+  - metric_id: SM-01
+    metric: Навык implementation-lead создан и задействован для С/03.7
+    target: покрытие С/03.7 не missing_skill
+    source: success_criteria PH-01 roadmap (C-02.7)
+  - metric_id: SM-02
+    metric: Все 8 ТД С/03.7 имеют план исполнения (implementation_phases)
+    target: 8/8 фаз
+    source: ТД С/03.7 otf-section-3.yaml
+  - metric_id: SM-03
+    metric: Оценка эффективности внедрения оформлена (pdca-reporter)
+    target: отчёт в pdca-reports
+    source: ТД С/03.7 «Оценка эффективности внедрения»
+  - metric_id: SM-04
+    metric: C-03.7-implementation-plan.yaml создан и валиден
+    target: 'schema_valid: true'
+    source: артефакт данного навыка
+  data_gaps:
+  - Конкретные бюджеты и сроки (дни/часы) внедрения не определены
+  - Названия конкретного ПО и вендоров не указаны — выбор требует участия User_Operator
+quality:
+  schema_valid: true
+  sources_read:
+  - outputs/07.007/block-C/C-02.7-architecture-roadmap.yaml
+  - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml
+  - docs/standards/07.007/otf-section-3.yaml
+  warnings: []

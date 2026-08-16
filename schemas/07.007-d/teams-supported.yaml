@@ -1,0 +1,18 @@
+# Output D/04.7-TD-2: teams-supported
+# Produced by: methodology-development-implementation skill
+# Consumed by: D/03.7→la-002 (indirect)
+support_log:
+  - date: date
+    team: string
+    request: string
+    resolution: string
+    satisfaction: high | medium | low
+faq:
+  - question: string
+    answer: string
+common_issues:
+  - issue: string
+    solution: string
+teams_assisted:
+  - name: string
+    contact_count: number

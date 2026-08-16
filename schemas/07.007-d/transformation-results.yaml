@@ -1,0 +1,16 @@
+# Output D/03.7-TD-2: transformation-results
+# Produced by: transformation-program-management skill
+# Consumed by: D/04.7 (methodology development)
+kpi_results:
+  - metric: string
+    baseline: number
+    target: number
+    actual: number
+    achieved: boolean
+impact:
+  departments: string
+  personnel: string
+  information_systems: string
+effectiveness_rating: high | medium | low
+summary: string
+recommendations: [string]

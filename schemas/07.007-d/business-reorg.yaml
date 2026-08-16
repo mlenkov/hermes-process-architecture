@@ -1,0 +1,13 @@
+# External input D/03.7: business-reorg
+# Provided by: external (strategy/management)
+reorg_type: string
+scope: full | partial | functional
+affected_units:
+  - unit: string
+    change: merge | split | new | eliminate
+    timeline: string
+drivers: [string]
+expected_impact:
+  - area: string
+    description: string
+    severity: high | medium | low

@@ -1,0 +1,208 @@
+meta:
+  artifact: B-01.6-crossfunction-flow
+  tf: В/01.6
+  la: la-001
+  generated_by: crossfunction-analyzer
+  timestamp: '2026-07-30T18:55:13Z'
+  schema_ref: crossfunction-flow-schema.yaml v1.0.0
+body:
+  profiles_inventory:
+  - profile_id: mais
+    name: Айра Корбот
+    role: COO, специалист по процессному управлению (07.007)
+    standards:
+    - '07.007'
+    standards_raw: '07.007'
+    coverage_entries: 0
+    coverage_status: no_data
+  - profile_id: ppc-specialist
+    name: Ян
+    role: PPC (Яндекс.Директ)
+    standards:
+    - '06.043'
+    standards_raw: '06.043'
+    coverage_entries: 0
+    coverage_status: no_data
+  - profile_id: copywriter
+    name: Анна Словцова
+    role: Копирайтер
+    standards:
+    - '06.013'
+    standards_raw: '06.013'
+    coverage_entries: 0
+    coverage_status: no_data
+  - profile_id: analyst
+    name: Лана
+    role: Аналитик данных
+    standards:
+    - '06.043'
+    - '06.046'
+    standards_raw: 06.043 + 06.046
+    coverage_entries: 0
+    coverage_status: no_data
+  - profile_id: coder
+    name: Вадим Нейман
+    role: Программист (MCP, интеграции)
+    standards:
+    - '06.001'
+    - '06.035'
+    - '06.026'
+    standards_raw: 06.001 + 06.035 + 06.026
+    coverage_entries: 0
+    coverage_status: no_data
+  - profile_id: marketing
+    name: —
+    role: Маркетолог
+    standards:
+    - '08.035'
+    standards_raw: '08.035'
+    coverage_entries: 0
+    coverage_status: no_data
+  - profile_id: keyword-collector
+    name: Кирилл
+    role: Сбор семантики
+    standards:
+    - 06.043-B01.4 (субагент)
+    standards_raw: 06.043-B01.4 (субагент)
+    coverage_entries: 0
+    coverage_status: no_data
+  potential_interactions:
+  - profile_a: ppc-specialist
+    profile_b: analyst
+    shared_standards:
+    - '06.043'
+    interaction_type: cross_functional
+    data_available: false
+  data_gaps:
+  - profile_id: mais
+    name: Айра Корбот
+    standard: '07.007'
+    reason: Нет записей в labor-coverage-registry.yaml для профиля mais
+    needed_for_tfs:
+    - В/01.6
+    - В/02.6
+    - В/03.6
+    - В/04.6
+    - В/05.6
+    - С/01.7
+    - С/02.7
+    - С/03.7
+    - С/04.7
+  - profile_id: ppc-specialist
+    name: Ян
+    standard: '06.043'
+    reason: Нет записей в labor-coverage-registry.yaml для профиля ppc-specialist
+    needed_for_tfs:
+    - В/01.6
+    - В/02.6
+    - В/03.6
+    - В/04.6
+    - В/05.6
+    - С/01.7
+    - С/02.7
+    - С/03.7
+    - С/04.7
+  - profile_id: copywriter
+    name: Анна Словцова
+    standard: '06.013'
+    reason: Нет записей в labor-coverage-registry.yaml для профиля copywriter
+    needed_for_tfs:
+    - В/01.6
+    - В/02.6
+    - В/03.6
+    - В/04.6
+    - В/05.6
+    - С/01.7
+    - С/02.7
+    - С/03.7
+    - С/04.7
+  - profile_id: analyst
+    name: Лана
+    standard: 06.043 + 06.046
+    reason: Нет записей в labor-coverage-registry.yaml для профиля analyst
+    needed_for_tfs:
+    - В/01.6
+    - В/02.6
+    - В/03.6
+    - В/04.6
+    - В/05.6
+    - С/01.7
+    - С/02.7
+    - С/03.7
+    - С/04.7
+  - profile_id: coder
+    name: Вадим Нейман
+    standard: 06.001 + 06.035 + 06.026
+    reason: Нет записей в labor-coverage-registry.yaml для профиля coder
+    needed_for_tfs:
+    - В/01.6
+    - В/02.6
+    - В/03.6
+    - В/04.6
+    - В/05.6
+    - С/01.7
+    - С/02.7
+    - С/03.7
+    - С/04.7
+  - profile_id: marketing
+    name: —
+    standard: '08.035'
+    reason: Нет записей в labor-coverage-registry.yaml для профиля marketing
+    needed_for_tfs:
+    - В/01.6
+    - В/02.6
+    - В/03.6
+    - В/04.6
+    - В/05.6
+    - С/01.7
+    - С/02.7
+    - С/03.7
+    - С/04.7
+  - profile_id: keyword-collector
+    name: Кирилл
+    standard: 06.043-B01.4 (субагент)
+    reason: Нет записей в labor-coverage-registry.yaml для профиля keyword-collector
+    needed_for_tfs:
+    - В/01.6
+    - В/02.6
+    - В/03.6
+    - В/04.6
+    - В/05.6
+    - С/01.7
+    - С/02.7
+    - С/03.7
+    - С/04.7
+  recommendations:
+  - priority: high
+    what: Сбор данных о работе профилей без покрытия
+    profiles_affected:
+    - mais
+    - ppc-specialist
+    - copywriter
+    - analyst
+    - coder
+    - marketing
+    - keyword-collector
+    action: Создать skills для каждого профиля в соответствии с их профстандартами
+    estimated_impact: Покрытие 07.007 увеличится с 8 до 15 ТФ
+  - priority: medium
+    what: Уточнение кросс-функциональных связей
+    profiles_affected: []
+    action: Документировать handoff-точки между профилями, использующими 07.007
+    estimated_impact: Позволит переместить В/01.6 из partially_covered в covered
+  - priority: low
+    what: Мониторинг появления новых профилей
+    profiles_affected: []
+    action: При добавлении нового профиля в AGENTS.md — перезапустить crossfunction-analyzer
+    estimated_impact: Автоматическое обновление карты взаимодействий
+quality:
+  schema_valid: true
+  sources_read:
+  - ../AGENTS.md
+  - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml
+  - outputs/07.007/labor-coverage-registry.yaml
+  - outputs/07.007/block-A/A-01.6-info-context.yaml
+  context_available: true
+  total_profiles: 7
+  profiles_with_data: 0
+  profiles_without_data: 7

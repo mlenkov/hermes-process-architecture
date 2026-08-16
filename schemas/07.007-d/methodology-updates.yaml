@@ -1,0 +1,16 @@
+# Output D/04.7-TD-4: methodology-updates (terminal D-OTF output)
+# Produced by: methodology-development-implementation skill
+# Consumed by: none (end of D-OTF chain)
+review_date: date
+updates:
+  - methodology_id: string
+    name: string
+    previous_version: string
+    new_version: string
+    changes: [string]
+    rationale: string
+obsolete_methodologies:
+  - id: string
+    name: string
+    superseded_by: string
+next_review_date: date

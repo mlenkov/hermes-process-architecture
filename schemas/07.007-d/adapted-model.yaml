@@ -1,0 +1,13 @@
+# Output D/02.7-TD-2: adapted-model
+# Produced by: process-architecture-development skill
+# Consumed by: TD-3 (architecture design)
+source_model: string
+adaptations:
+  - element: string
+    original: string
+    adapted: string
+    rationale: string
+alignment:
+  business_structure: boolean
+  strategy: boolean
+  goals: boolean

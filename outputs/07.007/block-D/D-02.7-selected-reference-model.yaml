@@ -1,0 +1,8 @@
+alternatives_considered:
+- name: SCOR
+  reason: Сфокусирован на supply chain
+- name: eTOM
+  reason: Телеком-специфичный
+methodology: BPMN 2.0 + DMN
+process: Выбор референтной модели
+selected_model: APQC PCF v7.3 (Process Classification Framework)

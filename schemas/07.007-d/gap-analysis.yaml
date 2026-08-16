@@ -1,0 +1,9 @@
+# Output D/01.7-TD-4: gap-analysis
+# Produced by: gap-analysis skill
+# Consumed by: TD-5 (process-optimization-analysis), TD-6 (technical-writing)
+gaps:
+  - requirement_id: string
+    requirement_text: string
+    status: met | partially_met | not_met
+    finding: string
+    severity: critical | major | minor

@@ -1,0 +1,10 @@
+# Output D/01.7-TD-5: improvement-opportunities
+# Produced by: process-optimization-analysis skill
+# Consumed by: TD-6 (technical-writing)
+opportunities:
+  - id: string
+    description: string
+    impact: high | medium | low
+    effort: high | medium | low
+    priority: high | medium | low
+    gap_ref: string | null  # requirement_id from gap-analysis if related

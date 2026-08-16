@@ -1,0 +1,8 @@
+effectiveness_rating: medium
+kpi_results:
+- actual: 55
+  baseline: 40
+  metric: Process coverage
+  target: 85
+process: Оценка эффективности трансформации
+summary: Трансформация выполнена на 55% от целевых показателей

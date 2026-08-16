@@ -1,0 +1,232 @@
+# =============================================================================
+# Схема: Карта стейкхолдеров мультиагентной системы (Hermes)
+# Артефакт: stakeholder-mapping-schema.yaml
+# Происхождение: D/01.7 la-001 "Определение заинтересованных сторон"
+# Назначение: шаблон описания стейкхолдеров, их атрибутов и связей с ТФ/ТД
+# Тип: schema (не данные конкретной компании)
+# =============================================================================
+
+schema:
+  id: stakeholder-mapping-schema
+  version: 1.0.0
+  description: >
+    Эталонная схема карты стейкхолдеров для мультиагентной системы Hermes.
+    Определяет типы участников, их атрибуты, связи с трудовыми функциями
+    и точки расширения для подключения новых профилей.
+
+stakeholder_types:
+  # ── Человеческие роли ──────────────────────────────────────────────
+  - type: User_Operator
+    description: >
+      Человек-оператор, заказчик и потребитель результатов.
+      Отдаёт команды, утверждает изменения, получает PDCA-отчёты.
+    attributes:
+      authority_level:
+        type: enum
+        values: [read, write, approve, full]
+        description: Уровень полномочий в системе
+      communication_channels:
+        type: list[string]
+        description: Каналы взаимодействия (telegram, cli, web)
+      approval_scope:
+        type: list[string]
+        description: Какие артефакты требуют утверждения этим стейкхолдером
+    tf_mapping:
+      affected_by:
+        - D/01.7  # анализ — пользователь задаёт цели
+        - D/04.7  # методология — пользователь утверждает регламенты
+      consumes:
+        - pdca-report
+        - coverage-registry
+        - monitor-report
+    extension_points:
+      add_profile_for_same_type: >
+        Дополнительный User_Operator (например, второй администратор)
+        создаётся копированием секции с новым profile_id.
+        Не требует изменения существующих связей — все User_Operator
+        автоматически получают те же tf_mapping.
+
+  # ── Координирующие агенты ───────────────────────────────────────────
+  - type: Agent_Coordinator
+    description: >
+      AI-агент, управляющий pipeline, потоками задач и целостностью архитектуры.
+      Не исполняет ТД напрямую, а оркестрирует.
+    attributes:
+      profile_id:
+        type: string
+        description: Имя профиля в Hermes (например, "mais", "architect")
+      orchestrates_labor_functions:
+        type: list[string]
+        description: Список ТФ, за которые отвечает координатор
+      pipeline_type:
+        type: enum
+        values: [sequential, parallel, hybrid]
+        description: Тип pipeline, которым управляет
+      escalation_path:
+        type: string
+        description: Кому передаётся при N+1 ошибках
+    tf_mapping:
+      affected_by:
+        - B/01.7  # координация потоков задач
+        - C/01.7  # управление системой менеджмента
+        - D/03.7  # руководство программами трансформации
+      produces:
+        - pipeline-config
+        - coverage-registry
+        - escalation-report
+    extension_points:
+      add_new_coordinator: >
+        Новый профиль Agent_Coordinator (например, "coordinator-marketing")
+        добавляется как отдельная секция в список.
+        orchestrates_labor_functions указывает только свои ТФ.
+        tf_mapping наследуется по умолчанию от Agent_Coordinator,
+        но может быть переопределён.
+
+  # ── Исполняющие агенты ──────────────────────────────────────────────
+  - type: Agent_Performer
+    description: >
+      AI-агент, непосредственно исполняющий трудовые действия (ТД)
+      в рамках закреплённых за ним ТФ.
+    attributes:
+      profile_id:
+        type: string
+        description: Имя профиля в Hermes
+      assigned_labor_functions:
+        type: list[string]
+        description: Список ТФ, по которым агент выполняет ТД
+      skills:
+        type: list[string]
+        description: Список навыков (skills), которыми владеет агент
+      required_inputs:
+        type: list[string]
+        description: Типы входных артефактов, которые потребляет агент
+      expected_outputs:
+        type: list[string]
+        description: Типы выходных артефактов, которые производит агент
+    tf_mapping:
+      affected_by:
+        - A/01.7  # сбор информации
+        - A/02.7  # описание процессов
+        - A/03.7  # регламентация
+        - A/04.7  # согласование
+        - D/01.7  # анализ
+        - D/02.7  # проектирование
+      produces:
+        - td-output
+        - action-report
+    extension_points:
+      add_new_performer: >
+        Новый профиль Agent_Performer создаётся по шаблону:
+          1. Копировать блок Agent_Performer
+          2. Указать profile_id
+          3. Перечислить ТФ в assigned_labor_functions
+          4. Указать skills из числа существующих или новых
+          5. Связи с User_Operator и Agent_Coordinator создаются
+             автоматически: User_Operator может направлять задачи
+             любому Performer, Agent_Coordinator видит все Performer.
+        Никакие существующие блоки не изменяются.
+      declare_cross_standard: >
+        Если агент работает по другому профстандарту (не 07.007),
+        его ТФ указываются с префиксом стандарта:
+          assigned_labor_functions:
+            - "06.043-B/01.4"
+            - "06.013-A/02.5"
+        Это не ломает структуру — tf_mapping работает по labor_function_id.
+
+  # ── Внешние сервисы (MCP) ───────────────────────────────────────────
+  - type: External_MCP_Service
+    description: >
+      Внешний сервис, подключённый через MCP-протокол.
+      Предоставляет данные или выполняет действия вне Hermes.
+    attributes:
+      service_id:
+        type: string
+        description: Идентификатор сервиса (например, "graphify", "bifrost")
+      protocol:
+        type: enum
+        values: [mcp, http, grpc]
+        description: Протокол подключения
+      data_provided:
+        type: list[string]
+        description: Какие данные сервис предоставляет системе
+      actions_performed:
+        type: list[string]
+        description: Какие действия сервис может выполнять
+      auth_required:
+        type: boolean
+        description: Требуется ли аутентификация
+    tf_mapping:
+      affected_by:
+        - D/03.7  # трансформация — MCP-сервисы могут меняться
+      consumed_by:
+        - B/02.7  # кросс-функциональное взаимодействие
+        - C/02.7  # измерение эффективности
+    extension_points:
+      add_mcp_service: >
+        Новый MCP-сервис добавляется как секция в список.
+        Влияние на существующие связи: если сервис предоставляет
+        новые данные (data_provided), Agent_Performer может начать
+        их потреблять без изменения своей конфигурации.
+        Если сервис требует авторизации — обновляется только
+        его секция, остальные стейкхолдеры не затрагиваются.
+
+  # ── Среда исполнения ────────────────────────────────────────────────
+  - type: Runtime_Environment
+    description: >
+      Среда, в которой работает мультиагентная система:
+      файловая система, kanban, cron, SQLite.
+    attributes:
+      runtime_type:
+        type: enum
+        values: [hermes_local, hermes_server, hybrid]
+        description: Тип среды
+      storage:
+        type: list[string]
+        description: Хранилища данных (kanban.db, ~/.hermes/, outputs/)
+      scheduler:
+        type: string
+        description: Механизм запуска (cron, systemd, manual)
+    tf_mapping:
+      affects:
+        - "*"  # влияет на все ТФ
+    extension_points:
+      add_new_runtime: >
+        При развёртывании в новой среде (например, Docker)
+        добавляется секция с новым runtime_type.
+        tf_mapping = "*" гарантирует, что все ТФ видят новую среду.
+
+# ── Расширение для новых профилей (cross-standard) ─────────────────────
+extension_framework:
+  description: >
+    Механизм подключения профиля с другим профстандартом к текущей
+    архитектуре. Не требует изменения существующей структуры.
+  steps:
+    - step: 1
+      action: "Определить тип стейкхолдера для нового профиля"
+      options:
+        - "Agent_Performer — если профиль исполняет ТД"
+        - "Agent_Coordinator — если профиль управляет другими"
+    - step: 2
+      action: "Указать labor_function_id с префиксом стандарта"
+      example: "06.043-B/01.4"
+    - step: 3
+      action: "Перечислить skills из числа существующих или новых"
+    - step: 4
+      action: "Связать с User_Operator через его approval_scope (если нужно)"
+  rules:
+    - "Новый профиль не изменяет существующие блоки stakeholder_types"
+    - "Существующие tf_mapping не перезаписываются"
+    - "User_Operator автоматически видит все Agent_Performer"
+    - "Agent_Coordinator автоматически видит все Agent_Performer"
+    - "Связи через labor_function_id не конфликтуют между стандартами"
+
+# ── Метрики качества схемы ──────────────────────────────────────────────
+quality_gates:
+  - gate: "Каждый Agent_Performer имеет хотя бы одну assigned_labor_function"
+    check: "len(assigned_labor_functions) >= 1"
+  - gate: "Каждая labor_function_id указана не более чем у 3 Agent_Performer"
+    check: "count_by_labor_function_id <= 3"
+  - gate: "Все extension_points содержат инструкцию add_*"
+    check: "present"
+  - gate: "Ни один блок не содержит имён конкретных людей или компаний"
+    check: "no mock data"

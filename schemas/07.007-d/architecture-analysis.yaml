@@ -1,0 +1,12 @@
+# Output D/01.7-TF: architecture-analysis
+# Produced by: TD-7 (presentation skill, aggregates all prior outputs)
+# Consumed by: D/02.7, D/04.7
+requirements: [architecture-requirements]
+gaps: [gap-analysis]
+opportunities: [improvement-opportunities]
+stakeholders: [stakeholder-list]
+goals: [agreed-goals]
+report: analysis-report
+metadata:
+  tf: D/01.7
+  data_sources: [architecture-current, business-strategy]

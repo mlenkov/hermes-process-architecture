@@ -1,0 +1,14 @@
+# Output D/02.7-TD-5: architecture-compliance
+# Produced by: process-architecture-development skill
+# Consumed by: D/03.7 (transformation planning)
+checked_models:
+  - model_id: string
+    model_name: string
+    compliant: boolean
+    deviations:
+      - element: string
+        expected: string
+        actual: string
+        severity: critical | major | minor
+conclusion: compliant | non_compliant | conditionally_compliant
+recommendations: [string]

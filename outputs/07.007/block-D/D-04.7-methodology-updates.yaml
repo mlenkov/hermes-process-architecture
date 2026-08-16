@@ -1,0 +1,8 @@
+next_review_date: '2026-10-29'
+process: Актуализация методик
+review_date: '2026-07-29'
+updates:
+- changes:
+  - Добавлены шаблоны BPMN
+  name: Методика описания процессов
+  version: '1.1'

@@ -1,0 +1,12 @@
+# Output D/02.7-TD-1: selected-reference-model
+# Produced by: process-architecture-development skill
+# Consumed by: TD-2 (model adaptation)
+selected_model: string
+selection_criteria:
+  - criterion: string
+    weight: number
+    score: number
+alternatives_considered:
+  - name: string
+    reason_rejected: string
+methodology: string

@@ -1,0 +1,16 @@
+coverage:
+  covered: 5
+  pct: 4.0
+  status: behind
+  total: 124
+date: '2026-07-29'
+recommendations:
+- action: Execute 5 uncovered TFs from priority list
+  priority: high
+targets:
+  q3:
+    gap: 38
+    target: 43
+  q4:
+    gap: 57
+    target: 62

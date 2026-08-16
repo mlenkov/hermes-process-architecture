@@ -1,0 +1,180 @@
+meta:
+  artifact: C-01.7-maturity-assessment
+  tf: С/01.7
+  la: la-001
+  generated_by: maturity-assessor
+  timestamp: '2026-08-01T18:34:37Z'
+  schema_ref: maturity-assessment-schema.yaml v1.0.0
+body:
+  maturity_model:
+    name: CMMI-подобная шкала зрелости процесса управления
+    levels:
+    - level_id: M1
+      level_name: initial
+      description: Процессы непредсказуемы, слабо документированы
+    - level_id: M2
+      level_name: defined
+      description: Процессы стандартизированы и документированы
+    - level_id: M3
+      level_name: managed
+      description: Процессы измеряются и контролируются
+    - level_id: M4
+      level_name: optimizing
+      description: Процессы непрерывно улучшаются
+    scoring_basis: Покрытие ТФ навыками из labor-coverage-registry.yaml и mapping
+  current_state:
+    total_tfs: 18
+    covered: 9
+    partially_covered: 9
+    missing_skill: 0
+    coverage_pct: 50.0
+    by_block:
+      D: 4/4 covered, 0 partially, 0 missing
+      А: 4/4 covered, 0 partially, 0 missing
+      В: 0/5 covered, 5 partially, 0 missing
+      С: 1/5 covered, 4 partially, 0 missing
+    source: labor-coverage-registry.yaml + labor-function-to-skill-mapping.yaml (summary)
+  maturity_scores:
+  - level_id: M1
+    level_name: initial
+    score_pct: 100.0
+    basis: 'Система существует: registry и mapping заполнены'
+  - level_id: M2
+    level_name: defined
+    score_pct: 100.0
+    basis: 18/18 ТФ имеют навык
+  - level_id: M3
+    level_name: managed
+    score_pct: 50.0
+    basis: 9/18 ТФ полностью покрыты
+  - level_id: M4
+    level_name: optimizing
+    score_pct: 100.0
+    basis: 'Блок D (трансформация): 4/4 covered'
+  gaps:
+  - tf_code: В/01.6
+    tf_name: Анализ кросс-функционального процесса
+    type: partially_covered
+    description: 'ТФ В/01.6 покрыта частично: crossfunction-analyzer читает AGENTS.md,
+      mapping, registry и A-01.6-info-context'
+  - tf_code: В/02.6
+    tf_name: Моделирование кросс-функционального процесса
+    type: partially_covered
+    description: 'ТФ В/02.6 покрыта частично: crossfunction-graph-builder строит исполняемый
+      IDEF0-граф ТФ в graphify (semanti'
+  - tf_code: В/03.6
+    tf_name: Разработка и усовершенствование кросс-функционального процесса
+    type: partially_covered
+    description: 'ТФ В/03.6 покрыта частично: crossfunction-designer превращает IDEF0-граф
+      (В/02.6) в исполняемую спецификацию'
+  - tf_code: В/04.6
+    tf_name: Внедрение кросс-функционального процесса
+    type: partially_covered
+    description: 'ТФ В/04.6 покрыта частично: crossfunction-deployer читает B-03.6-crossfunction-spec.yaml,
+      mapping и otf-sect'
+  - tf_code: В/05.6
+    tf_name: Аудит деятельности в рамках кросс-функционального процесса
+    type: partially_covered
+    description: 'ТФ В/05.6 покрыта частично: crossfunction-auditor проверяет handoff-точки
+      из B-04.6 (существование артефакто'
+  - tf_code: С/01.7
+    tf_name: Анализ системы процессного управления
+    type: partially_covered
+    description: 'ТФ С/01.7 покрыта частично: maturity-assessor оценивает зрелость
+      системы управления по CMMI-подобной шкале ('
+  - tf_code: С/02.7
+    tf_name: Разработка и усовершенствование системы управления
+    type: partially_covered
+    description: 'ТФ С/02.7 покрыта частично: system-planner читает C-01.7-maturity-assessment.yaml,
+      mapping и otf-section-3.y'
+  - tf_code: С/03.7
+    tf_name: Внедрение системы управления
+    type: partially_covered
+    description: 'ТФ С/03.7 покрыта частично: implementation-lead читает roadmap (C-02.7,
+      фаза PH-01), mapping и ТД С/03.7, ге'
+  - tf_code: С/04.7
+    tf_name: Аудит системы управления
+    type: partially_covered
+    description: 'ТФ С/04.7 покрыта частично: system-auditor читает оценку зрелости
+      (C-01.7), план внедрения (C-03.7), mapping'
+  recommendations:
+  - recommendation_id: R-01
+    tf_code: В/01.6
+    recommendation: Повысить покрытие В/01.6 (Анализ кросс-функционального процесса)
+      — расширить навык до полного
+    basis: partially_covered в mapping
+    source_td: Оценка текущих показателей действующей системы процессного управления
+      по принятой модели
+  - recommendation_id: R-02
+    tf_code: В/02.6
+    recommendation: Повысить покрытие В/02.6 (Моделирование кросс-функционального
+      процесса) — расширить навык до полного
+    basis: partially_covered в mapping
+    source_td: Оценка текущих показателей действующей системы процессного управления
+      по принятой модели
+  - recommendation_id: R-03
+    tf_code: В/03.6
+    recommendation: Повысить покрытие В/03.6 (Разработка и усовершенствование кросс-функционального
+      процесса) — расширить навык до полного
+    basis: partially_covered в mapping
+    source_td: Оценка текущих показателей действующей системы процессного управления
+      по принятой модели
+  - recommendation_id: R-04
+    tf_code: В/04.6
+    recommendation: Повысить покрытие В/04.6 (Внедрение кросс-функционального процесса)
+      — расширить навык до полного
+    basis: partially_covered в mapping
+    source_td: Оценка текущих показателей действующей системы процессного управления
+      по принятой модели
+  - recommendation_id: R-05
+    tf_code: В/05.6
+    recommendation: Повысить покрытие В/05.6 (Аудит деятельности в рамках кросс-функционального
+      процесса) — расширить навык до полного
+    basis: partially_covered в mapping
+    source_td: Оценка текущих показателей действующей системы процессного управления
+      по принятой модели
+  - recommendation_id: R-06
+    tf_code: С/01.7
+    recommendation: Повысить покрытие С/01.7 (Анализ системы процессного управления)
+      — расширить навык до полного
+    basis: partially_covered в mapping
+    source_td: Оценка текущих показателей действующей системы процессного управления
+      по принятой модели
+  - recommendation_id: R-07
+    tf_code: С/02.7
+    recommendation: Повысить покрытие С/02.7 (Разработка и усовершенствование системы
+      управления) — расширить навык до полного
+    basis: partially_covered в mapping
+    source_td: Оценка текущих показателей действующей системы процессного управления
+      по принятой модели
+  - recommendation_id: R-08
+    tf_code: С/03.7
+    recommendation: Повысить покрытие С/03.7 (Внедрение системы управления) — расширить
+      навык до полного
+    basis: partially_covered в mapping
+    source_td: Оценка текущих показателей действующей системы процессного управления
+      по принятой модели
+  - recommendation_id: R-09
+    tf_code: С/04.7
+    recommendation: Повысить покрытие С/04.7 (Аудит системы управления) — расширить
+      навык до полного
+    basis: partially_covered в mapping
+    source_td: Оценка текущих показателей действующей системы процессного управления
+      по принятой модели
+  - recommendation_id: R-10
+    tf_code: system
+    recommendation: Определить целевые показатели зрелости (уровень managed >= 80%
+      covered, optimizing >= 50% D-блока)
+    basis: targets не определены в registry
+    source_td: Определение целевых показателей системы процессного управления организации
+      и ее компонентов
+  data_gaps:
+  - Экономическая и функциональная эффективность системы управления не измеряется
+    — данных нет в registry
+quality:
+  schema_valid: true
+  sources_read:
+  - outputs/07.007/labor-coverage-registry.yaml
+  - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml
+  - docs/standards/07.007/otf-section-3.yaml
+  warnings: []

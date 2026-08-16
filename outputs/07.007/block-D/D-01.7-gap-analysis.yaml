@@ -1,0 +1,18 @@
+gaps:
+- area: Стратегия→Процессы
+  description: Нет прослеживаемости целей до процессов
+  id: gap-001
+  severity: critical
+- area: Документация
+  description: Поддерживающие процессы не документированы
+  id: gap-002
+  severity: major
+- area: Автоматизация
+  description: Разрыв между Jira и 1C:ERP
+  id: gap-003
+  severity: major
+- area: Ролевая модель
+  description: Владельцы процессов не назначены
+  id: gap-004
+  severity: minor
+process: Анализ соответствия существующей архитектуры требованиям

@@ -1,0 +1,11 @@
+checked_models:
+- compliant: true
+  model_id: pr-001
+  name: Стратегический обзор
+- compliant: true
+  model_id: pr-002
+  name: Релизный цикл
+conclusion: compliant
+process: Контроль соответствия
+recommendations:
+- Регулярный аудит моделей

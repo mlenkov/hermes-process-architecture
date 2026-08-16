@@ -1,0 +1,18 @@
+# Output D/04.7-TD-0: methodology-developed
+# Produced by: methodology-development-implementation skill
+# Consumed by: TD-1 (deployment)
+methodologies:
+  - id: string
+    name: string
+    type: методика | регламент | инструкция
+    version: string
+    scope: string
+    status: draft | approved
+    document_url: string
+based_on:
+  transformation_results: string
+  architecture_analysis: string
+change_log:
+  - version: string
+    date: date
+    changes: [string]

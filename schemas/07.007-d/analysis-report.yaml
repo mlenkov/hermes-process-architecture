@@ -1,0 +1,26 @@
+# Output D/01.7-TD-6: analysis-report
+# Produced by: technical-writing skill
+# Consumed by: TD-7 (presentation)
+summary: string
+stakeholder_analysis:
+  total: int
+  categories:
+    customers: int
+    owners: int
+    regulators: int
+    implementers: int
+    users: int
+goals_alignment:
+  critical: int
+  high: int
+  medium: int
+  low: int
+requirements_count: int
+processes_surveyed: int
+gaps_found:
+  critical: int
+  major: int
+  minor: int
+opportunities: int
+recommendations: [string]
+key_findings: [string]

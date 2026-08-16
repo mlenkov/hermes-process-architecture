@@ -1,0 +1,8 @@
+adoption_rate: 0.3
+deployment_plan:
+  phases:
+  - phase: Пилот (ИТ-департамент)
+    status: planned
+  - phase: Масштабирование
+    status: planned
+process: Внедрение методологии

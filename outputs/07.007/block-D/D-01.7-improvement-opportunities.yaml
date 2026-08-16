@@ -1,0 +1,18 @@
+opportunities:
+- description: Внедрение BPMN-нотации для всех процессов
+  effort: medium
+  id: opp-001
+  impact: high
+- description: Автоматизация стыков КИС (Jira ↔ 1C)
+  effort: high
+  id: opp-002
+  impact: high
+- description: Назначение владельцев процессов
+  effort: low
+  id: opp-003
+  impact: medium
+- description: Построение процессной карты уровня 0-2
+  effort: medium
+  id: opp-004
+  impact: high
+process: Выявление возможностей усовершенствования

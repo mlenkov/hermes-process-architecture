@@ -1,0 +1,18 @@
+process: Определение требований к архитектуре
+requirements:
+- description: Прослеживаемость целей до процессов
+  domain: Стратегический
+  id: r-001
+  priority: critical
+- description: Полная карта бизнес-функций
+  domain: Функциональный
+  id: r-002
+  priority: high
+- description: Связь процессов с КИС
+  domain: Интеграционный
+  id: r-003
+  priority: high
+- description: Соответствие ISO 9001:2025
+  domain: Нормативный
+  id: r-004
+  priority: medium

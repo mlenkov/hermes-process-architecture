@@ -1,0 +1,20 @@
+# Output D/03.7-TD-1: transformation-executed
+# Produced by: transformation-program-management skill
+# Consumed by: TD-2 (effectiveness evaluation)
+program:
+  name: string
+  projects:
+    - id: string
+      name: string
+      status: completed | in_progress | delayed | cancelled
+      owner: string
+      completion_percent: number
+execution_log:
+  - date: date
+    event: string
+    action: string
+deviations:
+  - plan_item: string
+    actual: string
+    correction: string
+overall_status: on_track | at_risk | off_track

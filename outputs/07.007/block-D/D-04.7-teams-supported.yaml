@@ -1,0 +1,8 @@
+faq:
+- answer: BPMN 2.0
+  question: Какую нотацию использовать?
+process: Методическая помощь командам
+support_log:
+- request: Описание процесса релиза
+  satisfaction: high
+  team: Продуктовый отдел

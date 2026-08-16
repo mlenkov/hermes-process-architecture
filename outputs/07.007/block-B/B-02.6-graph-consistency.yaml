@@ -1,0 +1,363 @@
+meta:
+  artifact: B-02.6-graph-consistency
+  tf: В/02.6
+  la: la-001
+  generated_by: crossfunction-graph-builder
+  timestamp: '2026-08-02T18:21:53Z'
+  schema_ref: graph-consistency-schema.yaml v1.0.0
+body:
+  graphify_path: graphify-out/.graphify_semantic.json
+  node_count: 18
+  edge_count: 11
+  controls:
+  - '07.007'
+  - new-skill-architecture-blueprint.md
+  tf_nodes:
+  - node_id: TF-07.007-A-01.6
+    tf_code: А/01.6
+    mechanisms:
+    - profile: regulator
+      skill: info-gatherer
+      skill_path: info-gatherer/SKILL.md
+    inputs:
+    - otf-section-1.yaml
+    - ../AGENTS.md
+    - labor-coverage-registry.yaml
+    outputs:
+    - outputs/07.007/block-A/A-01.6-info-context.yaml
+  - node_id: TF-07.007-A-02.6
+    tf_code: А/02.6
+    mechanisms:
+    - profile: regulator
+      skill: regulation-writer
+      skill_path: regulation-writer/SKILL.md
+    inputs:
+    - block-A/A-01.6-info-context.yaml
+    - otf-section-1.yaml
+    outputs:
+    - outputs/07.007/block-A/A-02.6-regulation.yaml
+  - node_id: TF-07.007-A-03.6
+    tf_code: А/03.6
+    mechanisms:
+    - profile: regulator
+      skill: deployment-planner
+      skill_path: deployment-planner/SKILL.md
+    inputs:
+    - block-A/A-01.6-info-context.yaml
+    - block-A/A-02.6-regulation.yaml
+    - otf-section-1.yaml
+    outputs:
+    - outputs/07.007/block-A/A-03.6-deployment-plan.yaml
+  - node_id: TF-07.007-A-04.6
+    tf_code: А/04.6
+    mechanisms:
+    - profile: architect
+      skill: pdca-reporter
+      skill_path: pdca-reporter/SKILL.md
+    inputs: []
+    outputs:
+    - outputs/07.007/block-A/A-04.6-pdca-report.yaml
+  - node_id: TF-07.007-B-01.6
+    tf_code: В/01.6
+    mechanisms:
+    - profile: analyst
+      skill: crossfunction-analyzer
+      skill_path: crossfunction-analyzer/SKILL.md
+    inputs:
+    - ../AGENTS.md
+    - block-D/labor-function-to-skill-mapping.yaml
+    - labor-coverage-registry.yaml
+    - block-A/A-01.6-info-context.yaml
+    outputs:
+    - outputs/07.007/block-B/B-01.6-crossfunction-flow.yaml
+  - node_id: TF-07.007-B-02.6
+    tf_code: В/02.6
+    mechanisms:
+    - profile: analyst
+      skill: crossfunction-graph-builder
+      skill_path: crossfunction-graph-builder/SKILL.md
+    inputs:
+    - block-D/labor-function-to-skill-mapping.yaml
+    - labor-coverage-registry.yaml
+    - profiles/<profile>/skills/<skill>/SKILL.md
+    outputs:
+    - outputs/07.007/block-B/B-02.6-graph-consistency.yaml
+  - node_id: TF-07.007-B-03.6
+    tf_code: В/03.6
+    mechanisms:
+    - profile: analyst
+      skill: crossfunction-designer
+      skill_path: crossfunction-designer/SKILL.md
+    inputs:
+    - outputs/07.007/block-B/B-02.6-graph-consistency.yaml
+    - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml
+    - docs/standards/07.007/otf-section-2.yaml
+    - docs/standards/07.007/otf-section-1.yaml
+    outputs:
+    - outputs/07.007/block-B/B-03.6-crossfunction-spec.yaml
+  - node_id: TF-07.007-B-04.6
+    tf_code: В/04.6
+    mechanisms:
+    - profile: analyst
+      skill: crossfunction-deployer
+      skill_path: crossfunction-deployer/SKILL.md
+    inputs:
+    - outputs/07.007/block-B/B-03.6-crossfunction-spec.yaml
+    - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml
+    - docs/standards/07.007/otf-section-2.yaml
+    outputs:
+    - outputs/07.007/block-B/B-04.6-crossfunction-deployment.yaml
+  - node_id: TF-07.007-B-05.6
+    tf_code: В/05.6
+    mechanisms:
+    - profile: analyst
+      skill: crossfunction-auditor
+      skill_path: crossfunction-auditor/SKILL.md
+    inputs:
+    - outputs/07.007/block-B/B-04.6-crossfunction-deployment.yaml
+    - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml
+    - docs/standards/07.007/otf-section-2.yaml
+    outputs:
+    - outputs/07.007/block-B/B-05.6-crossfunction-audit.yaml
+  - node_id: TF-07.007-C-01.7
+    tf_code: С/01.7
+    mechanisms:
+    - profile: analyst
+      skill: maturity-assessor
+      skill_path: maturity-assessor/SKILL.md
+    inputs:
+    - outputs/07.007/labor-coverage-registry.yaml
+    - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml
+    - docs/standards/07.007/otf-section-3.yaml
+    outputs:
+    - outputs/07.007/block-C/C-01.7-maturity-assessment.yaml
+  - node_id: TF-07.007-C-02.7
+    tf_code: С/02.7
+    mechanisms:
+    - profile: analyst
+      skill: system-planner
+      skill_path: system-planner/SKILL.md
+    inputs:
+    - outputs/07.007/block-C/C-01.7-maturity-assessment.yaml
+    - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml
+    - docs/standards/07.007/otf-section-3.yaml
+    outputs:
+    - outputs/07.007/block-C/C-02.7-architecture-roadmap.yaml
+  - node_id: TF-07.007-C-03.7
+    tf_code: С/03.7
+    mechanisms:
+    - profile: analyst
+      skill: implementation-lead
+      skill_path: implementation-lead/SKILL.md
+    inputs:
+    - outputs/07.007/block-C/C-02.7-architecture-roadmap.yaml
+    - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml
+    - docs/standards/07.007/otf-section-3.yaml
+    outputs:
+    - outputs/07.007/block-C/C-03.7-implementation-plan.yaml
+  - node_id: TF-07.007-C-04.7
+    tf_code: С/04.7
+    mechanisms:
+    - profile: analyst
+      skill: system-auditor
+      skill_path: system-auditor/SKILL.md
+    inputs:
+    - outputs/07.007/block-C/C-01.7-maturity-assessment.yaml
+    - outputs/07.007/block-C/C-03.7-implementation-plan.yaml
+    - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml
+    - outputs/07.007/labor-coverage-registry.yaml
+    - docs/standards/07.007/otf-section-3.yaml
+    outputs:
+    - outputs/07.007/block-C/C-04.7-system-audit.yaml
+  - node_id: TF-07.007-C-05.7
+    tf_code: С/05.7
+    mechanisms:
+    - profile: architect
+      skill: architect-selfheal
+      skill_path: architect-selfheal/SKILL.md
+    inputs: []
+    outputs: []
+  - node_id: TF-07.007-D-01.7
+    tf_code: D/01.7
+    mechanisms:
+    - profile: architect
+      skill: architect-monitor
+      skill_path: architect-monitor/SKILL.md
+    inputs: []
+    outputs:
+    - outputs/07.007/block-D/D-01.7-stakeholder-mapping.yaml
+    - outputs/07.007/block-D/D-01.7-agreed-goals.yaml
+    - outputs/07.007/block-D/D-01.7-architecture-requirements.yaml
+    - outputs/07.007/block-D/D-01.7-architecture-data.yaml
+    - outputs/07.007/block-D/D-01.7-gap-analysis.yaml
+    - outputs/07.007/block-D/D-01.7-improvement-opportunities.yaml
+    - outputs/07.007/block-D/D-01.7-analysis-report.yaml
+    - outputs/07.007/block-D/D-01.7-architecture-analysis.yaml
+  - node_id: TF-07.007-D-02.7
+    tf_code: D/02.7
+    mechanisms:
+    - profile: architect
+      skill: architect-executor
+      skill_path: architect-executor/SKILL.md
+    inputs: []
+    outputs:
+    - outputs/07.007/block-D/D-02.7-systematized-info.yaml
+    - outputs/07.007/block-D/D-02.7-selected-reference-model.yaml
+    - outputs/07.007/block-D/D-02.7-adapted-model.yaml
+    - outputs/07.007/block-D/D-02.7-architecture-designed.yaml
+    - outputs/07.007/block-D/D-02.7-agreed-architecture.yaml
+    - outputs/07.007/block-D/D-02.7-architecture-compliance.yaml
+  - node_id: TF-07.007-D-03.7
+    tf_code: D/03.7
+    mechanisms:
+    - profile: architect
+      skill: architect-seeder
+      skill_path: architect-seeder/SKILL.md
+    inputs: []
+    outputs:
+    - outputs/07.007/block-D/D-03.7-transformation-plan.yaml
+    - outputs/07.007/block-D/D-03.7-transformation-executed.yaml
+    - outputs/07.007/block-D/D-03.7-transformation-results.yaml
+  - node_id: TF-07.007-D-04.7
+    tf_code: D/04.7
+    mechanisms:
+    - profile: architect
+      skill: architect-coverage
+      skill_path: architect-coverage/SKILL.md
+    inputs: []
+    outputs:
+    - outputs/07.007/block-D/D-04.7-methodology-developed.yaml
+    - outputs/07.007/block-D/D-04.7-methodology-deployed.yaml
+    - outputs/07.007/block-D/D-04.7-teams-supported.yaml
+    - outputs/07.007/block-D/D-04.7-compliance-report.yaml
+    - outputs/07.007/block-D/D-04.7-methodology-updates.yaml
+  handoff_edges:
+  - source: TF-07.007-A-01.6
+    target: TF-07.007-A-02.6
+    artifact: outputs/07.007/block-A/A-01.6-info-context.yaml
+  - source: TF-07.007-A-01.6
+    target: TF-07.007-A-03.6
+    artifact: outputs/07.007/block-A/A-01.6-info-context.yaml
+  - source: TF-07.007-A-01.6
+    target: TF-07.007-B-01.6
+    artifact: outputs/07.007/block-A/A-01.6-info-context.yaml
+  - source: TF-07.007-A-02.6
+    target: TF-07.007-A-03.6
+    artifact: outputs/07.007/block-A/A-02.6-regulation.yaml
+  - source: TF-07.007-B-02.6
+    target: TF-07.007-B-03.6
+    artifact: outputs/07.007/block-B/B-02.6-graph-consistency.yaml
+  - source: TF-07.007-B-03.6
+    target: TF-07.007-B-04.6
+    artifact: outputs/07.007/block-B/B-03.6-crossfunction-spec.yaml
+  - source: TF-07.007-B-04.6
+    target: TF-07.007-B-05.6
+    artifact: outputs/07.007/block-B/B-04.6-crossfunction-deployment.yaml
+  - source: TF-07.007-C-01.7
+    target: TF-07.007-C-02.7
+    artifact: outputs/07.007/block-C/C-01.7-maturity-assessment.yaml
+  - source: TF-07.007-C-01.7
+    target: TF-07.007-C-04.7
+    artifact: outputs/07.007/block-C/C-01.7-maturity-assessment.yaml
+  - source: TF-07.007-C-02.7
+    target: TF-07.007-C-03.7
+    artifact: outputs/07.007/block-C/C-02.7-architecture-roadmap.yaml
+  - source: TF-07.007-C-03.7
+    target: TF-07.007-C-04.7
+    artifact: outputs/07.007/block-C/C-03.7-implementation-plan.yaml
+  consistency:
+    total_tfs: 18
+    tfs_with_skill: 18
+    missing_skills: []
+    skills_without_profile: []
+    pipeline_breaks:
+    - tf: А/03.6
+      artifact: outputs/07.007/block-A/A-03.6-deployment-plan.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: А/04.6
+      artifact: outputs/07.007/block-A/A-04.6-pdca-report.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: В/01.6
+      artifact: outputs/07.007/block-B/B-01.6-crossfunction-flow.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: В/05.6
+      artifact: outputs/07.007/block-B/B-05.6-crossfunction-audit.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: С/04.7
+      artifact: outputs/07.007/block-C/C-04.7-system-audit.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/01.7
+      artifact: outputs/07.007/block-D/D-01.7-stakeholder-mapping.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/01.7
+      artifact: outputs/07.007/block-D/D-01.7-agreed-goals.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/01.7
+      artifact: outputs/07.007/block-D/D-01.7-architecture-requirements.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/01.7
+      artifact: outputs/07.007/block-D/D-01.7-architecture-data.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/01.7
+      artifact: outputs/07.007/block-D/D-01.7-gap-analysis.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/01.7
+      artifact: outputs/07.007/block-D/D-01.7-improvement-opportunities.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/01.7
+      artifact: outputs/07.007/block-D/D-01.7-analysis-report.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/01.7
+      artifact: outputs/07.007/block-D/D-01.7-architecture-analysis.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/02.7
+      artifact: outputs/07.007/block-D/D-02.7-systematized-info.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/02.7
+      artifact: outputs/07.007/block-D/D-02.7-selected-reference-model.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/02.7
+      artifact: outputs/07.007/block-D/D-02.7-adapted-model.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/02.7
+      artifact: outputs/07.007/block-D/D-02.7-architecture-designed.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/02.7
+      artifact: outputs/07.007/block-D/D-02.7-agreed-architecture.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/02.7
+      artifact: outputs/07.007/block-D/D-02.7-architecture-compliance.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/03.7
+      artifact: outputs/07.007/block-D/D-03.7-transformation-plan.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/03.7
+      artifact: outputs/07.007/block-D/D-03.7-transformation-executed.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/03.7
+      artifact: outputs/07.007/block-D/D-03.7-transformation-results.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/04.7
+      artifact: outputs/07.007/block-D/D-04.7-methodology-developed.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/04.7
+      artifact: outputs/07.007/block-D/D-04.7-methodology-deployed.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/04.7
+      artifact: outputs/07.007/block-D/D-04.7-teams-supported.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/04.7
+      artifact: outputs/07.007/block-D/D-04.7-compliance-report.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    - tf: D/04.7
+      artifact: outputs/07.007/block-D/D-04.7-methodology-updates.yaml
+      issue: Выход не потребляется ни одним входом — разрыв в pipeline
+    edges_created: 11
+    verdict: pipeline_breaks
+quality:
+  schema_valid: true
+  sources_read:
+  - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml
+  - outputs/07.007/labor-coverage-registry.yaml
+  - profiles/*/skills/*/SKILL.md (ICOM Inputs)
+  graphify_written: true

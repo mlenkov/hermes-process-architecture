@@ -1,0 +1,432 @@
+# =============================================================================
+# Карта: Трудовая функция → Навык (Skill)
+# Профстандарт: 07.007 «Специалист по процессному управлению»
+# Исполнитель: профиль architect
+# Версия: 1.0.0
+# =============================================================================
+#
+# Легенда статусов:
+#   covered             — существует SKILL.md, покрывающий ТФ полностью
+#   partially_covered   — существует SKILL.md, покрывающий часть ТД
+#   missing_skill       — нет SKILL.md, требуется создать
+#   not_applicable      — ТФ не применима к агенту (выполняется человеком)
+# =============================================================================
+
+mappings:
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # БЛОК A — Регламентация процессов
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - tf_code: А/01.6
+    tf_name: "Сбор информации о процессе"
+    tf_actions:
+      - "Определение целей процесса"
+      - "Определение границ процесса"
+      - "Определение заинтересованных сторон"
+      - "Определение входов и выходов"
+      - "Выяснение последовательности работ"
+      - "Выяснение используемых ресурсов и нормативов"
+      - "Выявление ответственных за работы"
+      - "Сбор данных о планировании и отчётности"
+      - "Сбор данных о ходе процесса"
+      - "Оформление результатов сбора"
+    skill_path: "info-gatherer/SKILL.md"
+    coverage_status: covered
+    coverage_note: >
+      info-gatherer читает AGENTS.md, otf-section-1.yaml
+      и labor-coverage-registry.yaml, агрегирует в process-info-context.yaml.
+      Создан по blueprint new-skill-architecture-blueprint.md (раздел 8).
+    required_new_skill: ""
+
+  - tf_code: А/02.6
+    tf_name: "Разработка и усовершенствование регламента процесса"
+    tf_actions:
+      - "Систематизация собранной информации"
+      - "Разработка регламента"
+      - "Разработка процедур контроля"
+      - "Разработка предложений по повышению эффективности"
+    skill_path: "regulation-writer/SKILL.md"
+    coverage_status: covered
+    coverage_note: >
+      regulation-writer читает process-info-context.yaml
+      (от info-gatherer) и docs/standards/07.007/otf-section-1.yaml,
+      генерирует process-regulation.yaml с шагами процесса, ролями
+      и процедурами контроля. Создан по blueprint new-skill-architecture-blueprint.md.
+    required_new_skill: ""
+    required_new_skill_rationale: ""
+
+  - tf_code: А/03.6
+    tf_name: "Ввод в действие регламента"
+    tf_actions:
+      - "Планирование мероприятий по вводу"
+      - "Внедрение регламента"
+      - "Внедрение предложений по повышению эффективности"
+      - "Оценка эффективности внедрения"
+    skill_path: "deployment-planner/SKILL.md"
+    coverage_status: covered
+    coverage_note: >
+      deployment-planner читает A-01.6-info-context.yaml,
+      A-02.6-regulation.yaml и otf-section-1.yaml, генерирует
+      deployment-plan.yaml с 4 фазами, gates, milestones,
+      ответственными профилями и критериями успеха. Замыкает блок A.
+    required_new_skill: ""
+    required_new_skill_rationale: ""
+
+  - tf_code: А/04.6
+    tf_name: "Контроль выполнения регламента"
+    tf_actions:
+      - "Определение процедур контроля"
+      - "Сбор информации о ходе выполнения"
+      - "Анализ на соответствие критериям"
+      - "Оценка эффективности"
+      - "Разработка рекомендаций"
+      - "Оформление результатов контроля"
+    skill_path: "pdca-reporter/SKILL.md"
+    coverage_status: covered
+    coverage_note: >
+      pdca-reporter формирует PDCA-отчёт с gap-анализом, сравнивает
+      фактические показатели coverage с целевыми, выдает рекомендации.
+      architect-monitor собирает статистику выполнения.
+      Покрытие достаточное для текущего уровня зрелости.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # БЛОК B — Кросс-функциональные процессы
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - tf_code: В/01.6
+    tf_name: "Анализ кросс-функционального процесса"
+    tf_actions:
+      - "Определение заинтересованных сторон"
+      - "Определение целей разработки"
+      - "Определение требований"
+      - "Определение KPI"
+      - "Сбор информации о ходе процесса"
+      - "Анализ соответствия"
+      - "Выявление возможностей повышения эффективности"
+      - "Оценка эффективности"
+      - "Оформление результатов анализа"
+    skill_path: "crossfunction-analyzer/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: >
+      crossfunction-analyzer читает AGENTS.md, mapping,
+      registry и A-01.6-info-context.yaml, генерирует карту
+      взаимодействий профилей. Статус partially_covered — есть
+      только инвентаризация и матрица, нет полных данных о работе
+      других профилей (data_gaps).
+    required_new_skill: ""
+    required_new_skill_rationale: ""
+
+  - tf_code: В/02.6
+    tf_name: "Моделирование кросс-функционального процесса"
+    tf_actions:
+      - "Определение заинтересованных сторон модели"
+      - "Определение целей разработки модели"
+      - "Определение требований к модели"
+      - "Определение границ процесса"
+      - "Определение порядка взаимодействия"
+      - "Разработка модели"
+      - "Согласование модели"
+      - "Имитационное моделирование"
+    skill_path: "crossfunction-graph-builder/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: >
+      crossfunction-graph-builder строит исполняемый IDEF0-граф
+      ТФ в graphify (semantic JSON) + отчёт консистентности. Статус
+      partially_covered — граф строится, но не все ТФ имеют навыки
+      и артефакты (gaps в pipeline).
+    required_new_skill: ""
+    required_new_skill_rationale: ""
+
+  - tf_code: В/03.6
+    tf_name: "Разработка и усовершенствование кросс-функционального процесса"
+    tf_actions:
+      - "Систематизация собранной информации"
+      - "Документирование"
+      - "Разработка исполняемого процесса"
+      - "Разработка контрольных точек"
+      - "Разработка предложений по повышению эффективности"
+      - "Оформление результатов"
+    skill_path: crossfunction-designer/SKILL.md
+    coverage_status: partially_covered
+    coverage_note: >
+      crossfunction-designer превращает IDEF0-граф (В/02.6) в исполняемую
+      спецификацию: process definition, handoff contracts, control points,
+      profile responsibilities, efficiency proposals.
+      Статус partially_covered — gates и timeout не заданы в графе, у ТФ В/03.6
+      нет артефактов в registry (data_gaps в спецификации).
+    required_new_skill: ""
+    required_new_skill_rationale: ""
+
+  - tf_code: В/04.6
+    tf_name: "Внедрение кросс-функционального процесса"
+    tf_actions:
+      - "Планирование внедрения"
+      - "Внедрение"
+      - "Оценка эффективности внедрения"
+      - "Инструктаж персонала"
+    skill_path: crossfunction-deployer/SKILL.md
+    coverage_status: partially_covered
+    coverage_note: >
+      crossfunction-deployer читает B-03.6-crossfunction-spec.yaml,
+      mapping и otf-section-2.yaml, генерирует план внедрения:
+      deployment phases (4 ТД В/04.6), kanban tasks, handoff triggers,
+      stakeholder notifications, success criteria.
+      Статус partially_covered — timeout не задан в спецификации B-03.6
+      (data_gaps), фазы Внедрение/Инструктаж требуют human-in-the-loop.
+    required_new_skill: ""
+    required_new_skill_rationale: ""
+
+  - tf_code: В/05.6
+    tf_name: "Аудит деятельности в рамках кросс-функционального процесса"
+    tf_actions:
+      - "Идентификация целей и критериев аудита"
+      - "Планирование аудита"
+      - "Инструктаж участников"
+      - "Проведение наблюдений"
+      - "Анализ документов и данных"
+      - "Разработка рекомендаций"
+      - "Разработка предписаний по устранению"
+      - "Оформление результатов"
+      - "Презентация результатов"
+    skill_path: crossfunction-auditor/SKILL.md
+    coverage_status: partially_covered
+    coverage_note: >
+      crossfunction-auditor проверяет handoff-точки из B-04.6 (существование
+      артефактов, валидность YAML, timeout) и формирует отчёт аудита с
+      рекомендациями. Статус partially_covered (не covered): аудируется
+      проектирование handoff-точек, но runtime-логи исполнения (latency,
+      фактическое выполнение триггеров) ещё не аудируются — это требует
+      runtime-мониторинга, которого нет в архитектуре.
+    required_new_skill: ""
+    required_new_skill_rationale: ""
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # БЛОК C — Система процессного управления
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - tf_code: С/01.7
+    tf_name: "Анализ системы процессного управления"
+    tf_actions:
+      - "Определение заинтересованных сторон"
+      - "Согласование целей"
+      - "Выбор модели оценки"
+      - "Адаптация модели оценки"
+      - "Сбор информации о результатах"
+      - "Оценка текущих показателей"
+      - "Определение целевых показателей"
+      - "Оценка соответствия эффективности"
+    skill_path: maturity-assessor/SKILL.md
+    coverage_status: partially_covered
+    coverage_note: >
+      maturity-assessor оценивает зрелость системы управления по
+      CMMI-подобной шкале (initial/defined/managed/optimizing) на основе
+      labor-coverage-registry и mapping: current_state, maturity_scores,
+      gaps, recommendations. Статус partially_covered — оценка зрелости
+      покрывает часть ТФ С/01.7 (выбор/адаптация модели, оценка текущих
+      показателей), но согласование целей со стейкхолдерами и оценка
+      экономической эффективности требуют human-in-the-loop.
+    required_new_skill: ""
+    required_new_skill_rationale: ""
+
+  - tf_code: С/02.7
+    tf_name: "Разработка и усовершенствование системы управления"
+    tf_actions:
+      - "Разработка методологической документации"
+      - "Разработка перспективного плана"
+      - "Согласование плана"
+      - "Адаптация документации под требования"
+      - "Согласование документации"
+      - "Формирование требований к ПО"
+      - "Подготовка материалов для инструктажа"
+    skill_path: system-planner/SKILL.md
+    coverage_status: partially_covered
+    coverage_note: >
+      system-planner читает C-01.7-maturity-assessment.yaml, mapping
+      и otf-section-3.yaml, генерирует roadmap развития: фазы (1/2/3
+      месяца), milestones, skill development plan, dependencies,
+      resource requirements. Статус partially_covered — roadmap
+      покрывает «разработку перспективного плана», но согласование
+      методологической документации и инструктаж требуют
+      human-in-the-loop.
+    required_new_skill: ""
+    required_new_skill_rationale: ""
+
+  - tf_code: С/03.7
+    tf_name: "Внедрение системы управления"
+    tf_actions:
+      - "Планирование внедрения"
+      - "Руководство проектом внедрения"
+      - "Выбор ПО"
+      - "Внедрение ПО"
+      - "Методическая помощь команде"
+      - "Планирование инструктажа"
+      - "Проведение инструктажа"
+      - "Оценка эффективности внедрения"
+    skill_path: "implementation-lead/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: >
+      implementation-lead читает roadmap (C-02.7, фаза PH-01),
+      mapping и ТД С/03.7, генерирует C-03.7-implementation-plan.yaml:
+      project charter, 8 фаз внедрения, resource allocation,
+      risk management, success metrics. Статус partially_covered
+      (не covered): внедрение ПО и проведение инструктажа требуют
+      human-in-the-loop (User_Operator), выбор ПО — вне автоматизации.
+    required_new_skill: ""
+    required_new_skill_rationale: >
+
+  - tf_code: С/04.7
+    tf_name: "Аудит системы управления"
+    tf_actions:
+      - "Идентификация целей и критериев"
+      - "Планирование аудита"
+      - "Инструктаж участников"
+      - "Проведение наблюдений"
+      - "Анализ документов и данных"
+      - "Оформление результатов"
+      - "Презентация результатов"
+    skill_path: "system-auditor/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: >
+      system-auditor читает оценку зрелости (C-01.7), план внедрения
+      (C-03.7), mapping и labor-coverage-registry, генерирует
+      C-04.7-system-audit.yaml: audit_scope, audit_criteria,
+      findings, recommendations. Статус partially_covered — аудит
+      проектирования (артефакты, файлы, согласованность) закрыт,
+      но инструктаж участников и проведение наблюдений (runtime)
+      требуют human-in-the-loop (User_Operator).
+    required_new_skill: ""
+    required_new_skill_rationale: ""
+
+  - tf_code: С/05.7
+    tf_name: "Разработка предложений по устранению отклонений"
+    tf_actions:
+      - "Анализ информации о работе системы"
+      - "Сравнение фактических и плановых результатов"
+      - "Выявление отклонений"
+      - "Выявление причин отклонений"
+      - "Разработка предложений по устранению"
+      - "Презентация предложений"
+      - "Реализация мероприятий"
+      - "Проверка эффективности"
+    skill_path: "architect-selfheal/SKILL.md"
+    coverage_status: covered
+    coverage_note: >
+      architect-selfheal выявляет отклонения (blocked/stuck задачи),
+      анализирует причины, выполняет reclaim/reready, при N+1 ошибках
+      эскалирует через pdca-reports. pdca-reporter дополняет
+      gap-анализом. Покрытие достаточное.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # БЛОК D — Трансформация процессной архитектуры
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - tf_code: D/01.7
+    tf_name: "Анализ процессной архитектуры"
+    tf_actions:
+      - "Определение заинтересованных сторон"
+      - "Согласование целей"
+      - "Определение требований"
+      - "Сбор информации"
+      - "Анализ соответствия"
+      - "Выявление возможностей"
+      - "Оформление результатов"
+      - "Презентация результатов"
+    skill_path: "architect-monitor/SKILL.md"
+    coverage_status: covered
+    coverage_note: >
+      architect-monitor собирает полную картину текущего состояния:
+      kanban stats, coverage, pdca. Каждое ТД D/01.7 имеет
+      собственный td-gen генератор, который читает реальную
+      файловую систему и формирует артефакты анализа.
+
+  - tf_code: D/02.7
+    tf_name: "Разработка процессной архитектуры"
+    tf_actions:
+      - "Систематизация информации"
+      - "Выбор референтной модели"
+      - "Адаптация модели"
+      - "Разработка архитектуры"
+      - "Согласование"
+      - "Контроль соответствия"
+    skill_path: "architect-executor/SKILL.md"
+    coverage_status: covered
+    coverage_note: >
+      architect-executor оркестрирует создание архитектурных
+      артефактов через td-gen. Каждое ТД D/02.7 имеет td-gen,
+      который генерирует схемы, шаблоны и карты архитектуры.
+      pipeline-architecture.md — референтная модель.
+
+  - tf_code: D/03.7
+    tf_name: "Руководство программами трансформации"
+    tf_actions:
+      - "Планирование изменений"
+      - "Руководство программами"
+      - "Оценка эффективности"
+    skill_path: "architect-seeder/SKILL.md"
+    coverage_status: covered
+    coverage_note: >
+      architect-seeder планирует и запускает pipeline трансформации.
+      architect-executor исполняет. pdca-reporter оценивает
+      эффективность. architect-selfheal обрабатывает отклонения.
+      Полный цикл PDCA.
+
+  - tf_code: D/04.7
+    tf_name: "Разработка и внедрение методик трансформации"
+    tf_actions:
+      - "Разработка методик и регламентов"
+      - "Внедрение методологии"
+      - "Методическая помощь"
+      - "Контроль соблюдения"
+      - "Контроль актуальности"
+    skill_path: "architect-coverage/SKILL.md"
+    coverage_status: covered
+    coverage_note: >
+      architect-coverage + pdca-reporter формируют методическую
+      базу: coverage registry как регламент, PDCA как методология.
+      td-gen D-04.7 генерирует артефакты методологии.
+
+# ═══════════════════════════════════════════════════════════════════════
+# Сводка
+# ═══════════════════════════════════════════════════════════════════════
+summary:
+  total_tfs: 18
+  covered: 9
+  partially_covered: 9
+  missing_skill: 0
+  covered_list:
+    - А/01.6
+    - А/02.6
+    - А/03.6
+    - А/04.6
+    - С/05.7
+    - D/01.7
+    - D/02.7
+    - D/03.7
+    - D/04.7
+  partially_covered_list:
+    - В/01.6
+    - В/02.6
+    - В/03.6
+    - В/04.6
+    - В/05.6
+    - С/01.7
+    - С/02.7
+    - С/03.7
+    - С/04.7
+  missing_skill_list: []
+  required_new_skills: []
+
+# ═══════════════════════════════════════════════════════════════════════
+# Метрики
+# ═══════════════════════════════════════════════════════════════════════
+metrics:
+  coverage_pct: 50.0
+  total_skills_required: 18
+  total_skills_existing: 18
+  total_new_skills_needed: 0
+  coverage_by_block:
+    A: "4/4 covered — блок реализован полностью"
+    B: "5/5 partially_covered — анализ, моделирование, спецификация, план внедрения и аудит кросс-функционального процесса"
+    C: "5/5 partially_covered — оценка зрелости, roadmap, план внедрения, аудит системы управления, PDCA-расширение"
+    D: "4/4 covered — блок реализован полностью"

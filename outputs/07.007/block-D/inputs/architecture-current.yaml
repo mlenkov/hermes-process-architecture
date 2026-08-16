@@ -1,0 +1,15 @@
+organization:
+  name: ООО "ТехноПроект"
+  size: 500 сотрудников
+architecture_levels:
+  strategic:
+    status: partially_documented
+  operational:
+    status: mostly_documented
+  supporting:
+    status: undocumented
+kis:
+  - "1C:ERP"
+  - Jira
+  - Confluence
+  - GitLab

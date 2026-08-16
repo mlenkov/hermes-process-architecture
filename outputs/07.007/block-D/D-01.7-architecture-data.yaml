@@ -1,0 +1,27 @@
+process: Сбор информации о процессной архитектуре
+processes:
+- id: p-001
+  kis:
+  - Confluence
+  name: Стратегическое управление
+  owner: CEO
+  status: documented
+- id: p-002
+  kis:
+  - Jira
+  name: Управление продуктами
+  owner: CPO
+  status: partial
+- id: p-003
+  kis:
+  - 1C:ERP
+  name: Финансовый учёт
+  owner: CFO
+  status: automated
+- id: p-004
+  kis:
+  - GitLab
+  - Jira
+  name: Разработка и релизы
+  owner: CTO
+  status: partial

@@ -1,0 +1,151 @@
+meta:
+  artifact: B-04.6-crossfunction-deployment
+  tf: В/04.6
+  la: la-001
+  generated_by: crossfunction-deployer
+  timestamp: '2026-07-31T18:47:31Z'
+  schema_ref: crossfunction-deployment-schema.yaml v1.0.0
+body:
+  deployment_phases:
+  - phase_id: PH-01
+    phase_name: Планирование внедрения
+    source_td: Планирование внедрения кросс-функционального процесса организации или
+      административного регламента организации или его усовершенствования
+  - phase_id: PH-02
+    phase_name: Внедрение
+    source_td: Внедрение кросс-функционального процесса организации или административного
+      регламента организации или его усовершенствование
+  - phase_id: PH-03
+    phase_name: Оценка эффективности внедрения
+    source_td: Оценка эффективности внедрения кросс-функционального процесса организации
+      или административного регламента организации или его усовершенствования
+  - phase_id: PH-04
+    phase_name: Инструктаж персонала
+    source_td: Инструктаж персонала по внедренному или усовершенствованному кросс-функциональному
+      процессу организации или административному регламенту организации
+  kanban_tasks:
+  - task_id: KT-01
+    tf_code: А/02.6
+    profile: regulator
+    skill: regulation-writer
+    action: Принять артефакт outputs/07.007/block-A/A-01.6-info-context.yaml от А/01.6
+      (контракт HO-01)
+    source_contract: HO-01
+    status: pending
+  - task_id: KT-02
+    tf_code: А/03.6
+    profile: regulator
+    skill: deployment-planner
+    action: Принять артефакт outputs/07.007/block-A/A-01.6-info-context.yaml от А/01.6
+      (контракт HO-02)
+    source_contract: HO-02
+    status: pending
+  - task_id: KT-03
+    tf_code: В/01.6
+    profile: analyst
+    skill: crossfunction-analyzer
+    action: Принять артефакт outputs/07.007/block-A/A-01.6-info-context.yaml от А/01.6
+      (контракт HO-03)
+    source_contract: HO-03
+    status: pending
+  - task_id: KT-04
+    tf_code: А/03.6
+    profile: regulator
+    skill: deployment-planner
+    action: Принять артефакт outputs/07.007/block-A/A-02.6-regulation.yaml от А/02.6
+      (контракт HO-04)
+    source_contract: HO-04
+    status: pending
+  handoff_triggers:
+  - trigger_id: HT-01
+    source_tf: А/01.6
+    target_tf: А/02.6
+    artifact: outputs/07.007/block-A/A-01.6-info-context.yaml
+    condition: schema_valid
+    timeout: null
+    data_gap: timeout не задан в спецификации B-03.6
+    checkpoint_id: CP-01
+    auto_proceed: true
+  - trigger_id: HT-02
+    source_tf: А/01.6
+    target_tf: А/03.6
+    artifact: outputs/07.007/block-A/A-01.6-info-context.yaml
+    condition: schema_valid
+    timeout: null
+    data_gap: timeout не задан в спецификации B-03.6
+    checkpoint_id: CP-02
+    auto_proceed: true
+  - trigger_id: HT-03
+    source_tf: А/01.6
+    target_tf: В/01.6
+    artifact: outputs/07.007/block-A/A-01.6-info-context.yaml
+    condition: schema_valid
+    timeout: null
+    data_gap: timeout не задан в спецификации B-03.6
+    checkpoint_id: CP-03
+    auto_proceed: true
+  - trigger_id: HT-04
+    source_tf: А/02.6
+    target_tf: А/03.6
+    artifact: outputs/07.007/block-A/A-02.6-regulation.yaml
+    condition: schema_valid
+    timeout: null
+    data_gap: timeout не задан в спецификации B-03.6
+    checkpoint_id: CP-04
+    auto_proceed: true
+  stakeholder_notifications:
+  - notification_id: SN-01
+    tf_code: А/02.6
+    profile: regulator
+    skill: regulation-writer
+    event: Артефакт от А/01.6 готов к приёмке
+    channel: kanban-task
+  - notification_id: SN-02
+    tf_code: А/03.6
+    profile: regulator
+    skill: deployment-planner
+    event: Артефакт от А/01.6 готов к приёмке
+    channel: kanban-task
+  - notification_id: SN-03
+    tf_code: В/01.6
+    profile: analyst
+    skill: crossfunction-analyzer
+    event: Артефакт от А/01.6 готов к приёмке
+    channel: kanban-task
+  success_criteria:
+  - criterion_id: SC-01
+    phase_id: PH-01
+    phase_name: Планирование внедрения
+    criterion: Фаза «Планирование внедрения» выполнена
+    source_td: Планирование внедрения кросс-функционального процесса организации или
+      административного регламента организации или его усовершенствования
+  - criterion_id: SC-02
+    phase_id: PH-02
+    phase_name: Внедрение
+    criterion: Фаза «Внедрение» выполнена
+    source_td: Внедрение кросс-функционального процесса организации или административного
+      регламента организации или его усовершенствование
+  - criterion_id: SC-03
+    phase_id: PH-03
+    phase_name: Оценка эффективности внедрения
+    criterion: Фаза «Оценка эффективности внедрения» выполнена
+    source_td: Оценка эффективности внедрения кросс-функционального процесса организации
+      или административного регламента организации или его усовершенствования
+  - criterion_id: SC-04
+    phase_id: PH-04
+    phase_name: Инструктаж персонала
+    criterion: Фаза «Инструктаж персонала» выполнена
+    source_td: Инструктаж персонала по внедренному или усовершенствованному кросс-функциональному
+      процессу организации или административному регламенту организации
+  data_gaps:
+  - timeout не задан для HT-01
+  - timeout не задан для HT-02
+  - timeout не задан для HT-03
+  - timeout не задан для HT-04
+quality:
+  schema_valid: true
+  sources_read:
+  - outputs/07.007/block-B/B-03.6-crossfunction-spec.yaml
+  - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml
+  - docs/standards/07.007/otf-section-2.yaml
+  warnings: []

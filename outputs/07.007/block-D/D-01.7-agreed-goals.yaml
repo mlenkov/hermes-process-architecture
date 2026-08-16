@@ -1,0 +1,14 @@
+goals:
+- consensus: true
+  description: Построить целостную процессную архитектуру
+  id: g-001
+  owner: CEO
+- consensus: true
+  description: Обеспечить прослеживаемость стратегии до процессов
+  id: g-002
+  owner: COO
+- consensus: true
+  description: Устранить дублирование функций
+  id: g-003
+  owner: CFO
+process: Согласование целей с заинтересованными сторонами

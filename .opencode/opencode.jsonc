@@ -1,0 +1,61 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "mais-bifrost-remote/opencode-zen/deepseek-v4-flash-free",
+  "agent": {
+    "plan": {
+      "model": "mais-bifrost-remote/opencode-zen/deepseek-v4-flash-free"
+    },
+    "build": {
+      "model": "mais-bifrost-remote/opencode-zen/deepseek-v4-flash-free",
+      "permission": {
+        "external_directory": {
+          "~/.hermes/**": "ask",
+          "*": "deny"
+        },
+        "write": {
+          "*": "deny",
+          "/Volumes/Storage/work/mais/_TOOLS/VM-SRV001-SETUP/ARCHITECTURE/**": "allow"
+        },
+        "edit": {
+          "*": "deny",
+          "/Volumes/Storage/work/mais/_TOOLS/VM-SRV001-SETUP/ARCHITECTURE/**": "allow"
+        },
+        "bash": {
+          "*": "ask",
+          "ls *": "allow",
+          "python3 *": "allow",
+          "mkdir *": "allow",
+          "cp *": "allow",
+          "git *": "allow",
+          "chmod *": "allow",
+          "rm *": "ask",
+          "mv *": "ask"
+        }
+      }
+    },
+    "test-bifrost": {
+      "disable": true
+    },
+    "test-glm": {
+      "disable": true
+    }
+  },
+  "permission": {
+    "external_directory": {
+      "~/.hermes/**": "ask",
+      "*": "deny"
+    },
+
+    "bash": {
+      "*": "ask",
+      "ls *": "allow",
+      "python3 *": "allow",
+      "mkdir *": "allow",
+      "cp *": "allow",
+      "git *": "allow",
+      "chmod *": "allow",
+      "rm *": "ask",
+      "mv *": "ask"
+    }
+  }
+}

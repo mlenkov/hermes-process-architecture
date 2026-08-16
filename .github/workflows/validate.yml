@@ -1,0 +1,44 @@
+name: Validate Architecture
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Validate Registry Consistency
+        run: python scripts/validate-registry.py
+
+      - name: YAML Syntax Check
+        run: |
+          python -c "
+          import yaml, os, sys
+          errors = []
+          for root, _, files in os.walk('.'):
+              if '.git' in root or 'node_modules' in root: continue
+              for f in files:
+                  if f.endswith('.yaml') or f.endswith('.yml'):
+                      try:
+                          with open(os.path.join(root, f), 'r', encoding='utf-8') as file:
+                              yaml.safe_load(file)
+                      except Exception as e:
+                          errors.append(f'{os.path.join(root, f)}: {e}')
+          if errors:
+              print('\n'.join(errors))
+              sys.exit(1)
+          print('All YAML files are valid.')
+          "

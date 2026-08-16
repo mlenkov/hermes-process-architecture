@@ -1,0 +1,14 @@
+# Output D/01.7-TD-3: architecture-data
+# Produced by: process-survey skill
+# Consumed by: TD-4 (gap-analysis)
+processes:
+  - id: string
+    name: string
+    owner: string
+    description: string
+    inputs: [string]
+    outputs: [string]
+    metrics:
+      - name: string
+        value: string | number
+    status: documented | partial | undocumented

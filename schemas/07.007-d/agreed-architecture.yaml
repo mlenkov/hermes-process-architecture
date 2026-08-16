@@ -1,0 +1,16 @@
+# Output D/02.7-TD-4: agreed-architecture
+# Produced by: process-architecture-development skill
+# Consumed by: TD-5 (compliance control)
+architecture_version: string
+stakeholders_consulted:
+  - id: string
+    name: string
+    role: string
+    agreement: full | partial | conditional
+    comments: string
+meeting_date: date
+protocol_url: string
+discrepancies:
+  - issue: string
+    resolution: string
+status: approved | pending_revision | rejected

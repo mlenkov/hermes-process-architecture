@@ -1,0 +1,19 @@
+plan:
+  kpi:
+  - baseline: 40
+    metric: Process coverage
+    target: 85
+  phases:
+  - deliverables:
+    - Impact assessment
+    duration: 1 мес
+    name: Анализ
+  - deliverables:
+    - Целевая архитектура
+    duration: 2 мес
+    name: Проектирование
+  - deliverables:
+    - Внедрённая архитектура
+    duration: 3 мес
+    name: Внедрение
+process: Планирование изменений в связи с реорганизацией
