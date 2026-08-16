@@ -28,7 +28,7 @@ def load_yaml(path: Path):
 
 
 def skill_name(skill_path: str) -> str:
-    """Из полного пути 'profiles/regulator/skills/info-gatherer/SKILL.md' -> 'info-gatherer'."""
+    """Из полного пути 'profiles/mais/skills/info-gatherer/SKILL.md' -> 'info-gatherer'."""
     return Path(skill_path).parent.name
 
 

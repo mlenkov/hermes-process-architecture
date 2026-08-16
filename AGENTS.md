@@ -63,6 +63,15 @@ python3 scripts/parse-profstandart.py --url https://classinform.ru/profstandarty
 
 Ключевое правило: **умения и знания описываются на уровне ТФ, а не отдельных ТД.**
 
+## Консолидация на единый профиль (ADR-008)
+
+С 2026-08-16 **единственный исполнитель 07.007 — профиль `mais`** (ADR-008,
+суперседирует ADR-003). Все навыки блоков A–D живут в `profiles/mais/skills/`
+(включая `td-gen/`). Префиксы `architect-*`, `regulator-*`, `analyst-*` в именах
+навыков — функциональное пространство, а не профили. Резолвинг навыка:
+`profiles/mais/skills/<name>/SKILL.md`; профиль не выводится из префикса.
+`.default/skills/registry-updater` — сквозная утилита, не участвует.
+
 ## Pipeline Architecture (ТФ → ТД через Kanban)
 
 Документ: `docs/pipeline-architecture.md` — формальная архитектура, верифицированная на локальном Hermes.

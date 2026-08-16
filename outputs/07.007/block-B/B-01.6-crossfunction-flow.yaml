@@ -3,7 +3,7 @@ meta:
   tf: В/01.6
   la: la-001
   generated_by: crossfunction-analyzer
-  timestamp: '2026-07-30T18:55:13Z'
+  timestamp: '2026-08-16T19:15:59Z'
   schema_ref: crossfunction-flow-schema.yaml v1.0.0
 body:
   profiles_inventory:
@@ -13,8 +13,8 @@ body:
     standards:
     - '07.007'
     standards_raw: '07.007'
-    coverage_entries: 0
-    coverage_status: no_data
+    coverage_entries: 17
+    coverage_status: has_data
   - profile_id: ppc-specialist
     name: Ян
     role: PPC (Яндекс.Директ)
@@ -74,20 +74,6 @@ body:
     interaction_type: cross_functional
     data_available: false
   data_gaps:
-  - profile_id: mais
-    name: Айра Корбот
-    standard: '07.007'
-    reason: Нет записей в labor-coverage-registry.yaml для профиля mais
-    needed_for_tfs:
-    - В/01.6
-    - В/02.6
-    - В/03.6
-    - В/04.6
-    - В/05.6
-    - С/01.7
-    - С/02.7
-    - С/03.7
-    - С/04.7
   - profile_id: ppc-specialist
     name: Ян
     standard: '06.043'
@@ -176,7 +162,6 @@ body:
   - priority: high
     what: Сбор данных о работе профилей без покрытия
     profiles_affected:
-    - mais
     - ppc-specialist
     - copywriter
     - analyst
@@ -184,7 +169,7 @@ body:
     - marketing
     - keyword-collector
     action: Создать skills для каждого профиля в соответствии с их профстандартами
-    estimated_impact: Покрытие 07.007 увеличится с 8 до 15 ТФ
+    estimated_impact: Покрытие 07.007 увеличится с 18 до 24 ТФ
   - priority: medium
     what: Уточнение кросс-функциональных связей
     profiles_affected: []
@@ -204,5 +189,5 @@ quality:
   - outputs/07.007/block-A/A-01.6-info-context.yaml
   context_available: true
   total_profiles: 7
-  profiles_with_data: 0
-  profiles_without_data: 7
+  profiles_with_data: 1
+  profiles_without_data: 6

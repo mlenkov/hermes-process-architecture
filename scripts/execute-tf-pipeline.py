@@ -102,10 +102,13 @@ def extract_process_code(skill_path):
 def find_skill_md(body):
     """Найти полный путь к SKILL.md навыка для ТД.
 
+    ADR-008: единственный исполнитель 07.007 — профиль mais.
+    Резолв навыка: profiles/mais/skills/<relative>.
+
     Приоритет:
       1. body.skill_path (полный путь, кладётся seeder'ом из mapping/registry)
-      2. поиск по profiles/*/skills/{skill}/SKILL.md
-      3. labor-function-to-skill-mapping.yaml → skill_path
+      2. profiles/mais/skills/{skill}/SKILL.md
+      3. labor-function-to-skill-mapping.yaml → profiles/mais/skills/<rel>
     """
     candidates = []
     sp = body.get("skill_path", "")
@@ -114,16 +117,11 @@ def find_skill_md(body):
             candidates.append(sp)
         else:
             candidates.append(str(ARCH_ROOT / sp))
-            for pdir in (ARCH_ROOT / "profiles").iterdir():
-                if pdir.is_dir():
-                    candidates.append(str(pdir / "skills" / sp))
-                    candidates.append(str(pdir / sp))
+            candidates.append(str(ARCH_ROOT / "profiles/mais/skills" / sp))
 
     skill = body.get("skill", "")
     if skill:
-        for pdir in (ARCH_ROOT / "profiles").iterdir():
-            if pdir.is_dir():
-                candidates.append(str(pdir / "skills" / skill / "SKILL.md"))
+        candidates.append(str(ARCH_ROOT / "profiles/mais/skills" / skill / "SKILL.md"))
 
     # mapping fallback
     tf = (body.get("parent_tf") or "").replace("LF-07.007-", "")
@@ -134,9 +132,7 @@ def find_skill_md(body):
             for e in mapping.get("mappings", []):
                 if e.get("tf_code") == tf and e.get("skill_path"):
                     rel = e["skill_path"]
-                    for pdir in (ARCH_ROOT / "profiles").iterdir():
-                        if pdir.is_dir():
-                            candidates.append(str(pdir / "skills" / rel))
+                    candidates.append(str(ARCH_ROOT / "profiles/mais/skills" / rel))
         except Exception as ex:
             print(f"  [WARN] mapping read: {ex}")
 
@@ -221,7 +217,7 @@ def update_registry(body, skill_path, artifact_files):
         entry = registry[key] = {}
 
     import datetime
-    entry["executed_by"] = (body.get("skill") or "unknown")
+    entry["executed_by"] = "mais"  # ADR-008: единственный исполнитель 07.007
     entry["last_executed"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     entry["status"] = "covered"
     entry["tds_completed"] = entry.get("tds_completed", "0/0")

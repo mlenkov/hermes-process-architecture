@@ -1,9 +1,9 @@
 meta:
   artifact: C-03.7-implementation-plan
   tf: С/03.7
-  la: la-001
+  la: la-008
   generated_by: implementation-lead
-  timestamp: '2026-08-01T05:56:18Z'
+  timestamp: '2026-08-16T19:20:33Z'
   schema_ref: implementation-plan-schema.yaml v1.0.0
 body:
   project_charter:
@@ -11,9 +11,8 @@ body:
     project_name: Внедрение системы процессного управления
     scope: 'Реализация фазы PH-01 roadmap: закрытие missing-навыков профстандарта
       07.007 (С/03.7) через создание и задействование навыка implementation-lead'
-    objectives:
-    - Создать навык для С/03.7 (Внедрение системы управления)
-    success_criteria: Все missing_skill (1) закрыты навыками
+    objectives: []
+    success_criteria: ''
     source_artifact: outputs/07.007/block-C/C-02.7-architecture-roadmap.yaml
   implementation_phases:
   - phase_id: PH-01
@@ -51,56 +50,56 @@ body:
   resource_allocation:
   - phase_id: PH-01
     phase_name: Планирование внедрения
-    profile: analyst
+    profile: mais
     skill: implementation-lead
     source_tf: С/03.7
     source_td: Планирование внедрения или усовершенствования системы процессного управления
       организации
   - phase_id: PH-02
     phase_name: Руководство проектом внедрения
-    profile: analyst
+    profile: mais
     skill: implementation-lead
     source_tf: С/03.7
     source_td: Руководство проектом внедрения или усовершенствования системы процессного
       управления организации
   - phase_id: PH-03
     phase_name: Выбор программного обеспечения
-    profile: analyst
+    profile: mais
     skill: implementation-lead
     source_tf: С/03.7
     source_td: Выбор программного обеспечения для управления процессами организации
       или административными регламентами организации
   - phase_id: PH-04
     phase_name: Внедрение программного обеспечения
-    profile: analyst
+    profile: mais
     skill: implementation-lead
     source_tf: С/03.7
     source_td: Внедрение программного обеспечения для управления процессами организации
       или административными регламентами организации
   - phase_id: PH-05
     phase_name: Методическая помощь команде
-    profile: analyst
+    profile: mais
     skill: implementation-lead
     source_tf: С/03.7
     source_td: Методическая помощь команде проекта внедрения или усовершенствования
       системы процессного управления организации
   - phase_id: PH-06
     phase_name: Планирование инструктажа
-    profile: analyst + User_Operator (human-in-the-loop)
+    profile: mais + User_Operator (human-in-the-loop)
     skill: implementation-lead
     source_tf: С/03.7
     source_td: Планирование инструктажа, тестирования, аттестации и сертификации специалистов
       по процессному управлению
   - phase_id: PH-07
     phase_name: Проведение инструктажа
-    profile: analyst + User_Operator (human-in-the-loop)
+    profile: mais + User_Operator (human-in-the-loop)
     skill: implementation-lead
     source_tf: С/03.7
     source_td: Проведение инструктажа, тестирования, аттестации и сертификации специалистов
       по процессному управлению
   - phase_id: PH-08
     phase_name: Оценка эффективности внедрения
-    profile: architect
+    profile: mais
     skill: pdca-reporter
     source_tf: С/04.7
     source_td: Оценка эффективности внедрения или усовершенствования системы процессного
@@ -154,10 +153,11 @@ body:
     target: 'schema_valid: true'
     source: артефакт данного навыка
   data_gaps:
+  - Фаза PH-01 не найдена в roadmap — цели устава не определены
   - Конкретные бюджеты и сроки (дни/часы) внедрения не определены
   - Названия конкретного ПО и вендоров не указаны — выбор требует участия User_Operator
 quality:
-  schema_valid: true
+  schema_valid: false
   sources_read:
   - outputs/07.007/block-C/C-02.7-architecture-roadmap.yaml
   - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml

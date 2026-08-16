@@ -3,8 +3,8 @@ import os, re, yaml
 from pathlib import Path
 
 ARCH = Path(__file__).resolve().parent.parent
-TD_GEN = ARCH / "profiles" / "architect" / "skills" / "td-gen"
-STANDALONE_SKILLS = ARCH / "profiles" / "architect" / "skills"
+TD_GEN = ARCH / "profiles" / "mais" / "skills" / "td-gen"
+STANDALONE_SKILLS = ARCH / "profiles" / "mais" / "skills"
 MAPPING_PATH = ARCH / "outputs" / "07.007" / "D" / "labor-function-to-skill-mapping.yaml"
 
 def _find_skill_via_mapping(tf_code: str) -> Path | None:

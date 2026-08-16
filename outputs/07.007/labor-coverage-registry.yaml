@@ -1,113 +1,113 @@
 LF-07.007-А/01.6:
-  executed_by: regulator
+  executed_by: mais
   last_executed: '2026-07-30T10:00:00Z'
   status: covered
   tds_completed: 10/10
-  skill_path: profiles/regulator/skills/info-gatherer/SKILL.md
+  skill_path: profiles/mais/skills/info-gatherer/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-A/A-01.6-info-context.yaml
 LF-07.007-А/02.6:
-  executed_by: regulator
+  executed_by: mais
   last_executed: '2026-07-30T10:02:00Z'
   status: covered
   tds_completed: 4/4
-  skill_path: profiles/regulator/skills/regulation-writer/SKILL.md
+  skill_path: profiles/mais/skills/regulation-writer/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-A/A-02.6-regulation.yaml
 LF-07.007-А/03.6:
-  executed_by: regulator
+  executed_by: mais
   last_executed: '2026-07-30T10:05:00Z'
   status: covered
   tds_completed: 4/4
-  skill_path: profiles/regulator/skills/deployment-planner/SKILL.md
+  skill_path: profiles/mais/skills/deployment-planner/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-A/A-03.6-deployment-plan.yaml
 LF-07.007-А/04.6:
-  executed_by: architect
+  executed_by: mais
   last_executed: '2026-07-30T10:00:00Z'
   status: covered
   tds_completed: 6/6
-  skill_path: profiles/architect/skills/pdca-reporter/SKILL.md
+  skill_path: profiles/mais/skills/pdca-reporter/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-A/A-04.6-pdca-report.yaml
 LF-07.007-В/01.6:
-  executed_by: analyst
+  executed_by: mais
   last_executed: '2026-07-30T18:55:00Z'
   status: partially_covered
   tds_completed: 9/9
-  skill_path: profiles/analyst/skills/crossfunction-analyzer/SKILL.md
+  skill_path: profiles/mais/skills/crossfunction-analyzer/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-B/B-01.6-crossfunction-flow.yaml
 LF-07.007-В/02.6:
-  executed_by: analyst
+  executed_by: mais
   last_executed: '2026-07-31T11:22:03Z'
   status: partially_covered
   tds_completed: 8/8
-  skill_path: profiles/analyst/skills/crossfunction-graph-builder/SKILL.md
+  skill_path: profiles/mais/skills/crossfunction-graph-builder/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-B/B-02.6-graph-consistency.yaml
 LF-07.007-В/03.6:
-  executed_by: analyst
+  executed_by: mais
   last_executed: '2026-07-31T18:41:28Z'
   status: partially_covered
   tds_completed: 6/6
-  skill_path: profiles/analyst/skills/crossfunction-designer/SKILL.md
+  skill_path: profiles/mais/skills/crossfunction-designer/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-B/B-03.6-crossfunction-spec.yaml
 LF-07.007-В/04.6:
-  executed_by: analyst
+  executed_by: mais
   last_executed: '2026-07-31T18:47:31Z'
   status: partially_covered
   tds_completed: 4/4
-  skill_path: profiles/analyst/skills/crossfunction-deployer/SKILL.md
+  skill_path: profiles/mais/skills/crossfunction-deployer/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-B/B-04.6-crossfunction-deployment.yaml
 LF-07.007-В/05.6:
-  executed_by: analyst
+  executed_by: mais
   last_executed: '2026-07-31T18:56:32Z'
   status: partially_covered
   tds_completed: 9/9
-  skill_path: profiles/analyst/skills/crossfunction-auditor/SKILL.md
+  skill_path: profiles/mais/skills/crossfunction-auditor/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-B/B-05.6-crossfunction-audit.yaml
 LF-07.007-С/01.7:
-  executed_by: analyst
+  executed_by: mais
   last_executed: '2026-07-31T19:47:30Z'
   status: partially_covered
   tds_completed: 8/8
-  skill_path: profiles/analyst/skills/maturity-assessor/SKILL.md
+  skill_path: profiles/mais/skills/maturity-assessor/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-C/C-01.7-maturity-assessment.yaml
 LF-07.007-С/02.7:
-  executed_by: analyst
+  executed_by: mais
   last_executed: '2026-07-31T20:03:18Z'
   status: partially_covered
   tds_completed: 7/7
-  skill_path: profiles/analyst/skills/system-planner/SKILL.md
+  skill_path: profiles/mais/skills/system-planner/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-C/C-02.7-architecture-roadmap.yaml
 LF-07.007-С/03.7:
-  executed_by: analyst
+  executed_by: mais
   last_executed: '2026-08-01T18:25:44Z'
   status: partially_covered
   tds_completed: 8/8
-  skill_path: profiles/analyst/skills/implementation-lead/SKILL.md
+  skill_path: profiles/mais/skills/implementation-lead/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-C/C-03.7-implementation-plan.yaml
 LF-07.007-С/04.7:
-  executed_by: analyst
+  executed_by: mais
   last_executed: '2026-08-01T18:33:58Z'
   status: partially_covered
   tds_completed: 7/7
-  skill_path: profiles/analyst/skills/system-auditor/SKILL.md
+  skill_path: profiles/mais/skills/system-auditor/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-C/C-04.7-system-audit.yaml
 LF-07.007-D/01.7:
-  executed_by: architect
+  executed_by: mais
   last_executed: '2026-07-29T13:59:34Z'
   status: covered
   tds_completed: 8/8
-  skill_path: profiles/architect/skills/architect-monitor/SKILL.md
+  skill_path: profiles/mais/skills/architect-monitor/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-D/D-01.7-stakeholder-mapping.yaml
   - outputs/07.007/block-D/D-01.7-agreed-goals.yaml
@@ -118,11 +118,11 @@ LF-07.007-D/01.7:
   - outputs/07.007/block-D/D-01.7-analysis-report.yaml
   - outputs/07.007/block-D/D-01.7-architecture-analysis.yaml
 LF-07.007-D/02.7:
-  executed_by: architect
+  executed_by: mais
   last_executed: '2026-07-29T13:59:35Z'
   status: covered
   tds_completed: 6/6
-  skill_path: profiles/architect/skills/architect-executor/SKILL.md
+  skill_path: profiles/mais/skills/architect-executor/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-D/D-02.7-systematized-info.yaml
   - outputs/07.007/block-D/D-02.7-selected-reference-model.yaml
@@ -131,33 +131,30 @@ LF-07.007-D/02.7:
   - outputs/07.007/block-D/D-02.7-agreed-architecture.yaml
   - outputs/07.007/block-D/D-02.7-architecture-compliance.yaml
 LF-07.007-D/03.7:
-  executed_by: architect
+  executed_by: mais
   last_executed: '2026-07-29T13:59:36Z'
   status: covered
   tds_completed: 3/3
-  skill_path: profiles/architect/skills/architect-seeder/SKILL.md
+  skill_path: profiles/mais/skills/architect-seeder/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-D/D-03.7-transformation-plan.yaml
   - outputs/07.007/block-D/D-03.7-transformation-executed.yaml
   - outputs/07.007/block-D/D-03.7-transformation-results.yaml
 LF-07.007-D/04.7:
-  executed_by: architect
+  executed_by: mais
   last_executed: '2026-07-29T13:59:37Z'
   status: covered
   tds_completed: 5/5
-  skill_path: profiles/architect/skills/architect-coverage/SKILL.md
+  skill_path: profiles/mais/skills/architect-coverage/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-D/D-04.7-methodology-developed.yaml
   - outputs/07.007/block-D/D-04.7-methodology-deployed.yaml
   - outputs/07.007/block-D/D-04.7-teams-supported.yaml
   - outputs/07.007/block-D/D-04.7-compliance-report.yaml
   - outputs/07.007/block-D/D-04.7-methodology-updates.yaml
-# ── Documented operational gaps ─────────────────────────────────────
-# LF-07.007-С/05.7 (architect-selfheal): OPERATIONAL GAP.
-# Навык существует (profiles/architect/skills/architect-selfheal/SKILL.md),
-# но запись в registry появится только после первого реального
-# исполнения (ADR-007: без фиктивных записей). До этого — 17 записей.
-documented_gaps:
-  LF-07.007-С/05.7:
-    skill_path: profiles/architect/skills/architect-selfheal/SKILL.md
-    note: operational gap — навык существует, запись появится после первого реального исполнения
+LF-07.007-С/05.7:
+  executed_by: mais
+  last_executed: '2026-08-16T19:16:30Z'
+  status: covered
+  tds_completed: 0/0
+  skill_path: profiles/mais/skills/architect-selfheal/SKILL.md

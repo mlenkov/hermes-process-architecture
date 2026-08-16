@@ -1,9 +1,9 @@
 meta:
   artifact: B-05.6-crossfunction-audit
   tf: В/05.6
-  la: la-001
+  la: la-009
   generated_by: crossfunction-auditor
-  timestamp: '2026-07-31T18:56:32Z'
+  timestamp: '2026-08-16T19:20:48Z'
   schema_ref: crossfunction-audit-schema.yaml v1.0.0
 body:
   audit_scope:
@@ -11,7 +11,7 @@ body:
     tf_name: Аудит деятельности в рамках кросс-функционального процесса
     description: 'Аудит кросс-функциональных handoff-точек из плана внедрения B-04.6:
       существование артефактов, валидность YAML, заданность timeout.'
-    audited_triggers: 4
+    audited_triggers: 0
     source_plan: outputs/07.007/block-B/B-04.6-crossfunction-deployment.yaml
   audit_criteria:
   - criterion_id: AC-01
@@ -52,71 +52,18 @@ body:
     source_td: Презентация результатов и рекомендаций аудита деятельности в рамках
       кросс-функционального процесса организации или административного регламента
       организации
-  handoff_audit:
-  - trigger_id: HT-01
-    source_tf: А/01.6
-    target_tf: А/02.6
-    artifact: outputs/07.007/block-A/A-01.6-info-context.yaml
-    artifact_exists: true
-    artifact_valid: true
-    timeout_defined: false
-    finding: Артефакт существует и валиден, но timeout не задан
-  - trigger_id: HT-02
-    source_tf: А/01.6
-    target_tf: А/03.6
-    artifact: outputs/07.007/block-A/A-01.6-info-context.yaml
-    artifact_exists: true
-    artifact_valid: true
-    timeout_defined: false
-    finding: Артефакт существует и валиден, но timeout не задан
-  - trigger_id: HT-03
-    source_tf: А/01.6
-    target_tf: В/01.6
-    artifact: outputs/07.007/block-A/A-01.6-info-context.yaml
-    artifact_exists: true
-    artifact_valid: true
-    timeout_defined: false
-    finding: Артефакт существует и валиден, но timeout не задан
-  - trigger_id: HT-04
-    source_tf: А/02.6
-    target_tf: А/03.6
-    artifact: outputs/07.007/block-A/A-02.6-regulation.yaml
-    artifact_exists: true
-    artifact_valid: true
-    timeout_defined: false
-    finding: Артефакт существует и валиден, но timeout не задан
+  handoff_audit: []
   recommendations:
   - recommendation_id: R-01
-    trigger_id: HT-01
-    recommendation: Задать timeout для HT-01 (А/01.6 → А/02.6) в спецификации B-03.6
-      и плане B-04.6
-    basis: timeout_defined=false
-    source_td: Разработка рекомендаций по повышению эффективности кросс-функционального
-      процесса организации или административного регламента организации
-  - recommendation_id: R-02
-    trigger_id: HT-02
-    recommendation: Задать timeout для HT-02 (А/01.6 → А/03.6) в спецификации B-03.6
-      и плане B-04.6
-    basis: timeout_defined=false
-    source_td: Разработка рекомендаций по повышению эффективности кросс-функционального
-      процесса организации или административного регламента организации
-  - recommendation_id: R-03
-    trigger_id: HT-03
-    recommendation: Задать timeout для HT-03 (А/01.6 → В/01.6) в спецификации B-03.6
-      и плане B-04.6
-    basis: timeout_defined=false
-    source_td: Разработка рекомендаций по повышению эффективности кросс-функционального
-      процесса организации или административного регламента организации
-  - recommendation_id: R-04
-    trigger_id: HT-04
-    recommendation: Задать timeout для HT-04 (А/02.6 → А/03.6) в спецификации B-03.6
-      и плане B-04.6
-    basis: timeout_defined=false
-    source_td: Разработка рекомендаций по повышению эффективности кросс-функционального
+    trigger_id: ''
+    recommendation: Все handoff-артефакты существуют и валидны. Провести инструктаж
+      участников кросс-функционального процесса (ТД В/05.6)
+    basis: all artifacts valid
+    source_td: Инструктаж участников аудита деятельности в рамках кросс-функционального
       процесса организации или административного регламента организации
   data_gaps: []
 quality:
-  schema_valid: true
+  schema_valid: false
   sources_read:
   - outputs/07.007/block-B/B-04.6-crossfunction-deployment.yaml
   - outputs/07.007/block-D/labor-function-to-skill-mapping.yaml

@@ -11,7 +11,7 @@ except ImportError:
 
 ARCH = Path(__file__).resolve().parent.parent
 YAML_PATH = ARCH / "docs" / "standards" / "07.007" / "otf-section-4.yaml"
-OUT_DIR = ARCH / "profiles" / "architect" / "skills" / "td-gen"
+OUT_DIR = ARCH / "profiles" / "mais" / "skills" / "td-gen"
 
 def load_yaml(path):
     with open(path) as f:

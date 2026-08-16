@@ -20,7 +20,7 @@ ARCH = Path(__file__).resolve().parent.parent
 OUTPUTS = ARCH / "outputs" / "07.007"
 REGISTRY = OUTPUTS / "labor-coverage-registry.yaml"
 REPORTS = OUTPUTS / "pdca-reports"
-TD_GEN = ARCH / "profiles" / "architect" / "skills" / "td-gen"
+TD_GEN = ARCH / "profiles" / "mais" / "skills" / "td-gen"
 
 # ── Config ───────────────────────────────────────────────────
 TOTAL_TF = 124
@@ -185,7 +185,7 @@ def cmd_coverage():
             "status": "covered",
             "last_executed": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
             "tds_completed": f"{total}/{total}",
-            "executed_by": "architect",
+            "executed_by": "mais",
         }
         print(f"  {lf_id}: covered ({total}/{total})")
 

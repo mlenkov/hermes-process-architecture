@@ -3,16 +3,10 @@ meta:
   tf: С/02.7
   la: la-001
   generated_by: system-planner
-  timestamp: '2026-07-31T20:03:18Z'
+  timestamp: '2026-08-16T19:16:21Z'
   schema_ref: architecture-roadmap-schema.yaml v1.0.0
 body:
   roadmap_phases:
-  - phase_id: PH-01
-    phase_name: Закрытие missing-навыков
-    timeframe: 1 месяц
-    objectives:
-    - Создать навык для С/03.7 (Внедрение системы управления)
-    success_criteria: Все missing_skill (1) закрыты навыками
   - phase_id: PH-02
     phase_name: Расширение partially-навыков блока B
     timeframe: 2 месяца
@@ -31,34 +25,23 @@ body:
     objectives:
     - Повысить покрытие С/01.7 (Анализ системы процессного управления)
     - Повысить покрытие С/02.7 (Разработка и усовершенствование системы управления)
+    - Повысить покрытие С/03.7 (Внедрение системы управления)
     - Повысить покрытие С/04.7 (Аудит системы управления)
     success_criteria: ТФ блока C переведены из partially в covered
   milestones:
   - milestone_id: MS-01
-    phase_id: PH-01
-    milestone_name: Завершена фаза «Закрытие missing-навыков»
-    criteria: Все missing_skill (1) закрыты навыками
-    source_td: Разработка перспективного плана развития системы процессного управления
-      организации
-  - milestone_id: MS-02
     phase_id: PH-02
     milestone_name: Завершена фаза «Расширение partially-навыков блока B»
     criteria: ТФ блока B переведены из partially в covered
     source_td: Разработка перспективного плана развития системы процессного управления
       организации
-  - milestone_id: MS-03
+  - milestone_id: MS-02
     phase_id: PH-03
     milestone_name: Завершена фаза «Расширение partially-навыков блока C»
     criteria: ТФ блока C переведены из partially в covered
     source_td: Разработка перспективного плана развития системы процессного управления
       организации
   skill_development_plan:
-  - skill_name: implementation-lead
-    tf_code: С/03.7
-    tf_name: Внедрение системы управления
-    priority: high
-    estimated_effort: средний (1 навык, комплекс ТД)
-    status: to_create
   - skill_name: crossfunction-analyzer
     tf_code: В/01.6
     tf_name: Анализ кросс-функционального процесса
@@ -95,13 +78,19 @@ body:
     priority: low
     estimated_effort: низкий (расширение существующего навыка)
     status: to_extend
-  - skill_name: architect-coverage
+  - skill_name: system-planner
     tf_code: С/02.7
     tf_name: Разработка и усовершенствование системы управления
     priority: low
     estimated_effort: низкий (расширение существующего навыка)
     status: to_extend
-  - skill_name: pdca-reporter
+  - skill_name: implementation-lead
+    tf_code: С/03.7
+    tf_name: Внедрение системы управления
+    priority: low
+    estimated_effort: низкий (расширение существующего навыка)
+    status: to_extend
+  - skill_name: system-auditor
     tf_code: С/04.7
     tf_name: Аудит системы управления
     priority: low

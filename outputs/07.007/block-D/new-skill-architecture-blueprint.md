@@ -1,7 +1,7 @@
 # New Skill Architecture Blueprint
 
 **Профстандарт:** 07.007 «Специалист по процессному управлению»
-**Профиль-исполнитель:** architect
+**Профиль-исполнитель:** mais (ADR-008: единственный исполнитель 07.007)
 **Назначение:** Жёсткий шаблон для создания любого нового навыка (SKILL.md) в системе Hermes.
 **Версия:** 1.0.0
 
@@ -62,8 +62,8 @@ outputs/07.007/pdca-reports/                   — история PDCA
 schemas/07.007-d/<schema-name>.yaml            — схемы валидации
 
 # Собственная конфигурация профиля
-profiles/architect/SOUL.md                     — описание профиля
-profiles/architect/skills/<skill-name>/SKILL.md — соседние навыки
+profiles/mais/SOUL.md                     — описание профиля (ADR-008)
+profiles/mais/skills/<skill-name>/SKILL.md — соседние навыки
 ```
 
 ### 1.4 Директория для записи (единственная)
@@ -319,11 +319,11 @@ outputs/07.007/labor-coverage-registry.yaml
 
 ```yaml
 LF-07.007-<tf-code>:
-  executed_by: architect
+  executed_by: mais
   last_executed: 2026-07-29T12:00:00Z
   status: covered              # covered | partially_covered | missing_skill
   tds_completed: <N>/<M>
-  skill_path: profiles/architect/skills/<skill-name>/SKILL.md
+  skill_path: profiles/mais/skills/<skill-name>/SKILL.md
    artifacts_generated:
      - outputs/07.007/block-D/D-01.7-stakeholder-mapping.yaml
   pdca_ref: pdca-2026-07-29.yaml
@@ -426,7 +426,7 @@ act:
 
 Навык пишет **только** в `output_dir`. Запрещено:
 - Писать в `docs/standards/07.007/` — read-only священные данные
-- Писать в `profiles/architect/SOUL.md` — изменение профиля только через blueprint
+- Писать в `profiles/mais/SOUL.md` — изменение профиля только через blueprint
 - Писать в `../AGENTS.md` — вышестоящая директория
 - Писать в `scripts/` или `schemas/` — инструментальные директории
 - Писать в `.opencode/` — конфигурация инструмента

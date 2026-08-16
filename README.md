@@ -41,20 +41,18 @@ flowchart LR
     end
 
     subgraph L3["Исполнение в Hermes"]
-        P_REG["Profile: regulator"]
-        P_AN["Profile: analyst"]
-        P_ARC["Profile: architect"]
+        P_MAIS["Profile: mais<br/>(ADR-008: единственный исполнитель 07.007)"]
 
-        S_A["info-gatherer<br/>regulation-writer<br/>deployment-planner<br/>regulation-auditor"]
+        S_A["info-gatherer<br/>regulation-writer<br/>deployment-planner<br/>pdca-reporter"]
         S_B["crossfunction-analyzer<br/>crossfunction-graph-builder<br/>crossfunction-designer<br/>crossfunction-deployer<br/>crossfunction-auditor"]
         S_C["maturity-assessor<br/>system-planner<br/>implementation-lead<br/>system-auditor<br/>architect-selfheal"]
-        S_D["architect-monitor<br/>architect-executor<br/>architect-seeder<br/>architect-coverage<br/>pdca-reporter"]
+        S_D["architect-monitor<br/>architect-executor<br/>architect-seeder<br/>architect-coverage<br/>td-gen/"]
     end
 
-    B_A --> P_REG --> S_A
-    B_B --> P_AN --> S_B
-    B_C --> P_ARC --> S_C
-    B_D --> P_ARC --> S_D
+    B_A --> P_MAIS --> S_A
+    B_B --> P_MAIS --> S_B
+    B_C --> P_MAIS --> S_C
+    B_D --> P_MAIS --> S_D
 
     subgraph L4["Метрики и исполнение"]
         KANBAN["Kanban: seeder → executor"]
@@ -130,9 +128,11 @@ file_size_limit_mb: 10
 ```
 .
 ├── profiles/                  # AI-профили и их навыки
-│   ├── regulator/skills/      #   блок A: info-gatherer, regulation-writer, ...
-│   ├── analyst/skills/        #   блок B/C: crossfunction-*, system-*, ...
-│   └── architect/skills/      #   блок C/D: architect-*, pdca-reporter, td-gen/
+│   ├── mais/skills/           #   единственный исполнитель 07.007 (ADR-008):
+│   │                          #   блок A: info-gatherer, regulation-writer, ...
+│   │                          #   блок B/C: crossfunction-*, system-*, ...
+│   │                          #   блок C/D: architect-*, pdca-reporter, td-gen/
+│   └── .default/skills/       #   сквозные утилиты (registry-updater)
 ├── outputs/07.007/            # Артефакты исполнения + registry + mapping
 │   ├── block-A..block-D/      #   артефакты по блокам
 │   ├── labor-coverage-registry.yaml
@@ -152,7 +152,7 @@ file_size_limit_mb: 10
 ## Документация
 
 - **`outputs/07.007/block-D/new-skill-architecture-blueprint.md`** — как создавать новые навыки
-- **ADR** — архитектурные решения (001–007): структура файлов, профили, идемпотентность, mapping
+- **ADR** — архитектурные решения (001–008): структура файлов, консолидация на профиль mais (ADR-008), идемпотентность, mapping
 - **`AGENTS.md`** — полный контекст проекта и процесса покрытия
 
 ## Лицензия
