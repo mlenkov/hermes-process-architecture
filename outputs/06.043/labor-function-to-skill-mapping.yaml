@@ -1,29 +1,18 @@
 # =============================================================================
 # Карта: Трудовая функция → Навык (Skill)
 # Профстандарт: 06.043 «Специалист по интернет-маркетингу»
-# Исполнитель: профиль ppc-specialist (ADR-011)
-# Версия: 1.1.0
-# =============================================================================
-#
-# Легенда статусов:
-#   covered             — существует SKILL.md, покрывающий ТФ полностью
-#   partially_covered   — существующий навык покрывает часть ТД
-#   missing_skill       — нет навыка, требуется создать
-#
-# Делегирование (06.013 — копирайтинг):
-#   delegation.standard: 06.013
-#   delegation.type: full    — ТФ целиком про контент; 06.043 остаётся постановка+контроль+приёмка
-#   delegation.type: partial — часть ТД про тексты; остальное выполняет 06.043
+# Исполнитель: профиль ppc (ADR-011)
+# Версия: 1.2.0 (пилот 6b: А/01.4 covered)
 # =============================================================================
 
-executor_profile: ppc-specialist
+executor_profile: ppc
 
 mappings:
   - tf_code: "А/01.4"
     tf_name: "Составление списка ключевых слов, отражающих специфику веб-сайта"
     skill_path: "keywords-filter/SKILL.md"
-    coverage_status: partially_covered
-    coverage_note: "keywords-filter покрывает подбор/оценку ключевых слов (минус-слова); полный список ключей требует нового навыка"
+    coverage_status: covered
+    coverage_note: "Пилот 6b: нативный LLM-воркер (keywords-filter) выполнил ТФ, приёмка accept-artifact ACCEPTED"
     required_new_skill: ""
   - tf_code: "А/02.4"
     tf_name: "Проведение работ по внутренней оптимизации веб-сайта согласно требованиям поисковых систем"
@@ -358,8 +347,8 @@ mappings:
 
 summary:
   total_tfs: 48
-  covered: 0
-  partially_covered: 36
+  covered: 1
+  partially_covered: 35
   missing_skill: 12
   delegated_full_0613: 3
   delegated_partial_0613: 9

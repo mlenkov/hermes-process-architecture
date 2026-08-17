@@ -1,0 +1,133 @@
+# =============================================================================
+# Пилот 6b: А/01.4 — Составление списка ключевых слов
+# Профстандарт: 06.043 «Специалист по интернет-маркетингу»
+# Исполнитель: профиль ppc (Ян), навык keywords-filter
+# Тема: продажа твинблоков в Екатеринбурге
+# Источник запросов: inputs/pilot-queries-06.043.yaml (синтетические)
+# =============================================================================
+tf_code: "А/01.4"
+artifact_id: "A-01.4-keywords"
+status: generated
+
+# Классификация каждого запроса по категориям навыка keywords-filter
+queries:
+  - query: "купить твинблок екатеринбург"
+    category: target
+  - query: "твинблок цена за куб"
+    category: target
+  - query: "твинблок 400 мм размеры"
+    category: target
+  - query: "твинблок купить дешево"
+    category: target
+  - query: "твинблок доставка екатеринбург"
+    category: target
+  - query: "евро маф екатеринбург"
+    category: competitor
+  - query: "поревит твинблок"
+    category: competitor
+  - query: "инсиблок твинблок"
+    category: competitor
+  - query: "пеноблок цена"
+    category: other_material
+  - query: "газосиликат екатеринбург"
+    category: other_material
+  - query: "кирпич строительный цена"
+    category: other_material
+  - query: "калькулятор твинблока"
+    category: informational
+  - query: "отличие твинблока от газоблока"
+    category: informational
+  - query: "альбом технических решений твинблок"
+    category: informational
+  - query: "твинблок отзывы"
+    category: informational
+  - query: "авито твинблок"
+    category: marketplace
+  - query: "петрович твинблок"
+    category: marketplace
+  - query: "штрабление стен цена"
+    category: service
+  - query: "утепление дома екатеринбург"
+    category: service
+  - query: "колхозный твинблок"
+    category: junk
+
+# Минус-слова для Яндекс.Директа (skill keywords-filter, шаги 3–5)
+minus_words:
+  - word: "евро маф"
+    category: competitor
+    level: campaign
+    reason: "Компания-конкурент (Евро МАФ, Тольятти); минус-фразой, не словом «маф» — МАФ (малые архитектурные формы) может быть продуктом"
+  - word: "поревит"
+    category: competitor
+    level: campaign
+    reason: "Конкурентный бренд газобетона"
+  - word: "инсиблок"
+    category: competitor
+    level: campaign
+    reason: "Конкурентный бренд блоков"
+  - word: "пеноблок"
+    category: other_material
+    level: campaign
+    reason: "Альтернативный материал, не входит в продуктовую линейку"
+  - word: "газосиликат"
+    category: other_material
+    level: campaign
+    reason: "Альтернативный материал"
+  - word: "кирпич"
+    category: other_material
+    level: campaign
+    reason: "Альтернативный материал; минусовать только если кирпич не продаётся (проверить продуктовую линейку перед применением)"
+  - word: "калькулятор"
+    category: informational
+    level: campaign
+    reason: "Инструмент, не покупка"
+  - word: "отличие"
+    category: informational
+    level: campaign
+    reason: "Сравнительный запрос, не покупка"
+  - word: "альбом технических решений"
+    category: informational
+    level: campaign
+    reason: "Документация, не покупка"
+  - word: "отзывы"
+    category: informational
+    level: group
+    reason: "Исследовательский запрос, низкая конверсия; на группу, чтобы не зарезать информационные показы по продукту"
+  - word: "авито"
+    category: marketplace
+    level: campaign
+    reason: "Площадка/агрегатор"
+  - word: "петрович"
+    category: marketplace
+    level: campaign
+    reason: "Строительный маркетплейс/агрегатор"
+  - word: "штрабление"
+    category: service
+    level: campaign
+    reason: "Запрос на услугу, не покупку блока"
+  - word: "утепление"
+    category: service
+    level: campaign
+    reason: "Запрос на услугу, не покупку блока"
+  - word: "колхозный"
+    category: junk
+    level: campaign
+    reason: "Бессмысленный/нецелевой запрос"
+
+summary:
+  total_queries: 20
+  target: 5
+  non_target: 15
+  minus_words_count: 15
+  categories:
+    competitor: 3
+    other_material: 3
+    informational: 4
+    marketplace: 2
+    service: 2
+    junk: 1
+  economy:
+    note: "Прямая экономия не рассчитывалась — входные данные синтетические, без статистики расходов (Skill шаг 6 требует фактические Cost/Conversions)"
+    indirect: "Исключение 15 из 20 запросов (75%) из показа нетаргетного трафика"
+  application: "Применение минус-слов — вручную через интерфейс Яндекс.Директа (skill шаг 7)"
