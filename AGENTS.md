@@ -76,6 +76,23 @@ accept-artifact.py). Запись `LF-06.043-С/01.4` и `LF-06.043-S01.4` — �
 - **06.013**: 17 ТФ, 2/8/7, 1 запись, 9 WARN; 7 missing — бэклог навыков.
 - Эволюция: event-driven кросс-стандартный сидинг (ADR-012) — зафиксирована, не реализована.
 
+## Cron-конфигурация (ADR-017)
+
+Шедулер Hermes (`hermes cron`) — системный, живёт вне репо (`~/.hermes/profiles/mais/cron/jobs.json`).
+
+**Правило пиннинга провайдера:** агент-крон'ы ОБЯЗАТЕЛЬНО пинятся на рабочий провайдер,
+иначе дрейф конфига (drift_skip) или региональный 403 блокируют запуск. Актуальный
+рабочий провайдер — `opencode-go` / `deepseek-v4-flash`. Пинится через:
+`hermes cron edit <job_id> --provider opencode-go --model deepseek-v4-flash`.
+
+Активные крон'ы (все на opencode-go или unpinned, наследуют глобальный):
+- pdca-weekly (`00452d07df97`, пн 08:00) — PDCA-цикл
+- ceo-weekly, process-standardization/optimization/strategy, quality-control, process-transformation
+- «Утреннее»/«Вечернее»/«Мониторинг задач»/«Лана»/«Ян» (агентские, opencode-go)
+- memory-reporter-daily (`b8685e91746e`, ежедн 09:00) — ADR-016
+- watchdog-ready (`3aa3a0c218e0`, каждые 15 мин) — ADR-017
+- validate-daily (`99df3228f343`, ежедн 08:00) — ADR-017
+
 ## Валидация
 
 ```bash
