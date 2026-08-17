@@ -1,0 +1,17 @@
+verdict: PASS
+delegation:
+  from: '06.043'
+  to: '06.013'
+  standard_0613: '06.013'
+request_id: APR-01
+evidence:
+- 'request_id: ТЗ=APR-01, контент=APR-01'
+- 'материалы: ТЗ=[''M-01'', ''M-02'', ''M-03'', ''M-04''], контент=[''M-01'', ''M-02'',
+  ''M-03'', ''M-04''], не покрыто=нет'
+- 'контент status: generated'
+- 'USP контента вне ТЗ: нет'
+references:
+  tz: outputs/06.043/block-E/E-03.5-content-tz.yaml
+  content: outputs/06.013/block-B/B-02.5-content-materials.yaml
+awaiting_approval: true
+timestamp: '2026-08-17T13:54:25Z'

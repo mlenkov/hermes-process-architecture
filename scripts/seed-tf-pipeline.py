@@ -309,15 +309,11 @@ def migrate_tf(tf: dict, mapping: dict, standard: str, board: Optional[str],
     prev_id = None
     for i, action_text in enumerate(actions, 1):
         la_code = f"la-{i:03d}"
-        la_dir = output_base / la_code
-        # Артефакт ТФ (ADR-002: один артефакт = один файл) — каждый ТД
-        # получает тот же целевой файл; первый создаёт, остальные skip (Шаг 0).
+        # Вывод ТД: только маппированный артефакт ТФ (ADR-002). Per-TD папки
+        # и la-файлы НЕ создаём — мусор вне mapped путей (харденинг 8с).
         td_output_files = []
         if artifact_path:
             td_output_files.append(str(_ARCH_ROOT / artifact_path))
-        td_output_files.append(str(la_dir / f"{la_code}.yaml"))
-        if not dry_run:
-            la_dir.mkdir(parents=True, exist_ok=True)
 
         la_body = json.dumps({
             "la_id": la_code,
@@ -329,7 +325,6 @@ def migrate_tf(tf: dict, mapping: dict, standard: str, board: Optional[str],
             "standard": {"code": standard},
             "profile": tf_profile,
             "output_base": str(output_base),
-            "output_dir": str(la_dir),
             "output_files": td_output_files,
             "skill_path": skill_full_path or entry.get("skill_path", ""),
             "skill": skill_name,

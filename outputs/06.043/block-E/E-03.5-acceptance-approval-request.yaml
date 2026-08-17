@@ -1,0 +1,20 @@
+request_id: APPROVAL-APR-01
+type: approval_request
+tf_code: E/03.5
+standard: '06.043'
+question: Утвердить приёмку делегированного контента E/03.5 (request APR-01) от 06.013
+  copywriter?
+options:
+- option_id: approve
+  label: Утвердить
+  description: Контент принят, registry 06.043 фиксирует исполнение ТЗ+приёмку
+- option_id: rework
+  label: Вернуть на доработку
+  description: Контент не соответствует ТЗ, отправить копирайтеру на правки
+context_ref:
+  tz: outputs/06.043/block-E/E-03.5-content-tz.yaml
+  content: outputs/06.013/block-B/B-02.5-content-materials.yaml
+  acceptance: /home/hermes/hermes-process-architecture/outputs/06.043/block-E/E-03.5-acceptance.yaml
+awaiting_approval: true
+deadline: null
+timestamp: '2026-08-17T13:54:25Z'

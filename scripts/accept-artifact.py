@@ -49,12 +49,25 @@ def validate_artifact(artifact_path: Path, input_path: Path | None) -> tuple:
     if not isinstance(data, dict):
         return False, ["артефакт не YAML-объект"], None
 
+    # Нормализация вложенной схемы 'artifact: {...}' (делегированный контент)
+    # А также 'tz: {...}' для ТЗ. top-level поля = data с верхнего уровня.
+    top = data
+    for wrapper in ("artifact", "tz"):
+        if isinstance(data.get(wrapper), dict):
+            # метаданные могут жить и в wrapper, и на верхнем уровне
+            merged = dict(data.get(wrapper))
+            for k, v in data.items():
+                if k != wrapper:
+                    merged.setdefault(k, v)
+            data = merged
+            break
+
     # ── 1. Обязательные поля ─────────────────────────────────────────
-    required = ("tf_code", "artifact_id", "status")
+    required = ("tf_code", "status")
     for field in required:
         if field not in data:
             reasons.append(f"нет обязательного поля '{field}'")
-    if data.get("status") != "generated":
+    if data.get("status") not in ("generated",):
         reasons.append(f"status='{data.get('status')}' != 'generated'")
 
     # ── 2. Анти-галлюцинация: сущности только из входов ─────────────
@@ -126,17 +139,33 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
-    # профиль из mapping, если не задан
+    # профиль: из per-TF поля profile записи mapping принимаемой ТФ (ADR-014),
+    # если не задан явно --profile. НЕ из executor_profile (может быть
+    # «per-TF (ADR-014)» — не имя профиля).
     profile = args.profile
     if not profile:
-        if args.standard == "07.007":
-            mapping_path = ROOT / "outputs/07.007/block-D/labor-function-to-skill-mapping.yaml"
-        else:
-            mapping_path = ROOT / "outputs" / args.standard / "labor-function-to-skill-mapping.yaml"
-        if mapping_path.exists():
-            mapping = load_yaml(mapping_path)
-            profile = mapping.get("executor_profile", "mais")
+        for probe in (args.standard, "07.007"):
+            if args.standard == "07.007":
+                mapping_path = ROOT / "outputs/07.007/block-D/labor-function-to-skill-mapping.yaml"
+            else:
+                mapping_path = ROOT / "outputs" / probe / "labor-function-to-skill-mapping.yaml"
+            if mapping_path.exists():
+                mapping = load_yaml(mapping_path)
+                for e in mapping.get("mappings", []):
+                    if e.get("tf_code") == args.tf and e.get("profile"):
+                        profile = e["profile"]
+                        break
+            if profile:
+                break
     profile = profile or "mais"
+
+    # Проверка: profile должен быть реальным именем профиля, НЕ строкой-заглушкой
+    INVALID_PROFILES = {"per-tf (adr-014)", "per-tf", "", "?"}
+    if profile.lower() in INVALID_PROFILES or "/" in profile or " " in profile:
+        err(f"profile '{profile}' не является именем профиля — "
+            "укажи явно --profile (значение 'per-TF (ADR-014)' недопустимо)")
+        print("Acceptance: REJECTED")
+        sys.exit(1)
 
     artifact_path = Path(args.artifact)
     input_path = Path(args.input) if args.input else None

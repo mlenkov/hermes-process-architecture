@@ -7,3 +7,17 @@ LF-06.043-А/01.4:
   skill_path: keywords-filter/SKILL.md
   artifacts_generated:
   - outputs/06.043/pilot/A-01.4-keywords.yaml
+LF-06.043-Е/03.5:
+  executed_by: ppc
+  last_executed: '2026-08-17T13:54:40Z'
+  status: partially_covered
+  tds_completed: 1/1
+  skill_path: ppc-ad-texts/SKILL.md
+  artifacts_generated:
+  - outputs/06.043/block-E/E-03.5-content-tz.yaml
+  - outputs/06.043/block-E/E-03.5-acceptance.yaml
+  note: делегирование full в 06.013; ТЗ + приёмка исполнены ppc; approval-request
+    APPROVAL-APR-01 ожидает человека (ADR-006)
+  delegation:
+    standard: '06.013'
+    type: full
