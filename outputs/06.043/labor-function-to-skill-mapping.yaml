@@ -2,7 +2,7 @@
 # Карта: Трудовая функция → Навык (Skill) + профиль-исполнитель
 # Профстандарт: 06.043 «Специалист по интернет-маркетингу»
 # Исполнитель: per-TF (ADR-014)
-# Версия: 1.4.0 (8d: делегирование 12 ТФ → 06.013 content-*)
+# Версия: 1.5.0 (8e: 5 доменных навыков, missing=0)
 # =============================================================================
 
 executor_profile: "per-TF (ADR-014)"
@@ -69,10 +69,10 @@ mappings:
   - tf_code: "С/01.4"
     tf_name: "Подбор площадок в социальных медиа информационно-телекоммуникационной сети \"Интернет\" для продвижения вебсайта"
     profile: smm
-    skill_path: ""
-    coverage_status: missing_skill
-    coverage_note: "Подбор площадок соцмедиа — нет навыка; required: smm-platform-selector"
-    required_new_skill: "smm-platform-selector"
+    skill_path: "smm-platforms/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "Навык smm-platforms (smm) создан (8e), ожидает/исполнен"
+    required_new_skill: ""
   - tf_code: "С/02.4"
     tf_name: "Управление коммуникациями в социальных медиа информационно- телекоммуникационной сети \"Интернет\""
     profile: smm
@@ -130,10 +130,10 @@ mappings:
   - tf_code: "D/05.5"
     tf_name: "Оптимизация внутренних характеристик веб-сайта, повышение его популярности в информационно-телекоммуникационной сети \"Интернет\" и анализ поведения посетителей веб-сайта"
     profile: seo
-    skill_path: ""
-    coverage_status: missing_skill
-    coverage_note: "Оптимизация + поведение посетителей — нет навыка; required: seo-onpage-optimizer + behavior-analytics"
-    required_new_skill: "seo-onpage-optimizer + behavior-analytics"
+    skill_path: "behavioral-optimization/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "Навык behavioral-optimization (seo) создан (8e), ожидает/исполнен"
+    required_new_skill: ""
   - tf_code: "D/06.5"
     tf_name: "Составление отчетов по реализации стратегии поискового продвижения в информационно- телекоммуникационной сети \"Интернет\""
     profile: seo
@@ -237,17 +237,17 @@ mappings:
   - tf_code: "G/04.5"
     tf_name: "Привлечение пользователей в интернет-сообщество"
     profile: smm
-    skill_path: ""
-    coverage_status: missing_skill
-    coverage_note: "привлечение пользователей в сообщество — нет навыка; required: smm-community-manager"
-    required_new_skill: "smm-community-manager"
+    skill_path: "audience-acquisition/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "Навык audience-acquisition (smm) создан (8e), ожидает/исполнен"
+    required_new_skill: ""
   - tf_code: "G/05.5"
     tf_name: "Проведение рекламных кампаний в социальных медиа"
     profile: smm
-    skill_path: ""
-    coverage_status: missing_skill
-    coverage_note: "рекламные кампании в соцмедиа — нет навыка; required: smm-ads-specialist"
-    required_new_skill: "smm-ads-specialist"
+    skill_path: "smm-advertising/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "Навык smm-advertising (smm) создан (8e), ожидает/исполнен"
+    required_new_skill: ""
   - tf_code: "G/06.5"
     tf_name: "Составление отчетов по реализации стратегии социального продвижения в информационно- телекоммуникационной сети \"Интернет\""
     profile: smm
@@ -332,10 +332,10 @@ mappings:
   - tf_code: "K/01.7"
     tf_name: "Проведение переговоров с заказчиком по вопросам продвижения в информационно- телекоммуникационной сети \"Интернет\""
     profile: digital
-    skill_path: ""
-    coverage_status: missing_skill
-    coverage_note: "переговоры с заказчиком — нет навыка; required: account-manager"
-    required_new_skill: "account-manager"
+    skill_path: "client-negotiations/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "Навык client-negotiations (digital) создан (8e), ожидает/исполнен"
+    required_new_skill: ""
   - tf_code: "K/02.7"
     tf_name: "Разработка системы показателей, характеризующих эффективность продвижения проекта, и формирование стратегии продвижения в информационно- телекоммуникационной сети \"Интернет\""
     profile: digital
@@ -396,8 +396,6 @@ mappings:
 summary:
   total_tfs: 48
   covered: 1
-  partially_covered: 42
-  missing_skill: 5
-  delegated_full_0613: 3
-  delegated_partial_0613: 9
+  partially_covered: 47
+  missing_skill: 0
   profiles: seo:9 ppc:11 smm:9 analyst:3 marketing:3 digital:13

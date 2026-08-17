@@ -84,7 +84,12 @@
 
 ```bash
 # 1. Консистентность registry
+#    Семантика (8e): mapping = статическое покрытие, registry = динамическое (после
+#    исполнения). covered в mapping без записи registry → ERROR; partially_covered
+#    без записи → WARN «назначено, не исполнено» (не error).
 python3 scripts/validate-registry.py
+python3 scripts/validate-registry.py --standard 06.043
+python3 scripts/validate-registry.py --standard 06.013
 
 # 2. Синтаксис всех YAML
 python3 -c "

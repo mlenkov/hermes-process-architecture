@@ -16,8 +16,48 @@ LF-06.043-Е/03.5:
   artifacts_generated:
   - outputs/06.043/block-E/E-03.5-content-tz.yaml
   - outputs/06.043/block-E/E-03.5-acceptance.yaml
-  note: делегирование full в 06.013; ТЗ + приёмка исполнены ppc; approval-request
-    APPROVAL-APR-01 ожидает человека (ADR-006)
+  note: делегирование full в 06.013; приёмка утверждена User_Operator (APPROVAL-APR-01);
+    ТЗ + приёмка исполнены ppc
   delegation:
     standard: '06.013'
     type: full
+LF-06.043-С/01.4:
+  executed_by: smm
+  last_executed: '2026-08-17T15:00:19Z'
+  status: partially_covered
+  tds_completed: 1/1
+  skill_path: smm-platforms/SKILL.md
+  artifacts_generated:
+  - outputs/06.043/block-C/C-01.4-platforms.yaml
+LF-06.043-D/05.5:
+  executed_by: seo
+  last_executed: '2026-08-17T15:05:10Z'
+  status: partially_covered
+  tds_completed: 1/1
+  skill_path: behavioral-optimization/SKILL.md
+  artifacts_generated:
+  - outputs/06.043/block-D/D-05.5-behavioral.yaml
+LF-06.043-G/05.5:
+  executed_by: smm
+  last_executed: '2026-08-17T15:05:10Z'
+  status: partially_covered
+  tds_completed: 1/1
+  skill_path: smm-advertising/SKILL.md
+  artifacts_generated:
+  - outputs/06.043/block-G/G-05.5-ads.yaml
+LF-06.043-K/01.7:
+  executed_by: digital
+  last_executed: '2026-08-17T15:05:10Z'
+  status: partially_covered
+  tds_completed: 1/1
+  skill_path: client-negotiations/SKILL.md
+  artifacts_generated:
+  - outputs/06.043/block-K/K-01.7-negotiations.yaml
+LF-06.043-G/04.5:
+  executed_by: smm
+  last_executed: '2026-08-17T15:05:10Z'
+  status: partially_covered
+  tds_completed: 1/1
+  skill_path: audience-acquisition/SKILL.md
+  artifacts_generated:
+  - outputs/06.043/block-G/G-04.5-acquisition.yaml

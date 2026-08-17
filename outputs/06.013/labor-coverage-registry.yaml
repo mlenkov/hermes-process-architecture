@@ -4,6 +4,6 @@ LF-06.013-B/02.5:
   last_executed: '2026-08-17T13:53:35Z'
   status: partially_covered
   tds_completed: 1/1
-  skill_path: ''
+  skill_path: content-creator/SKILL.md
   artifacts_generated:
   - outputs/06.013/block-B/B-02.5-content-materials.yaml

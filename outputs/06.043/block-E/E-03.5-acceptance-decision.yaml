@@ -1,0 +1,12 @@
+# Решение по приёмке делегированного контента (ADR-006 HITL)
+# Профстандарт: 06.043, ТФ Е/03.5 (делегирование full → 06.013)
+request_id: APPROVAL-APR-01
+decision: approved
+decided_by: User_Operator
+basis: "accept-delegation PASS (request_id совпадает, M-01..M-04 покрыты, 0 галлюцинаций)"
+timestamp: "2026-08-17T00:00:00Z"
+references:
+  acceptance: "outputs/06.043/block-E/E-03.5-acceptance.yaml"
+  approval_request: "outputs/06.043/block-E/E-03.5-acceptance-approval-request.yaml"
+  tz: "outputs/06.043/block-E/E-03.5-content-tz.yaml"
+  content: "outputs/06.013/block-B/B-02.5-content-materials.yaml"

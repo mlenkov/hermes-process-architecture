@@ -1,139 +1,146 @@
-# =============================================================================
-# Карта: Трудовая функция → Навык (Skill) + профиль-исполнитель
-# Профстандарт: 06.013 «Специалист по информационным ресурсам»
-# Исполнитель: copywriter (стандарт одной роли; ADR-014 per-TF)
-# Версия: 1.0.0
-# =============================================================================
-
 executor_profile: copywriter
-
 mappings:
-  - tf_code: "A/01.4"
-    tf_name: "Ввод и обработка текстовых данных для сайтов"
-    profile: copywriter
-    skill_path: "copywriting-core/SKILL.md"
-    coverage_status: partially_covered
-    required_new_skill: ""
-  - tf_code: "A/02.4"
-    tf_name: "Сканирование и обработка графической информации"
-    profile: copywriter
-    skill_path: ""
-    coverage_status: missing_skill
-    required_new_skill: ""
-  - tf_code: "A/03.4"
-    tf_name: "Ведение информационных баз данных"
-    profile: copywriter
-    skill_path: ""
-    coverage_status: missing_skill
-    required_new_skill: ""
-  - tf_code: "A/04.4"
-    tf_name: "Размещение информации на сайте"
-    profile: copywriter
-    skill_path: "infostyle/SKILL.md"
-    coverage_status: partially_covered
-    required_new_skill: ""
-  - tf_code: "B/01.5"
-    tf_name: "Подбор информации по тематике сайта"
-    profile: copywriter
-    skill_path: "demand-research/SKILL.md"
-    coverage_status: partially_covered
-    required_new_skill: ""
-  - tf_code: "B/02.5"
-    tf_name: "Создание информационных материалов для сайта"
-    profile: copywriter
-    skill_path: "copywriting-core/SKILL.md"
-    coverage_status: covered
-    delegated_from:
-      standard: "06.043"
-      tfs: ["Е/03.5", "F/03.5", "G/03.5"]
-      note: "создание контента (ТЗ на тексты из 06.043)"
-    required_new_skill: ""
-  - tf_code: "B/03.5"
-    tf_name: "Редактирование информации на сайте"
-    profile: copywriter
-    skill_path: "text-proofreading/SKILL.md"
-    coverage_status: covered
-    delegated_from:
-      standard: "06.043"
-      tfs: ["А/02.4", "А/03.4", "В/01.4", "В/02.4"]
-      note: "редактирование рекламных и SEO-текстов"
-    required_new_skill: ""
-  - tf_code: "B/04.5"
-    tf_name: "Ведение новостных лент и представительств в социальных сетях"
-    profile: copywriter
-    skill_path: "copywriting-core/SKILL.md"
-    coverage_status: partially_covered
-    delegated_from:
-      standard: "06.043"
-      tfs: ["С/02.4", "С/03.4", "G/02.5", "G/03.5"]
-      note: "посты в соцмедиа, новостные ленты"
-    required_new_skill: ""
-  - tf_code: "B/05.5"
-    tf_name: "Модерирование обсуждений на сайте, форуме и в социальных сетях"
-    profile: copywriter
-    skill_path: ""
-    coverage_status: missing_skill
-    required_new_skill: ""
-  - tf_code: "B/06.5"
-    tf_name: "Нормативный контроль содержания сайта"
-    profile: copywriter
-    skill_path: "text-proofreading/SKILL.md"
-    coverage_status: partially_covered
-    required_new_skill: ""
-  - tf_code: "C/01.6"
-    tf_name: "Организация работ по созданию и редактированию контента сайтов"
-    profile: copywriter
-    skill_path: "copywriting-flow/SKILL.md"
-    coverage_status: partially_covered
-    delegated_from:
-      standard: "06.043"
-      tfs: ["Е/03.5", "F/03.5", "G/03.5", "J/02.6"]
-      note: "организация создания контента и рассылок"
-    required_new_skill: ""
-  - tf_code: "C/02.6"
-    tf_name: "Управление информацией из различных источников"
-    profile: copywriter
-    skill_path: ""
-    coverage_status: missing_skill
-    delegated_from:
-      standard: "06.043"
-      tfs: ["J/02.6"]
-      note: "управление информацией для рассылок"
-    required_new_skill: ""
-  - tf_code: "C/03.6"
-    tf_name: "Контроль за наполнением сайта"
-    profile: copywriter
-    skill_path: ""
-    coverage_status: missing_skill
-    required_new_skill: ""
-  - tf_code: "C/04.6"
-    tf_name: "Организация работ по изменению структуры сайта"
-    profile: copywriter
-    skill_path: ""
-    coverage_status: missing_skill
-    required_new_skill: ""
-  - tf_code: "C/05.6"
-    tf_name: "Анализ информационных потребностей посетителей сайта"
-    profile: copywriter
-    skill_path: "user-research/SKILL.md"
-    coverage_status: partially_covered
-    required_new_skill: ""
-  - tf_code: "C/06.6"
-    tf_name: "Подготовка отчетности по сайту"
-    profile: copywriter
-    skill_path: "weekly-report/SKILL.md"
-    coverage_status: partially_covered
-    required_new_skill: ""
-  - tf_code: "C/07.6"
-    tf_name: "Поддержка процессов модернизации и продвижения сайта"
-    profile: copywriter
-    skill_path: ""
-    coverage_status: missing_skill
-    required_new_skill: ""
-
+- tf_code: A/01.4
+  tf_name: Ввод и обработка текстовых данных для сайтов
+  profile: copywriter
+  skill_path: copywriting-core/SKILL.md
+  coverage_status: partially_covered
+  required_new_skill: ''
+- tf_code: A/02.4
+  tf_name: Сканирование и обработка графической информации
+  profile: copywriter
+  skill_path: ''
+  coverage_status: missing_skill
+  required_new_skill: ''
+- tf_code: A/03.4
+  tf_name: Ведение информационных баз данных
+  profile: copywriter
+  skill_path: ''
+  coverage_status: missing_skill
+  required_new_skill: ''
+- tf_code: A/04.4
+  tf_name: Размещение информации на сайте
+  profile: copywriter
+  skill_path: infostyle/SKILL.md
+  coverage_status: partially_covered
+  required_new_skill: ''
+- tf_code: B/01.5
+  tf_name: Подбор информации по тематике сайта
+  profile: copywriter
+  skill_path: demand-research/SKILL.md
+  coverage_status: partially_covered
+  required_new_skill: ''
+- tf_code: B/02.5
+  tf_name: Создание информационных материалов для сайта
+  profile: copywriter
+  skill_path: content-creator/SKILL.md
+  coverage_status: covered
+  delegated_from:
+    standard: '06.043'
+    tfs:
+    - Е/03.5
+    - F/03.5
+    - G/03.5
+    note: создание контента (ТЗ на тексты из 06.043)
+  required_new_skill: ''
+- tf_code: B/03.5
+  tf_name: Редактирование информации на сайте
+  profile: copywriter
+  skill_path: text-proofreading/SKILL.md
+  coverage_status: partially_covered
+  delegated_from:
+    standard: '06.043'
+    tfs:
+    - А/02.4
+    - А/03.4
+    - В/01.4
+    - В/02.4
+    note: редактирование рекламных и SEO-текстов
+  required_new_skill: ''
+- tf_code: B/04.5
+  tf_name: Ведение новостных лент и представительств в социальных сетях
+  profile: copywriter
+  skill_path: copywriting-core/SKILL.md
+  coverage_status: partially_covered
+  delegated_from:
+    standard: '06.043'
+    tfs:
+    - С/02.4
+    - С/03.4
+    - G/02.5
+    - G/03.5
+    note: посты в соцмедиа, новостные ленты
+  required_new_skill: ''
+- tf_code: B/05.5
+  tf_name: Модерирование обсуждений на сайте, форуме и в социальных сетях
+  profile: copywriter
+  skill_path: ''
+  coverage_status: missing_skill
+  required_new_skill: ''
+- tf_code: B/06.5
+  tf_name: Нормативный контроль содержания сайта
+  profile: copywriter
+  skill_path: text-proofreading/SKILL.md
+  coverage_status: partially_covered
+  required_new_skill: ''
+- tf_code: C/01.6
+  tf_name: Организация работ по созданию и редактированию контента сайтов
+  profile: copywriter
+  skill_path: copywriting-flow/SKILL.md
+  coverage_status: partially_covered
+  delegated_from:
+    standard: '06.043'
+    tfs:
+    - Е/03.5
+    - F/03.5
+    - G/03.5
+    - J/02.6
+    note: организация создания контента и рассылок
+  required_new_skill: ''
+- tf_code: C/02.6
+  tf_name: Управление информацией из различных источников
+  profile: copywriter
+  skill_path: ''
+  coverage_status: missing_skill
+  delegated_from:
+    standard: '06.043'
+    tfs:
+    - J/02.6
+    note: управление информацией для рассылок
+  required_new_skill: ''
+- tf_code: C/03.6
+  tf_name: Контроль за наполнением сайта
+  profile: copywriter
+  skill_path: ''
+  coverage_status: missing_skill
+  required_new_skill: ''
+- tf_code: C/04.6
+  tf_name: Организация работ по изменению структуры сайта
+  profile: copywriter
+  skill_path: ''
+  coverage_status: missing_skill
+  required_new_skill: ''
+- tf_code: C/05.6
+  tf_name: Анализ информационных потребностей посетителей сайта
+  profile: copywriter
+  skill_path: user-research/SKILL.md
+  coverage_status: partially_covered
+  required_new_skill: ''
+- tf_code: C/06.6
+  tf_name: Подготовка отчетности по сайту
+  profile: copywriter
+  skill_path: weekly-report/SKILL.md
+  coverage_status: partially_covered
+  required_new_skill: ''
+- tf_code: C/07.6
+  tf_name: Поддержка процессов модернизации и продвижения сайта
+  profile: copywriter
+  skill_path: ''
+  coverage_status: missing_skill
+  required_new_skill: ''
 summary:
   total_tfs: 17
-  covered: 2
-  partially_covered: 8
+  covered: 1
+  partially_covered: 9
   missing_skill: 7
   delegated_from_0643: 5

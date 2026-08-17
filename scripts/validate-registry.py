@@ -4,6 +4,9 @@
 Для каждой ТФ из mapping со статусом covered/partially_covered:
   1. в registry существует запись LF-{standard}-{tf_code};
   2. skill_path в registry совпадает с skill_path в mapping (по имени навыка).
+Семантика (8e): covered без записи → ERROR; partially_covered без записи
+→ WARN «назначено, но не исполнено» (статическое покрытие по mapping vs
+динамическое — registry после исполнения).
 
 Поддерживает несколько профстандартов (ADR-011):
   --standard 07.007 (default) — legacy-схема: mapping в block-D/, registry в outputs/<S>/
@@ -59,6 +62,7 @@ def validate(standard: str) -> int:
     registry = load_yaml(registry_path)
 
     errors = []
+    warns = []
     checked = 0
     documented_gaps = registry.get("documented_gaps", {})
 
@@ -82,9 +86,15 @@ def validate(standard: str) -> int:
                         f"не совпадает с mapping '{map_skill}'"
                     )
                 continue
-            errors.append(
-                f"{key}: статус '{status}' в mapping, но запись в registry отсутствует"
-            )
+            if status == "covered":
+                errors.append(
+                    f"{key}: статус 'covered' в mapping, но запись в registry отсутствует"
+                )
+            else:
+                # partially_covered без записи — назначено, но не исполнено (WARN)
+                warns.append(
+                    f"{key}: статус 'partially_covered', но не исполнено (registry пуст) — WARN"
+                )
             continue
 
         reg_entry = registry[key]
@@ -104,6 +114,10 @@ def validate(standard: str) -> int:
     print(f"Записей в registry: {sum(1 for k in registry if k.startswith(f'LF-{standard}-'))}")
     if documented_gaps:
         print(f"Documented gaps: {len(documented_gaps)} ({', '.join(sorted(documented_gaps))})")
+    if warns:
+        print(f"Предупреждений (назначено, не исполнено): {len(warns)}")
+        for w in warns:
+            print(f"  ⚠ {w}")
     if errors:
         print(f"Найдено рассинхронизаций: {len(errors)}")
         for err in errors:
