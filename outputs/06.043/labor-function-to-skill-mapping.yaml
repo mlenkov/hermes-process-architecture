@@ -1,0 +1,310 @@
+# =============================================================================
+# Карта: Трудовая функция → Навык (Skill)
+# Профстандарт: 06.043 «Специалист по интернет-маркетингу»
+# Исполнитель: профиль ppc-specialist (ADR-011)
+# Версия: 1.0.0
+# =============================================================================
+#
+# Легенда статусов:
+#   covered             — существует SKILL.md, покрывающий ТФ полностью
+#   partially_covered   — существующий навык покрывает часть ТД
+#   missing_skill       — нет навыка, требуется создать
+# =============================================================================
+
+executor_profile: ppc-specialist
+
+mappings:
+  - tf_code: "А/01.4"
+    tf_name: "Составление списка ключевых слов, отражающих специфику веб-сайта"
+    skill_path: "keywords-filter/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "keywords-filter покрывает подбор/оценку ключевых слов (минус-слова); полный список ключей требует нового навыка"
+    required_new_skill: ""
+  - tf_code: "А/02.4"
+    tf_name: "Проведение работ по внутренней оптимизации веб-сайта согласно требованиям поисковых систем"
+    skill_path: ""
+    coverage_status: missing_skill
+    coverage_note: "Внутренняя SEO-оптимизация — нет навыка; required: seo-onpage-optimizer"
+    required_new_skill: "seo-onpage-optimizer"
+  - tf_code: "А/03.4"
+    tf_name: "Проведение работ по повышению популярности веб-сайта в информационно-телекоммуникационной сети \"Интернет\""
+    skill_path: ""
+    coverage_status: missing_skill
+    coverage_note: "Внешняя оптимизация/популярность — нет навыка; required: seo-link-builder"
+    required_new_skill: "seo-link-builder"
+  - tf_code: "В/01.4"
+    tf_name: "Составление контекстно-медийного плана продвижения"
+    skill_path: "media-planning/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "media-planning покрывает план продвижения; тексты объявлений — ppc-ad-texts"
+    required_new_skill: ""
+  - tf_code: "В/02.4"
+    tf_name: "Размещение контекстно-медийных объявлений в системах интернет- рекламы"
+    skill_path: "ppc-ad-texts/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "ppc-ad-texts — тексты объявлений; размещение в системах — требуют ppc-campaign-setup"
+    required_new_skill: ""
+  - tf_code: "В/03.4"
+    tf_name: "Управление стоимостью перехода пользователя с рекламной площадки контекстно-медийной системы на веб-сайт"
+    skill_path: "ppc-campaign-audit/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "ppc-campaign-audit покрывает анализ стоимости перехода частично"
+    required_new_skill: ""
+  - tf_code: "С/01.4"
+    tf_name: "Подбор площадок в социальных медиа информационно-телекоммуникационной сети \"Интернет\" для продвижения вебсайта"
+    skill_path: ""
+    coverage_status: missing_skill
+    coverage_note: "Подбор площадок соцмедиа — нет навыка; required: smm-platform-selector"
+    required_new_skill: "smm-platform-selector"
+  - tf_code: "С/02.4"
+    tf_name: "Управление коммуникациями в социальных медиа информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: ""
+    coverage_status: missing_skill
+    coverage_note: "Управление коммуникациями в соцмедиа — нет навыка; required: smm-community-manager"
+    required_new_skill: "smm-community-manager"
+  - tf_code: "С/03.4"
+    tf_name: "Размещение рекламных объявлений в социальных медиа информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: ""
+    coverage_status: missing_skill
+    coverage_note: "Размещение рекламы в соцмедиа — нет навыка; required: smm-ads-specialist"
+    required_new_skill: "smm-ads-specialist"
+  - tf_code: "D/01.5"
+    tf_name: "Проведение аудита веб-сайта"
+    skill_path: "ppc-campaign-audit/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "аудит веб-сайта частично покрывается ppc-campaign-audit; требуется seo-auditor"
+    required_new_skill: ""
+  - tf_code: "D/02.5"
+    tf_name: "Проведение аналитических работ по реализации стратегии поискового продвижения в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "audience-analytics-research/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "аналитика — audience-analytics-research частично"
+    required_new_skill: ""
+  - tf_code: "D/03.5"
+    tf_name: "Разработка стратегии поискового продвижения"
+    skill_path: "strategy-development/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "стратегия поискового продвижения — частично strategy-development"
+    required_new_skill: ""
+  - tf_code: "D/04.5"
+    tf_name: "Организация коррекции ошибок в работе веб-сайта"
+    skill_path: ""
+    coverage_status: missing_skill
+    coverage_note: "Коррекция ошибок веб-сайта — нет навыка; required: seo-technical-fixer"
+    required_new_skill: "seo-technical-fixer"
+  - tf_code: "D/05.5"
+    tf_name: "Оптимизация внутренних характеристик веб-сайта, повышение его популярности в информационно-телекоммуникационной сети \"Интернет\" и анализ поведения посетителей веб-сайта"
+    skill_path: ""
+    coverage_status: missing_skill
+    coverage_note: "Оптимизация + поведение посетителей — нет навыка; required: seo-onpage-optimizer + behavior-analytics"
+    required_new_skill: "seo-onpage-optimizer + behavior-analytics"
+  - tf_code: "D/06.5"
+    tf_name: "Составление отчетов по реализации стратегии поискового продвижения в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "strategic-report/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "отчёты по SEO — strategic-report частично"
+    required_new_skill: ""
+  - tf_code: "Е/01.5"
+    tf_name: "Проведение анализа готовности веб-сайта к продвижению, анализ веб-сайтов конкурентов"
+    skill_path: "ppc-campaign-audit/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "анализ готовности/конкурентов — ppc-campaign-audit + competitor-research"
+    required_new_skill: ""
+  - tf_code: "Е/02.5"
+    tf_name: "Разработка стратегии проведения контекстно-медийной кампании"
+    skill_path: "strategy-development/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "стратегия КМ-кампании — частично strategy-development"
+    required_new_skill: ""
+  - tf_code: "Е/03.5"
+    tf_name: "Составление заданий на разработку текстовых и графических материалов для контекстно-медийной стратегии продвижения в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "ppc-ad-texts/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "задания на тексты — ppc-ad-texts + copywriting-core"
+    required_new_skill: ""
+  - tf_code: "Е/04.5"
+    tf_name: "Составление отчетов по реализации контекстно-медийной стратегии продвижения в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "strategic-report/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "отчёты по КМ-стратегии — strategic-report"
+    required_new_skill: ""
+  - tf_code: "F/01.5"
+    tf_name: "Проведение аналитических работ по реализации медийной стратегии продвижения в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "audience-analytics-research/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "аналитика медийной стратегии — частично"
+    required_new_skill: ""
+  - tf_code: "F/02.5"
+    tf_name: "Разработка стратегии проведения медийной кампании и ее реализация"
+    skill_path: "media-planning/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "медийная кампания — media-planning частично"
+    required_new_skill: ""
+  - tf_code: "F/03.5"
+    tf_name: "Составление заданий на разработку текстовых и графических материалов для медийной стратегии продвижения в информационно-телекоммуникационной сети \"Интернет\""
+    skill_path: "ppc-ad-texts/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "задания на материалы — ppc-ad-texts + copywriting-core"
+    required_new_skill: ""
+  - tf_code: "F/04.5"
+    tf_name: "Составление отчетов по реализации медийной стратегии продвижения в информационно-телекоммуникационной сети \"Интернет\""
+    skill_path: "strategic-report/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "отчёты по медийной стратегии — strategic-report"
+    required_new_skill: ""
+  - tf_code: "G/01.5"
+    tf_name: "Проведение аналитических работ по изучению конкурентов"
+    skill_path: "competitor-research/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "аналитика конкурентов — competitor-research"
+    required_new_skill: ""
+  - tf_code: "G/02.5"
+    tf_name: "Разработка стратегии продвижения в социальных медиа"
+    skill_path: ""
+    coverage_status: missing_skill
+    coverage_note: "стратегия соцмедиа — нет навыка; required: smm-strategist"
+    required_new_skill: "smm-strategist"
+  - tf_code: "G/03.5"
+    tf_name: "Составление заданий по подготовке материалов для продвижения в социальных медиа"
+    skill_path: "copywriting-core/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "подготовка материалов — copywriting-core частично"
+    required_new_skill: ""
+  - tf_code: "G/04.5"
+    tf_name: "Привлечение пользователей в интернет-сообщество"
+    skill_path: ""
+    coverage_status: missing_skill
+    coverage_note: "привлечение пользователей в сообщество — нет навыка; required: smm-community-manager"
+    required_new_skill: "smm-community-manager"
+  - tf_code: "G/05.5"
+    tf_name: "Проведение рекламных кампаний в социальных медиа"
+    skill_path: ""
+    coverage_status: missing_skill
+    coverage_note: "рекламные кампании в соцмедиа — нет навыка; required: smm-ads-specialist"
+    required_new_skill: "smm-ads-specialist"
+  - tf_code: "G/06.5"
+    tf_name: "Составление отчетов по реализации стратегии социального продвижения в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "strategic-report/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "отчёты по соцпродвижению — strategic-report"
+    required_new_skill: ""
+  - tf_code: "Н/01.6"
+    tf_name: "Исследование поведения конкурентов в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "competitor-research/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "исследование конкурентов — competitor-research"
+    required_new_skill: ""
+  - tf_code: "Н/02.6"
+    tf_name: "Исследование поведения пользователей в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "user-research/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "исследование пользователей — user-research"
+    required_new_skill: ""
+  - tf_code: "Н/03.6"
+    tf_name: "Исследование спроса в информационно-телекоммуникационной сети \"Интернет\""
+    skill_path: "demand-research/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "исследование спроса — demand-research"
+    required_new_skill: ""
+  - tf_code: "I/01.6"
+    tf_name: "Подбор каналов и формирование системы показателей эффективности продвижения в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "kpi-framework/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "каналы + KPI — kpi-framework частично"
+    required_new_skill: ""
+  - tf_code: "I/02.6"
+    tf_name: "Согласование с заказчиком показателей эффективности и бюджета кампании по продвижению в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "budgeting/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "согласование KPI и бюджета — budgeting частично"
+    required_new_skill: ""
+  - tf_code: "I/03.6"
+    tf_name: "Анализ трафика на веб-сайт"
+    skill_path: "audience-analytics-research/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "анализ трафика — audience-analytics-research"
+    required_new_skill: ""
+  - tf_code: "J/01.6"
+    tf_name: "Проведение работ по реализации стратегии продвижения в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "strategy-development/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "реализация стратегии — strategy-development частично"
+    required_new_skill: ""
+  - tf_code: "J/02.6"
+    tf_name: "Организация и проведение электронных рассылок"
+    skill_path: ""
+    coverage_status: missing_skill
+    coverage_note: "электронные рассылки — нет навыка; required: email-marketer"
+    required_new_skill: "email-marketer"
+  - tf_code: "J/03.6"
+    tf_name: "Корректировка стратегии продвижения"
+    skill_path: "strategy-development/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "корректировка стратегии — strategy-development частично"
+    required_new_skill: ""
+  - tf_code: "J/04.6"
+    tf_name: "Составление отчетности по реализации стратегии продвижения в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "strategic-report/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "отчётность по реализации — strategic-report"
+    required_new_skill: ""
+  - tf_code: "K/01.7"
+    tf_name: "Проведение переговоров с заказчиком по вопросам продвижения в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: ""
+    coverage_status: missing_skill
+    coverage_note: "переговоры с заказчиком — нет навыка; required: account-manager"
+    required_new_skill: "account-manager"
+  - tf_code: "K/02.7"
+    tf_name: "Разработка системы показателей, характеризующих эффективность продвижения проекта, и формирование стратегии продвижения в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "kpi-framework/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "система показателей — kpi-framework частично"
+    required_new_skill: ""
+  - tf_code: "K/03.7"
+    tf_name: "Составление стратегии продвижения проекта в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "strategy-development/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "стратегия проекта — strategy-development частично"
+    required_new_skill: ""
+  - tf_code: "K/04.7"
+    tf_name: "Формирование и обоснование бюджета продвижения проекта в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "budgeting/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "бюджет продвижения — budgeting частично"
+    required_new_skill: ""
+  - tf_code: "K/05.7"
+    tf_name: "Контроль реализации стратегии продвижения в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "strategic-evaluation/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "контроль реализации — strategic-evaluation частично"
+    required_new_skill: ""
+  - tf_code: "K/06.7"
+    tf_name: "Составление отчетности о реализации стратегии продвижения проекта в информационно- телекоммуникационной сети \"Интернет\""
+    skill_path: "strategic-report/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "отчётность по проекту — strategic-report"
+    required_new_skill: ""
+  - tf_code: "L/01.7"
+    tf_name: "Разработка системы мотивации специалистов по интернет-маркетингу"
+    skill_path: "competency-governance/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "система мотивации — competency-governance частично"
+    required_new_skill: ""
+  - tf_code: "L/02.7"
+    tf_name: "Формирование требований к составу и квалификации специалистов по интернет- маркетингу"
+    skill_path: "agent-onboarding/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "требования к специалистам — agent-onboarding частично"
+    required_new_skill: ""
+  - tf_code: "L/03.7"
+    tf_name: "Управление специалистами по интернет-маркетингу и контроль их работы"
+    skill_path: "ceo-orchestrator/SKILL.md"
+    coverage_status: partially_covered
+    coverage_note: "управление специалистами — ceo-orchestrator частично"
+    required_new_skill: ""
+
+summary:
+  total_tfs: 48
+  covered: 0
+  partially_covered: 36
+  missing_skill: 12
