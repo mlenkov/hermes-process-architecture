@@ -125,10 +125,16 @@ def find_skill_md(body):
             if pdir.is_dir():
                 candidates.append(str(pdir / "skills" / skill / "SKILL.md"))
 
-    # mapping fallback
-    tf = (body.get("parent_tf") or "").replace("LF-07.007-", "")
+    # mapping fallback (ADR-011: путь зависит от стандарта из body)
+    std = (body.get("standard") or {}).get("code") if isinstance(body.get("standard"), dict) else None
+    if not std:
+        std = body.get("standard") or "07.007"
+    tf = (body.get("parent_tf") or "").replace(f"LF-{std}-", "")
     if tf:
-        mapping_path = ARCH_ROOT / "outputs/07.007/block-D/labor-function-to-skill-mapping.yaml"
+        if std == "07.007":
+            mapping_path = ARCH_ROOT / "outputs/07.007/block-D/labor-function-to-skill-mapping.yaml"
+        else:
+            mapping_path = ARCH_ROOT / "outputs" / std / "labor-function-to-skill-mapping.yaml"
         try:
             mapping = yaml.safe_load(open(mapping_path, encoding="utf-8")) or {}
             for e in mapping.get("mappings", []):
@@ -196,22 +202,26 @@ def run_skill_in_subprocess(code, body, task_id):
 
 
 def update_registry(body, skill_path, artifact_files):
-    """Обновить labor-coverage-registry.yaml после успешной генерации.
+    """Обновить labor-coverage-registry.yaml своего стандарта (ADR-011).
 
+    Стандарт берётся из body.standard.code (fallback 07.007 — legacy).
     Регистрирует ТФ как covered (ADR-007: запись появляется после реального
     исполнения; без фиктивных записей).
     """
-    tf = (body.get("parent_tf") or "").replace("LF-07.007-", "")
+    std = (body.get("standard") or {}).get("code") if isinstance(body.get("standard"), dict) else None
+    if not std:
+        std = body.get("standard") or "07.007"
+    tf = (body.get("parent_tf") or "").replace(f"LF-{std}-", "")
     if not tf:
         return False
-    registry_path = ARCH_ROOT / "outputs/07.007/labor-coverage-registry.yaml"
+    registry_path = ARCH_ROOT / "outputs" / std / "labor-coverage-registry.yaml"
     try:
         registry = yaml.safe_load(open(registry_path, encoding="utf-8")) or {}
     except Exception as e:
         print(f"  [ERROR] registry read: {e}")
         return False
 
-    key = f"LF-07.007-{tf}"
+    key = f"LF-{std}-{tf}"
     entry = registry.get(key)
     if entry and entry.get("status") in ("covered", "partially_covered"):
         # Уже синхронизирован — ничего не трогаем (Шаг 0 уже пропустил)
@@ -228,8 +238,8 @@ def update_registry(body, skill_path, artifact_files):
         entry = registry[key] = {}
 
     import datetime
-    # ADR-008: единственный исполнитель 07.007 — профиль mais
-    entry["executed_by"] = "mais"
+    # ADR-011: профиль-исполнитель из body (seeder кладёт profile из mapping)
+    entry["executed_by"] = body.get("profile") or (body.get("standard") or {}).get("executor_profile") or "mais"
     entry["last_executed"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     entry["status"] = "covered"
     entry["tds_completed"] = entry.get("tds_completed", "0/0")
@@ -277,11 +287,15 @@ def load_webhook_url() -> str:
 def _webhook_payload(event: str, body: dict, artifact: str,
                      schema_valid: bool, awaiting_approval: bool) -> dict:
     import datetime
-    tf = (body.get("parent_tf") or "").replace("LF-07.007-", "")
+    std = (body.get("standard") or {}).get("code") if isinstance(body.get("standard"), dict) else None
+    if not std:
+        std = body.get("standard") or "07.007"
+    tf = (body.get("parent_tf") or "").replace(f"LF-{std}-", "")
     return {
         "event": event,
         "timestamp": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "tf_code": tf,
+        "standard": std,
         "skill": body.get("skill", ""),
         "artifact": artifact,
         "schema_valid": schema_valid,

@@ -99,8 +99,9 @@ print('YAML OK')
 
 # 3. Синтаксис python-блоков навыков (если менял SKILL.md)
 # 4. Автономный цикл (опционально, требует локальный Hermes):
-#    python3 scripts/seed-tf-pipeline.py --tf "А/01.6"
-#    python3 scripts/execute-tf-pipeline.py
+#    python3 scripts/seed-tf-pipeline.py --tf "А/01.6"        # нативный seeder (ADR-010/011)
+#    python3 scripts/execute-tf-pipeline.py                   # детерминированный executor
+#    python3 scripts/validate-registry.py --standard 07.007   # регрессия стандарта
 ```
 
 CI (`.github/workflows/validate.yml`) выполняет пункты 1–2 автоматически на каждый push и pull request.

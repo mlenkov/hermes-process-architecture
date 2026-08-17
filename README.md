@@ -101,8 +101,11 @@ python3 scripts/validate-registry.py
 ### 2. Автономный цикл (Kanban)
 
 ```bash
-# Создать задачи для одной ТФ
+# Создать задачи для одной ТФ (нативный Kanban, ADR-010)
 python3 scripts/seed-tf-pipeline.py --tf "А/01.6"
+
+# Другой профстандарт: --standard 06.043 → борд std-0643, профиль из mapping (ADR-011)
+python3 scripts/seed-tf-pipeline.py --standard 06.043 --tf "B/01.4" --dry-run
 
 # Исполнить ready-задачи (повторять до "No ready tasks")
 python3 scripts/execute-tf-pipeline.py
@@ -140,9 +143,9 @@ file_size_limit_mb: 10
 │   ├── standards/             #   локальные копии профстандартов
 │   └── ADR/                   #   Architecture Decision Records
 ├── scripts/
-│   ├── validate-registry.py   #   валидация mapping ↔ registry
-│   ├── seed-tf-pipeline.py    #   seeder (Kanban-задачи из mapping/registry)
-│   └── execute-tf-pipeline.py #   executor (исполнение навыков)
+│   ├── validate-registry.py   #   валидация mapping ↔ registry (--standard)
+│   ├── seed-tf-pipeline.py    #   seeder (нативный Kanban: create + --parent + idempotency-key)
+│   └── execute-tf-pipeline.py #   executor (детерминированное исполнение навыков)
 ├── schemas/                   # Эталонные YAML-схемы артефактов
 ├── config.yaml                # Sandbox-конфигурация executor'а
 └── AGENTS.md                  # Контекст проекта (для AI-агентов)
