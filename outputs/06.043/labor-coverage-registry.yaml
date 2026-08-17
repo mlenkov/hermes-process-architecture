@@ -1,7 +1,7 @@
 documented_gaps: {}
 LF-06.043-А/01.4:
-  executed_by: ppc
-  last_executed: '2026-08-17T12:24:47Z'
+  executed_by: seo
+  last_executed: '2026-08-17T13:16:19Z'
   status: covered
   tds_completed: 1/3
   skill_path: keywords-filter/SKILL.md

@@ -1,14 +1,12 @@
 # =============================================================================
 # Карта: Трудовая функция → Навык (Skill) + профиль-исполнитель
 # Профстандарт: 06.043 «Специалист по интернет-маркетингу»
-# Исполнитель: per-TF (ADR-014), не один на стандарт
-# Версия: 1.2.0 (профильная топология seo/ppc/smm/analyst/marketing/digital)
+# Исполнитель: per-TF (ADR-014)
+# Версия: 1.3.0 (8а: keywords-filter кросс-деплой ppc→seo)
 # =============================================================================
 
-# Топология 06.043 (ADR-014):
-#   seo       A,D (9) | ppc B,E,F (11) | smm C,G (9)
-#   analyst   H (3) | marketing I (3) | digital J,K,L (13)
-#   mais — архитектор стандартов, исполнение только 07.007 (ADR-008)
+# Топология (ADR-014): seo A,D | ppc B,E,F | smm C,G | analyst H | marketing I | digital J,K,L
+# mais — архитектор, исполнение только 07.007 (ADR-008)
 
 executor_profile: "per-TF (ADR-014)"
 
@@ -18,8 +16,7 @@ mappings:
     profile: seo
     skill_path: "keywords-filter/SKILL.md"
     coverage_status: covered
-    coverage_note: "Пилот 6b исполнен воркером ppc (историч.); принадлежит seo (ADR-014). keywords-filter — кандидат на кросс-деплой ppc→seo."
-    cross_deploy_candidate: "keywords-filter"
+    coverage_note: "Кросс-деплой keywords-filter из ppc → seo (решение 8а). Пилот 6b (воркер ppc) — история."
     required_new_skill: ""
   - tf_code: "А/02.4"
     tf_name: "Проведение работ по внутренней оптимизации веб-сайта согласно требованиям поисковых систем"
@@ -406,10 +403,4 @@ summary:
   missing_skill: 12
   delegated_full_0613: 3
   delegated_partial_0613: 9
-  profiles:
-    seo: 9
-    ppc: 11
-    smm: 9
-    analyst: 3
-    marketing: 3
-    digital: 13
+  profiles: seo:9 ppc:11 smm:9 analyst:3 marketing:3 digital:13
