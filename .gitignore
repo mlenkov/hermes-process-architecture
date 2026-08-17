@@ -35,3 +35,6 @@ outputs/07.007/webhooks/
 #   profiles/        — навыки AI-профилей
 #   schemas/         — эталонные схемы
 #   config.yaml      — sandbox-конфигурация
+
+# Горячий кэш фактов (ADR-016) — транзиентный, не версионируется
+.hermes-facts/

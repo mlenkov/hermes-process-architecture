@@ -1,6 +1,6 @@
 # ADR-003: Multi-Profile Distribution для 07.007
 
-**Статус:** Утверждён
+**Статус:** **Superseded by ADR-008 (single-profile) / ADR-014 (per-TF profile)**
 **Дата:** 2026-07-30
 **Автор:** architect
 
