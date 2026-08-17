@@ -128,13 +128,24 @@ def standard_mapping_path(standard: str) -> Path:
 
 
 def standard_board(standard: str) -> str:
-    """Kanban-борд per-standard: std-<digits> (ADR-011)."""
-    digits = re.sub(r"\D", "", standard)
+    """Kanban-борд per-standard (ADR-011/014).
+
+    Явный маппинг (конвенция из ADR-011: 06.043 → std-0643, борд создан
+    при онбординге стандарта). Fallback — digits без точки.
+    """
+    BOARD_MAP = {
+        "06.043": "std-0643",
+        "07.007": "std-7007",
+        "06.013": "std-0613",
+    }
+    if standard in BOARD_MAP:
+        return BOARD_MAP[standard]
+    digits = re.sub(r"\D", "", standard).lstrip("0")
     return f"std-{digits}" if digits else "default"
 
 
 def load_mapping(standard: str) -> dict:
-    """tf_code → {skill_path, status, profile}. Профиль-исполнитель из заголовка mapping."""
+    """tf_code → {skill_path, status, profile}. Профиль per-TF (ADR-014)."""
     data = load_yaml_safe(standard_mapping_path(standard)) or {}
     out = {}
     for e in data.get("mappings", []):
@@ -143,6 +154,7 @@ def load_mapping(standard: str) -> dict:
             out[tf] = {
                 "skill_path": e.get("skill_path", ""),
                 "status": e.get("coverage_status", ""),
+                "profile": e.get("profile", ""),
             }
     # Профиль-исполнитель: executor_profile в заголовке mapping (ADR-011).
     out["_executor_profile"] = data.get("executor_profile", _PROFILE)
@@ -246,6 +258,9 @@ def migrate_tf(tf: dict, mapping: dict, standard: str, board: Optional[str],
         return result
 
     entry = mapping.get(tf_code, {})
+    # ADR-014: профиль-исполнитель per-ТФ (поле profile в mapping).
+    # Для 07.007 — общий fallback (executor_profile); для доменных — per-TF.
+    tf_profile = entry.get("profile") or profile
     skill_name = os.path.basename(entry.get("skill_path", "")).replace("/SKILL.md", "") or "kanban-worker"
     idem_prefix = f"tf-{standard}-{tf_code.replace('/', '-')}"
 
@@ -265,12 +280,12 @@ def migrate_tf(tf: dict, mapping: dict, standard: str, board: Optional[str],
         "standard": {"code": standard},
         "function": {"code": tf_code, "name": tf_name},
         "total_actions": len(actions),
-        "profile": profile,
+        "profile": tf_profile,
         "skill_path": skill_full_path or entry.get("skill_path", ""),
         "skill": skill_name,
         "depends_on_artifacts": depends_on_artifacts,
         "labor_actions": [
-            {"id": f"la-{i:03d}", "text": a, "sequence_index": i, "profile": profile,
+            {"id": f"la-{i:03d}", "text": a, "sequence_index": i, "profile": tf_profile,
              "skill": skill_name}
             for i, a in enumerate(actions, 1)
         ],
@@ -279,7 +294,7 @@ def migrate_tf(tf: dict, mapping: dict, standard: str, board: Optional[str],
     tf_id = create_task(
         title=f"🔄 {tf_code}: {tf_name[:80]}",
         body=tf_body,
-        assignee=profile,
+        assignee=tf_profile,
         idem_key=idem_prefix,
         board=board,
         dry_run=dry_run,
@@ -312,7 +327,7 @@ def migrate_tf(tf: dict, mapping: dict, standard: str, board: Optional[str],
             "parent_tf": lf_id,
             "otf_code": f"ОТФ-{otf_code}",
             "standard": {"code": standard},
-            "profile": profile,
+            "profile": tf_profile,
             "output_base": str(output_base),
             "output_dir": str(la_dir),
             "output_files": td_output_files,
@@ -324,7 +339,7 @@ def migrate_tf(tf: dict, mapping: dict, standard: str, board: Optional[str],
         child_id = create_task(
             title=f"  {la_code}: {action_text[:60]}",
             body=la_body,
-            assignee=profile,
+            assignee=tf_profile,
             parent=prev_id,
             idem_key=f"{idem_prefix}-{la_code}",
             board=board,
