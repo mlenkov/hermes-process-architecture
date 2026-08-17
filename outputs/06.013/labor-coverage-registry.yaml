@@ -1,9 +1,9 @@
 documented_gaps: {}
 LF-06.013-B/02.5:
   executed_by: copywriter
-  last_executed: '2026-08-17T13:53:35Z'
-  status: partially_covered
+  last_executed: '2026-08-17T19:44:00Z'
+  status: covered
   tds_completed: 1/1
   skill_path: content-creator/SKILL.md
   artifacts_generated:
-  - outputs/06.013/block-B/B-02.5-content-materials.yaml
+  - outputs/06.013/block-B/B-02.5-content-teplit-real.yaml
