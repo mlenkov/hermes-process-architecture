@@ -2,11 +2,8 @@
 # Карта: Трудовая функция → Навык (Skill) + профиль-исполнитель
 # Профстандарт: 06.043 «Специалист по интернет-маркетингу»
 # Исполнитель: per-TF (ADR-014)
-# Версия: 1.3.0 (8а: keywords-filter кросс-деплой ppc→seo)
+# Версия: 1.4.0 (8d: делегирование 12 ТФ → 06.013 content-*)
 # =============================================================================
-
-# Топология (ADR-014): seo A,D | ppc B,E,F | smm C,G | analyst H | marketing I | digital J,K,L
-# mais — архитектор, исполнение только 07.007 (ADR-008)
 
 executor_profile: "per-TF (ADR-014)"
 
@@ -22,30 +19,30 @@ mappings:
     tf_name: "Проведение работ по внутренней оптимизации веб-сайта согласно требованиям поисковых систем"
     profile: seo
     skill_path: ""
-    coverage_status: missing_skill
-    coverage_note: "Внутренняя SEO-оптимизация — нет навыка; required: seo-onpage-optimizer"
+    coverage_status: partially_covered
+    coverage_note: "делегирование в 06.013 через content-creator/editor/publisher/strategist (8d)"
     delegation:
       standard: "06.013"
       type: partial
       note: "ТД «размещение текстов на веб-сайте» — SEO-тексты пишет 06.013; разметка/мета — 06.043"
-    required_new_skill: "seo-onpage-optimizer"
+    required_new_skill: ""
   - tf_code: "А/03.4"
     tf_name: "Проведение работ по повышению популярности веб-сайта в информационно-телекоммуникационной сети \"Интернет\""
     profile: seo
     skill_path: ""
-    coverage_status: missing_skill
-    coverage_note: "Внешняя оптимизация/популярность — нет навыка; required: seo-link-builder"
+    coverage_status: partially_covered
+    coverage_note: "делегирование в 06.013 через content-creator/editor/publisher/strategist (8d)"
     delegation:
       standard: "06.013"
       type: partial
       note: "ТД «составление текстов со ссылками» — тексты 06.013; подбор/размещение площадок — 06.043"
-    required_new_skill: "seo-link-builder"
+    required_new_skill: ""
   - tf_code: "В/01.4"
     tf_name: "Составление контекстно-медийного плана продвижения"
     profile: ppc
     skill_path: "media-planning/SKILL.md"
     coverage_status: partially_covered
-    coverage_note: "media-planning покрывает план продвижения; тексты объявлений — ppc-ad-texts"
+    coverage_note: "делегирование в 06.013 через content-creator/editor/publisher/strategist (8d)"
     delegation:
       standard: "06.013"
       type: partial
@@ -56,7 +53,7 @@ mappings:
     profile: ppc
     skill_path: "ppc-ad-texts/SKILL.md"
     coverage_status: partially_covered
-    coverage_note: "ppc-ad-texts — тексты объявлений; размещение в системах — требуют ppc-campaign-setup"
+    coverage_note: "делегирование в 06.013 через content-creator/editor/publisher/strategist (8d)"
     delegation:
       standard: "06.013"
       type: partial
@@ -80,24 +77,24 @@ mappings:
     tf_name: "Управление коммуникациями в социальных медиа информационно- телекоммуникационной сети \"Интернет\""
     profile: smm
     skill_path: ""
-    coverage_status: missing_skill
-    coverage_note: "Управление коммуникациями в соцмедиа — нет навыка; required: smm-community-manager"
+    coverage_status: partially_covered
+    coverage_note: "делегирование в 06.013 через content-creator/editor/publisher/strategist (8d)"
     delegation:
       standard: "06.013"
       type: partial
       note: "ТД «размещение информационных сообщений» — посты пишет 06.013; коммуникации/регистрация — 06.043"
-    required_new_skill: "smm-community-manager"
+    required_new_skill: ""
   - tf_code: "С/03.4"
     tf_name: "Размещение рекламных объявлений в социальных медиа информационно- телекоммуникационной сети \"Интернет\""
     profile: smm
     skill_path: ""
-    coverage_status: missing_skill
-    coverage_note: "Размещение рекламы в соцмедиа — нет навыка; required: smm-ads-specialist"
+    coverage_status: partially_covered
+    coverage_note: "делегирование в 06.013 через content-creator/editor/publisher/strategist (8d)"
     delegation:
       standard: "06.013"
       type: partial
       note: "ТД «размещение текстовых объявлений в соцмедиа» — тексты 06.013; размещение — 06.043"
-    required_new_skill: "smm-ads-specialist"
+    required_new_skill: ""
   - tf_code: "D/01.5"
     tf_name: "Проведение аудита веб-сайта"
     profile: seo
@@ -123,13 +120,13 @@ mappings:
     tf_name: "Организация коррекции ошибок в работе веб-сайта"
     profile: seo
     skill_path: ""
-    coverage_status: missing_skill
-    coverage_note: "Коррекция ошибок веб-сайта — нет навыка; required: seo-technical-fixer"
+    coverage_status: partially_covered
+    coverage_note: "делегирование в 06.013 через content-creator/editor/publisher/strategist (8d)"
     delegation:
       standard: "06.013"
       type: partial
       note: "ТД «ТЗ на написание текстов веб-сайта» — тексты 06.013; ТЗ программистам — 06.043"
-    required_new_skill: "seo-technical-fixer"
+    required_new_skill: ""
   - tf_code: "D/05.5"
     tf_name: "Оптимизация внутренних характеристик веб-сайта, повышение его популярности в информационно-телекоммуникационной сети \"Интернет\" и анализ поведения посетителей веб-сайта"
     profile: seo
@@ -163,7 +160,7 @@ mappings:
     profile: ppc
     skill_path: "ppc-ad-texts/SKILL.md"
     coverage_status: partially_covered
-    coverage_note: "задания на тексты — ppc-ad-texts + copywriting-core"
+    coverage_note: "делегирование в 06.013 через content-creator/editor/publisher/strategist (8d)"
     delegation:
       standard: "06.013"
       type: full
@@ -195,7 +192,7 @@ mappings:
     profile: ppc
     skill_path: "ppc-ad-texts/SKILL.md"
     coverage_status: partially_covered
-    coverage_note: "задания на материалы — ppc-ad-texts + copywriting-core"
+    coverage_note: "делегирование в 06.013 через content-creator/editor/publisher/strategist (8d)"
     delegation:
       standard: "06.013"
       type: full
@@ -219,19 +216,19 @@ mappings:
     tf_name: "Разработка стратегии продвижения в социальных медиа"
     profile: smm
     skill_path: ""
-    coverage_status: missing_skill
-    coverage_note: "стратегия соцмедиа — нет навыка; required: smm-strategist"
+    coverage_status: partially_covered
+    coverage_note: "делегирование в 06.013 через content-creator/editor/publisher/strategist (8d)"
     delegation:
       standard: "06.013"
       type: partial
       note: "ТД «примеры информационных сообщений (постов)» — примеры пишет 06.013; стратегия/план — 06.043"
-    required_new_skill: "smm-strategist"
+    required_new_skill: ""
   - tf_code: "G/03.5"
     tf_name: "Составление заданий по подготовке материалов для продвижения в социальных медиа"
     profile: smm
     skill_path: "copywriting-core/SKILL.md"
     coverage_status: partially_covered
-    coverage_note: "подготовка материалов — copywriting-core частично"
+    coverage_note: "делегирование в 06.013 через content-creator/editor/publisher/strategist (8d)"
     delegation:
       standard: "06.013"
       type: full
@@ -311,13 +308,13 @@ mappings:
     tf_name: "Организация и проведение электронных рассылок"
     profile: digital
     skill_path: ""
-    coverage_status: missing_skill
-    coverage_note: "электронные рассылки — нет навыка; required: email-marketer"
+    coverage_status: partially_covered
+    coverage_note: "делегирование в 06.013 через content-creator/editor/publisher/strategist (8d)"
     delegation:
       standard: "06.013"
       type: partial
       note: "ТД «ТЗ на текст рассылки, составление письма» — текст 06.013; план/площадка/анализ — 06.043"
-    required_new_skill: "email-marketer"
+    required_new_skill: ""
   - tf_code: "J/03.6"
     tf_name: "Корректировка стратегии продвижения"
     profile: digital
@@ -399,8 +396,8 @@ mappings:
 summary:
   total_tfs: 48
   covered: 1
-  partially_covered: 35
-  missing_skill: 12
+  partially_covered: 42
+  missing_skill: 5
   delegated_full_0613: 3
   delegated_partial_0613: 9
   profiles: seo:9 ppc:11 smm:9 analyst:3 marketing:3 digital:13
