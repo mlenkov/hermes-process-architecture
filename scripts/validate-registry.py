@@ -50,6 +50,36 @@ def resolve_paths(standard: str):
     return mapping, registry
 
 
+def normalize_code(code: str) -> str:
+    """Нормализация алфавита: кириллица→латиница для lookup (ADR-011, прил.).
+    Хранение — как в официальном стандарте; lookup нормализует обе стороны."""
+    CYR_TO_LAT = {"А": "A", "В": "B", "С": "S", "Н": "N", "Е": "E", "К": "K"}
+    return "".join(CYR_TO_LAT.get(ch, ch) for ch in str(code))
+
+
+def registry_key(standard: str, tf_code: str) -> str:
+    # ключ registry строится с нормализованным алфавитом (А→A и т.д.)
+    return f"LF-{standard}-{normalize_code(tf_code)}"
+
+
+def skill_file_exists(skill_path: str) -> bool:
+    """Проверка существования навыка (по имени) в любом профиле Hermes или репо."""
+    if not skill_path:
+        return True  # пустой путь обрабатывается отдельно
+    skill = skill_name(skill_path)  # 'info-gatherer'
+    # ~/.hermes/profiles/<p>/skills/<cat>/<skill>/SKILL.md
+    hp = Path.home() / ".hermes" / "profiles"
+    if list(hp.glob(f"*/skills/*/{skill}/SKILL.md")) or \
+       list(hp.glob(f"*/skills/{skill}/SKILL.md")) or \
+       list(hp.glob(f"*/skills/agency/{skill}/SKILL.md")):
+        return True
+    # репозиторий profiles/<p>/skills/<skill>/
+    for rep in (ROOT / "profiles").glob("*/skills/*"):
+        if rep.name == skill and (rep / "SKILL.md").exists():
+            return True
+    return False
+
+
 def validate(standard: str) -> int:
     mapping_path, registry_path = resolve_paths(standard)
 
@@ -65,25 +95,63 @@ def validate(standard: str) -> int:
     warns = []
     checked = 0
     documented_gaps = registry.get("documented_gaps", {})
+    # нормализованный вид documented_gaps (ключи могут быть кириллическими)
+    norm_gaps = {normalize_code(str(k).split(f"LF-{standard}-")[-1]): v
+                 for k, v in documented_gaps.items()}
+    map_keys = set()
 
+    # Нормализованный маппинг код → запись (из mapping)
+    norm_mapping = {}
     for entry in mapping.get("mappings", []):
         tf_code = entry.get("tf_code")
+        ncode = normalize_code(tf_code)
+        norm_mapping.setdefault(ncode, []).append(entry)
+        if entry.get("coverage_status") in COVERED_STATUSES:
+            checked += 1
+
+    # Нормализованный registry: ключ (норм. алфавит) → запись (ADR-011, прил.)
+    norm_registry = {}
+    for key, val in registry.items():
+        skey = str(key)
+        if not skey.startswith(f"LF-{standard}-"):
+            continue
+        code = skey.split(f"LF-{standard}-")[-1]
+        norm_registry[normalize_code(code)] = (skey, val)
+
+    # ── 1. Записи registry, отсутствующие в mapping (ERROR) ────────
+    for code, (skey, _v) in norm_registry.items():
+        if code not in norm_mapping:
+            errors.append(f"{skey}: запись registry для ТФ, отсутствующей в mapping")
+
+    def reg_lookup(ncode):
+        """Реальный ключ registry (для сообщений) + запись."""
+        hit = norm_registry.get(ncode)
+        if hit:
+            return hit[1]
+        return None
+
+    # ── 2. По каждой ТФ из mapping ──────────────────────────────────
+    for ncode, entries in norm_mapping.items():
+        key = registry_key(standard, entries[0].get("tf_code"))
+        entry = entries[0]
         status = entry.get("coverage_status")
         if status not in COVERED_STATUSES:
             continue
+        skill_path = entry.get("skill_path", "")
 
-        checked += 1
-        key = f"LF-{standard}-{tf_code}"
+        # mapping указывает на несуществующий файл навыка (ERROR)
+        if skill_path and not skill_file_exists(skill_path):
+            errors.append(f"{key}: mapping указывает на несуществующий навык '{skill_path}'")
 
-        if key not in registry:
-            gap = documented_gaps.get(key)
+        reg_entry = reg_lookup(ncode)
+        if reg_entry is None:
+            gap = norm_gaps.get(ncode)
             if gap:
                 gap_skill = gap.get("skill_path", "")
-                map_skill = entry.get("skill_path", "")
-                if map_skill and gap_skill and skill_name(gap_skill) != skill_name(map_skill):
+                if skill_path and gap_skill and skill_name(gap_skill) != skill_name(skill_path):
                     errors.append(
                         f"{key}: documented_gaps.skill_path '{gap_skill}' "
-                        f"не совпадает с mapping '{map_skill}'"
+                        f"не совпадает с mapping '{skill_path}'"
                     )
                 continue
             if status == "covered":
@@ -91,27 +159,33 @@ def validate(standard: str) -> int:
                     f"{key}: статус 'covered' в mapping, но запись в registry отсутствует"
                 )
             else:
-                # partially_covered без записи — назначено, но не исполнено (WARN)
                 warns.append(
                     f"{key}: статус 'partially_covered', но не исполнено (registry пуст) — WARN"
                 )
             continue
 
-        reg_entry = registry[key]
         reg_skill = reg_entry.get("skill_path")
-        map_skill = entry.get("skill_path")
 
-        if map_skill and reg_skill:
-            if skill_name(reg_skill) != skill_name(map_skill):
+        # skill_path mismatch (ERROR)
+        if skill_path and reg_skill:
+            if skill_name(reg_skill) != skill_name(skill_path):
                 errors.append(
-                    f"{key}: skill_path не совпадает — mapping='{map_skill}', "
+                    f"{key}: skill_path не совпадает — mapping='{skill_path}', "
                     f"registry='{reg_skill}'"
                 )
         elif not reg_skill:
             errors.append(f"{key}: в registry не указан skill_path")
 
+        # covered без основного артефакта на диске (ERROR)
+        if reg_entry.get("status") == "covered":
+            artifacts = reg_entry.get("artifacts_generated", []) or []
+            if not any(a and (ROOT / str(a)).exists() for a in artifacts):
+                errors.append(
+                    f"{key}: status 'covered' в registry, но основной артефакт отсутствует на диске"
+                )
+
     print(f"Проверено ТФ со статусом {sorted(COVERED_STATUSES)}: {checked}")
-    print(f"Записей в registry: {sum(1 for k in registry if k.startswith(f'LF-{standard}-'))}")
+    print(f"Записей в registry: {sum(1 for k in registry if str(k).startswith(f'LF-{standard}-'))}")
     if documented_gaps:
         print(f"Documented gaps: {len(documented_gaps)} ({', '.join(sorted(documented_gaps))})")
     if warns:

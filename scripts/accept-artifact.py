@@ -110,17 +110,53 @@ def validate_artifact(artifact_path: Path, input_path: Path | None) -> tuple:
     return (not reasons), reasons, data
 
 
-def update_registry(standard: str, tf_code: str, profile: str, data: dict):
+def _normalize_code(code, standard):
+    """Нормализация алфавита: кириллица→латиницу для lookup (ADR-011, прил.).
+    Хранение — как в официальном стандарте; lookup нормализует обе стороны."""
+    CYR_TO_LAT = {"А": "A", "В": "B", "С": "S", "Н": "N", "Е": "E", "К": "K", "D": "D", "G": "G", "I": "I", "J": "J", "L": "L"}
+    return "LF-%s-%s" % (standard, "".join(CYR_TO_LAT.get(ch, ch) for ch in str(code)))
+
+
+def load_skill_path_from_mapping(standard, tf_code):
+    """skill_path из per-TF поля mapping (ADR-014), с нормализацией алфавита."""
+    for probe in (standard, "07.007"):
+        if standard == "07.007":
+            mp = ROOT / "outputs/07.007/block-D/labor-function-to-skill-mapping.yaml"
+        else:
+            mp = ROOT / "outputs" / probe / "labor-function-to-skill-mapping.yaml"
+        if not mp.exists():
+            continue
+        mm = load_yaml(mp)
+        norm_key = _normalize_code(tf_code, standard)
+        for e in mm.get("mappings", []):
+            # матч по нормализованному коду
+            if _normalize_code(e.get("tf_code"), probe) == norm_key:
+                return e.get("skill_path", "")
+        return ""
+    return ""
+
+
+def update_registry(standard, tf_code, profile, data, tds_completed="1/1"):
     reg_path = ROOT / "outputs" / standard / "labor-coverage-registry.yaml"
     reg = load_yaml(reg_path) if reg_path.exists() else {}
-    key = f"LF-{standard}-{tf_code}"
+    key = _normalize_code(tf_code, standard)
     import datetime
+    # status из tds_completed: 1/N → partially_covered; N/N → covered
+    p, n = 1, 1
+    if "/" in tds_completed:
+        try:
+            p, n = tds_completed.split("/")
+            p, n = int(p), int(n)
+        except Exception:
+            pass
+    status = "covered" if (n > 0 and p >= n) else "partially_covered"
+    skill_path = data.get("skill_path") or load_skill_path_from_mapping(standard, tf_code)
     entry = {
         "executed_by": profile,
         "last_executed": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "status": "partially_covered" if data.get("partial", False) else "covered",
-        "tds_completed": "1/3",
-        "skill_path": data.get("skill_path", ""),
+        "status": status,
+        "tds_completed": tds_completed,
+        "skill_path": skill_path,
         "artifacts_generated": [data.get("artifact_path", "")],
     }
     reg[key] = entry
@@ -137,6 +173,7 @@ def main():
     ap.add_argument("--input", default=None, help="путь к входным данным (для анти-галлюцинации)")
     ap.add_argument("--profile", default=None, help="профиль-исполнитель (default: из mapping)")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--tds-completed", default="1/1", help="tds_completed (1/N → partial; N/N → covered)")
     args = ap.parse_args()
 
     # профиль: из per-TF поля profile записи mapping принимаемой ТФ (ADR-014),
@@ -182,10 +219,14 @@ def main():
         data = {}
     data.setdefault("artifact_path", str(artifact_path))
     if args.dry_run:
-        print(f"  [DRY-RUN] registry update would create LF-{args.standard}-{args.tf} (executed_by={profile})")
+        print(f"  [DRY-RUN] registry update would create LF-{args.standard}-{args.tf} (executed_by={profile}, status по tds_completed={args.tds_completed})")
     else:
-        key = update_registry(args.standard, args.tf, profile, data)
-        print(f"  Registry updated: {key} → {data.get('status', 'covered')} (executed_by={profile})")
+        key = update_registry(args.standard, args.tf, profile, data, tds_completed=args.tds_completed)
+        # status вычислен из tds_completed — прочтём из registry
+        import yaml as _yaml
+        _rp = ROOT / "outputs" / args.standard / "labor-coverage-registry.yaml"
+        _status = (_yaml.safe_load(open(_rp, encoding="utf-8")).get(key) or {}).get("status", "?")
+        print(f"  Registry updated: {key} → {_status} (executed_by={profile})")
 
     print("Acceptance: ACCEPTED")
     print(f"  schema_valid: True, галлюцинаций: 0")

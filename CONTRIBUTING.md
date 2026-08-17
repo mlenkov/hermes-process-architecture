@@ -36,6 +36,12 @@
    python3 scripts/validate-registry.py
    ```
 
+> **Доменные навыки (8а.4/8d):** источник истины — репозиторий
+> `profiles/<profile>/skills/<skill>/SKILL.md`. Для исполнения доменным стандартом
+> (06.043/06.013) навык деплоится в рабочий профиль Hermes:
+> `cp -r profiles/<profile>/skills/<skill> ~/.hermes/profiles/<profile>/skills/agency/<skill>`
+> После деплоя проверить `hermes skills list --profile <profile>`.
+
 ## 2. Обязательные правила (checklist)
 
 | Правило | ADR | Где |
@@ -87,6 +93,8 @@
 #    Семантика (8e): mapping = статическое покрытие, registry = динамическое (после
 #    исполнения). covered в mapping без записи registry → ERROR; partially_covered
 #    без записи → WARN «назначено, не исполнено» (не error).
+#    Дополнительные ERROR (9e): запись registry для ТФ вне mapping; covered без
+#    основного артефакта на диске; mapping указывает на несуществующий навык.
 python3 scripts/validate-registry.py
 python3 scripts/validate-registry.py --standard 06.043
 python3 scripts/validate-registry.py --standard 06.013

@@ -25,11 +25,13 @@ LF-07.007-А/03.6:
 LF-07.007-А/04.6:
   executed_by: mais
   last_executed: '2026-07-30T10:00:00Z'
-  status: covered
+  status: partially_covered
   tds_completed: 6/6
   skill_path: profiles/mais/skills/pdca-reporter/SKILL.md
   artifacts_generated:
   - outputs/07.007/block-A/A-04.6-pdca-report.yaml
+  note: артефакт A-04.6-pdca-report.yaml утрачен/не подтверждён (9e) — понижено до
+    partially_covered
 LF-07.007-В/01.6:
   executed_by: mais
   last_executed: '2026-07-30T18:55:00Z'
