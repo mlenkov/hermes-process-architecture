@@ -356,7 +356,122 @@ def dependencies_ready(body: dict) -> tuple:
     return (len(missing) == 0), missing
 
 
+def load_skill_timeout() -> int:
+    """skill_timeout из config.yaml (fallback 120)."""
+    cfg_path = ARCH_ROOT / "config.yaml"
+    try:
+        data = yaml.safe_load(open(cfg_path, encoding="utf-8")) or {}
+        return int(data.get("skill_timeout", 120))
+    except Exception:
+        return 120
+
+
+def get_task_started_ts(tid: str):
+    """Время started задачи (ISO в show) → unix timestamp. None если неизвестно."""
+    from datetime import datetime
+    s = run_hermes(["show", tid])
+    for line in s.stdout.splitlines():
+        if line.strip().startswith("started:"):
+            val = line.split(":", 1)[1].strip()
+            try:
+                dt = datetime.fromisoformat(val)
+                return dt.timestamp()
+            except Exception:
+                try:
+                    return float(val)
+                except Exception:
+                    return None
+    return None
+
+
+def reclaim_stale_running() -> int:
+    """Stale running reclaim (hardening): задачи в status=running, у которых
+    время claim старше skill_timeout × 3, возвращаются в ready.
+
+    Счётчик reclaim ведётся в комментариях задачи: reclaim_count. При
+    reclaim_count >= 3 → status=blocked + WARN (эскалация для selfheal).
+    Детерминировано, без сети.
+    Возвращает число обработанных задач.
+    """
+    stale_timeout = load_skill_timeout() * 3
+    r = run_hermes(["list", "--status", "running", "--json"])
+    if r.returncode != 0:
+        return 0
+    running = json.loads(r.stdout.strip()) if r.stdout.strip() else []
+    handled = 0
+    import time as _time
+    now = _time.time()
+    for t in running:
+        tid = t["id"]
+        started_ts = get_task_started_ts(tid)
+        if started_ts is None:
+            continue  # не можем оценить — не трогаем
+        age = now - started_ts
+        if age < stale_timeout:
+            continue  # ещё не stale
+
+        # счётчик reclaim — из комментариев задачи
+        rc = get_task_counter(tid, "reclaim_count") + 1
+        set_task_counter(tid, "reclaim_count", rc)
+        if rc >= 3:
+            # эскалация: blocked для selfheal
+            run_hermes(["block", tid])
+            print(f"  [WARN] {tid}: stale running x{rc} → BLOCKED (эскалация для selfheal)")
+            handled += 1
+            continue
+        # reclaim → ready
+        rc2 = run_hermes(["reclaim", tid])
+        if rc2.returncode == 0:
+            print(f"  [STALE] {tid}: reclaim (stale running, age={age:.0f}s, count={rc})")
+            handled += 1
+        else:
+            print(f"  [WARN] {tid}: stale reclaim failed: {rc2.stderr.strip()}")
+    return handled
+
+
+WAIT_WATCHDOG_K = 5
+
+
+def get_task_counter(tid: str, key: str) -> int:
+    """Прочитать счётчик из комментариев задачи (последний комментарий)."""
+    s = run_hermes(["show", tid])
+    for line in reversed(s.stdout.splitlines()):
+        if f"{key}=" in line:
+            try:
+                return int(line.split(f"{key}=", 1)[1].split()[0])
+            except Exception:
+                continue
+    return 0
+
+
+def set_task_counter(tid: str, key: str, value: int):
+    """Записать счётчик в комментарий задачи (best-effort)."""
+    try:
+        run_hermes(["comment", tid, f"{key}={value}"])
+    except Exception:
+        pass
+
+
+def bump_wait_cycle(tid: str, body: dict) -> bool:
+    """WAIT-watchdog: увеличить wait_cycles (в комментариях задачи).
+
+    Если wait_cycles >= K (5) прогонов подряд — WARN в сводке.
+    Возвращает True, если watchdog сработал (>= K).
+    """
+    wc = get_task_counter(tid, "wait_cycles") + 1
+    set_task_counter(tid, "wait_cycles", wc)
+    return wc >= WAIT_WATCHDOG_K
+
+
 def execute():
+    # ── Hardening: stale running reclaim (до выбора ready-задач) ──
+    try:
+        stale_handled = reclaim_stale_running()
+        if stale_handled:
+            print(f"  [HARDENING] stale running reclaimed: {stale_handled}")
+    except Exception as e:
+        print(f"  [WARN] stale-running reclaim error: {e}")
+
     # Get all ready tasks
     r = run_hermes(["list", "--status", "ready", "--json"])
     if r.returncode != 0:
@@ -365,6 +480,7 @@ def execute():
 
     tasks = json.loads(r.stdout.strip()) if r.stdout.strip() else []
     waiting = 0
+    wait_watchdog_fired = []
 
     if not tasks:
         print("No ready tasks.")
@@ -385,6 +501,12 @@ def execute():
         if not deps_ok:
             waiting += 1
             print(f"  [WAIT] {tid}: {title[:50]} — ждёт артефакты: {missing}")
+            # WAIT-watchdog: счётчик wait_cycles в body
+            try:
+                if bump_wait_cycle(tid, body):
+                    wait_watchdog_fired.append((tid, missing))
+            except Exception as e:
+                print(f"  [WARN] wait-cycle bump error: {e}")
             continue
 
         # Claim
@@ -446,6 +568,11 @@ def execute():
                     send_webhook("artifact.generated", body, artifact_path, sv, aa)
                     if aa:
                         send_webhook("approval.requested", body, artifact_path, sv, aa)
+                    # HITL-компаньон (ADR-006): approval-request рядом с основным
+                    # артефактом — тоже записанный артефакт → событие.
+                    companion = artifact_path.replace(".yaml", "-approval-request.yaml")
+                    if os.path.exists(companion) and companion != artifact_path:
+                        send_webhook("artifact.generated", body, companion, sv, aa)
                 completed_ok = True
             else:
                 print(f"  [ERROR] skill failed, reclaiming {tid}")
@@ -469,6 +596,12 @@ def execute():
             print(f"  ✅ {tid} completed")
         else:
             print(f"  [ERROR] complete failed: {complete.stderr.strip()}")
+
+    if wait_watchdog_fired:
+        print("\n  [WARN] WAIT-watchdog: следующие задачи ждут артефакты "
+              f"{WAIT_WATCHDOG_K}+ прогонов подряд:")
+        for tid, missing in wait_watchdog_fired:
+            print(f"    - {tid}: {missing}")
 
     if waiting:
         print(f"\n  Waiting for artifacts: {waiting} task(s) — dependencies not satisfied, will retry on next run.")

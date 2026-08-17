@@ -2,7 +2,8 @@
 # Применяется к subprocess в scripts/execute-tf-pipeline.py.
 # Если файл отсутствует — используются значения по умолчанию (см. код).
 
-skill_timeout: 120          # секунд, wall-clock timeout для subprocess
+skill_timeout: 120         # секунд, wall-clock timeout для subprocess
 cpu_limit_sec: 120          # RLIMIT_CPU, секунд процессорного времени
 memory_limit_mb: 512        # RLIMIT_AS, мегабайт виртуальной памяти
 file_size_limit_mb: 10      # RLIMIT_FSIZE, мегабайт на один файл
+webhook_url: http://127.0.0.1:8787/webhook   # ADR-009: endpoint событий (mock-listener)

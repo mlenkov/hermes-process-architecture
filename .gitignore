@@ -24,6 +24,9 @@ node_modules/
 # Временные файлы executor'а
 outputs/07.007/.executor_tmp/
 
+# Транзиентные webhook-события (ADR-009, mock-listener)
+outputs/07.007/webhooks/
+
 # ─────────────────────────────────────────────────────────────
 # ОСТАВИТЬ (не игнорировать):
 #   outputs/07.007/  — примеры артефактов (block-A..D, registry, mapping)

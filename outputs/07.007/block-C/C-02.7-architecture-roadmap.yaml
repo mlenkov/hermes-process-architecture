@@ -3,7 +3,7 @@ meta:
   tf: С/02.7
   la: la-001
   generated_by: system-planner
-  timestamp: '2026-08-16T20:31:46Z'
+  timestamp: '2026-08-17T06:10:22Z'
   schema_ref: architecture-roadmap-schema.yaml v1.0.0
 body:
   roadmap_phases:

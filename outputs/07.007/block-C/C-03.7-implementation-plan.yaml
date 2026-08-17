@@ -3,7 +3,7 @@ meta:
   tf: С/03.7
   la: la-001
   generated_by: implementation-lead
-  timestamp: '2026-08-16T20:31:48Z'
+  timestamp: '2026-08-17T06:17:54Z'
   schema_ref: implementation-plan-schema.yaml v1.0.0
 body:
   project_charter:

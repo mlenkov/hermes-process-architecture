@@ -209,6 +209,10 @@ def create_task(
     if parent:
         args += ["--parent", parent]
     if skills:
+        # Нормализация: skills может прийти строкой (один навык) — иначе
+        # for s in skills итерирует по символам (баг «Unknown skill(s)»).
+        if isinstance(skills, str):
+            skills = [skills]
         for s in skills:
             args += ["--skill", s]
     if project:
